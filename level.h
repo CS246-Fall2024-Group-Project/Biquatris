@@ -5,10 +5,6 @@
 #include <string>
 
 class Level {
-    protected:
-        int difficulty;
-        std::string fName;
-        int blockRNG;
     public:
         // will generate shapes based on the properties of each level
         virtual Shape genShape() = 0;
@@ -20,10 +16,16 @@ class Level {
 
 class Level0: public Level {
     std::string sequenceFile;
-    int difficulty;
-
     public:
         Level0(const std::string &file);
-        
-
+        Shape genShape() override;
+        void levelEffects() override; // this function will do nothing
 };
+
+class Level1: public Level {
+    public:
+        Level1();
+        Shape genShape()override;
+        void levelEffects() override;
+};
+
