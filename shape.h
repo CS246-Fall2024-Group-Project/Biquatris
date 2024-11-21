@@ -7,7 +7,7 @@
 class Shape {
     protected:
         char letter;
-        std::vector<Block> shape;
+        std::vector<Block> blocks;
 
     public:
     virtual ~Shape() = default;
@@ -22,7 +22,7 @@ class Shape {
 
 class L : public Shape {
     public:
-        L(int startx, int startY);
+        L(int startX, int startY);
         void clockwise() override;
         void counter() override;
 
