@@ -846,6 +846,139 @@ std::unique_ptr<Shape> T::clockwise() {
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 2);
     } else if (rotationState == rotation2) { // rotation2 -> rotation3
+        rotationState = rotation3;
+        // T
+        // TT -----> TTT
+        // T          T
+        x += 1;
+        newShape.blocks[0].setX(x);
 
+        newShape.blocks[1].setX(x - 1);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 1);
+    } else if (rotationState == rotation3) { // rotation3 -> rotation4
+        rotationState = rotation4;
+        //                T
+        // TTT  -------> TT
+        //  T             T
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x - 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setX(y - 2);
+    } else if (rotationState == rotation4) { //rotate4 -> defaultRotation
+        rotationState = defaultRotation;
+        //  T
+        // TT ------>  T
+        //  T         TTT
+        x -= 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
+
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[2].setY(y + 0);
     }
+    return std::make_unique<T>(newShape);
+}
+
+// T counter-clockwise
+std::unique_ptr<Shape> T::counter() {
+    int x = blocks.front().getX(); // get the x-axis of the axis
+    int y = blocks.front().getY(); // get the y-axis of the axis
+
+    T newShape(*this);
+
+    int defaultRotation = 1;
+    //
+    //  T
+    // TTT
+
+    int rotation2 = 2;
+    // T
+    // TT
+    // T
+
+    int rotation3 = 3;
+    //
+    // TTT
+    //  T
+
+    int rotation4 = 4;
+    //  T
+    // TT
+    //  T
+
+    if(rotationState == defaultRotation) { // default -> rotation4
+        rotationState = rotation4;
+        //             T
+        //  T  -----> TT
+        // TTT         T
+        x += 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x - 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 2);
+    } else if (rotationState == rotation2) { // rotation2 -> default
+        // T
+        // TT ----->  T
+        // T         TTT
+
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
+
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y + 0);
+    } else if (rotationState == rotation3) { // rotation3 -> rotation2
+        //               T
+        // TTT  -------> TT
+        //  T            T
+        x -= 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+        
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 2);
+    } else if (rotationState == rotation4) { // rotation4 -> rotation3
+        //  T
+        // TT --------> TTT
+        //  T            T
+
+        newShape.blocks[1].setX(x - 1);
+        newShape.blocks[1].setY(y - 1);
+        
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 1);
+    }
+    return std::make_unique<T>(newShape);
 }
