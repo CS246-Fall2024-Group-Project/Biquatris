@@ -2,21 +2,35 @@
 #define PLAYER_H
 
 #include <string>
+#include <vector>
+#include "queue.h"
+#include "effect.h"
+#include "canvas.h"
+#include "level.h"
 
 class Player {
   protected:
-    std::string name;
+    int playerID;
     int score;
-    int level;
+    Level* level;
+    Queue* queue;
+    std::vector<Effect*> effects;
+    std::vector<Effect*> powers;
+    Canvas* canvas;
 
   public:
-    Player(const std::string &playerName, int level);
-    int getScore() const;
-    void setScore(int newScore);
-    int getLevel() const;
-    void setLevel(int newLevel);
+    Player(int id, Level* level, Queue* playerQueue, Canvas* sharedCanvas);
+    void levelUp();
+    void levelDown();
     int chooseLevel();
-    virtual ~Player() = default;
+    void addScore(int points);
+    int getScore() const;
+    void applyEffect(Effect* effect);
+    void removeEffect(Effect* effect);
+    void processEffects();
+    void drop();
+    void reset();
+    ~Player();
 };
 
 
