@@ -107,17 +107,17 @@ std::unique_ptr<Shape> L::clockwise() {
         rotationState = rotation2;
         // do the math to properly rotate in in the cartiasian cordinates
         //NOTE: THE AXIS DOES NOT CHANGE FOR L!
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
         // LL
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 1);
         // L
         // LL
 
-        blocks[3].setX(x + 0);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 2);
         // L
         // L
         // LL
@@ -125,44 +125,44 @@ std::unique_ptr<Shape> L::clockwise() {
     } else if (rotationState == rotation2) { // rotation2 -> rotation3
         rotationState = rotation3;
         // NOTE: THE AXIS DOES NOT CHANGE FOR L
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
         // L
         // L
 
-        blocks[2].setX(x + 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
         // LL
         // L
 
-        blocks[3].setX(x + 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
         // LLL
         // L
     } else if (rotationState == rotation3) { // rotation3 -> rotation4
         rotationState = rotation4;
         // NOTE: THE HEAD WILL SHIFT OVER BY X + 1
         x += 1;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
         // y does not change
         //
         //
         //  L
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
         //
         //  L
         //  L
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 2);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 2);
         //  L
         //  L
         //  L
 
-        blocks[3].setX(x - 1);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x - 1);
+        newShape.blocks[3].setY(y - 2);
         // LL
         //  L
         //  L
@@ -171,18 +171,18 @@ std::unique_ptr<Shape> L::clockwise() {
         rotationState = defaultRotation;
         // NOTE: THE HEAD MUST CHANGE BACK
         x -= 1;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
         //
         // L
 
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
 
-        blocks[2].setX(x + 2);
-        blocks[2].setY(y + 0);
+        newShape.blocks[2].setX(x + 2);
+        newShape.blocks[2].setY(y + 0);
 
-        blocks[3].setX(x + 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
 
     }
     return std::make_unique<L>(newShape);
@@ -222,17 +222,17 @@ std::unique_ptr<Shape> L::counter() {
         //   L ----->   L
         // LLL          L
         x += 1;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
         // LL
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 2);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 2);
 
-        blocks[3].setX(x - 1);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x - 1);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation2) { // rotation2 -> default
         rotationState = defaultRotation;
@@ -240,28 +240,28 @@ std::unique_ptr<Shape> L::counter() {
         // L
         // L  -------->    L
         // LL            LLL
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
 
-        blocks[2].setX(x + 2);
-        blocks[2].setY(y + 0);
+        newShape.blocks[2].setX(x + 2);
+        newShape.blocks[2].setY(y + 0);
 
-        blocks[3].setX(x + 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
     } else if (rotationState == rotation3) { // rotation3 -> rotation2
         rotationState = rotation2;
         //                    L
         // LLL  ------------> L
         // L                  LL
 
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x + 0);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation4) { // rotation4 -> rotation3
         rotationState = rotation3;
@@ -270,16 +270,16 @@ std::unique_ptr<Shape> L::counter() {
         //  L           L
 
         x -= 1;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x + 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x + 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
     }
 
     return std::make_unique<L>(newShape);
@@ -350,14 +350,14 @@ std::unique_ptr<Shape> J::clockwise() {
         // J   -----> J
         // JJJ        J
         
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 2);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 2);
 
-        blocks[3].setX(x + 1);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation2) { // rotation2 -> rotation3
         rotationState = rotation3;
@@ -367,16 +367,16 @@ std::unique_ptr<Shape> J::clockwise() {
 
         // NEED TO MOVE THE HAD TO THE RIGHT
         x += 2;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x - 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x - 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setY(x - 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setY(x - 2);
+        newShape.blocks[3].setY(y - 1);
         
     } else if (rotationState == rotation3) { // rotation3 -> rotation4
         rotationState = rotation4;
@@ -386,16 +386,16 @@ std::unique_ptr<Shape> J::clockwise() {
 
         // need to move the head to the lower left
         x -= 2;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
 
-        blocks[2].setX(x + 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x + 1);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation4) { // rotation 4 -> defaultRotation
         rotationState = defaultRotation;
@@ -403,14 +403,14 @@ std::unique_ptr<Shape> J::clockwise() {
         //  J  -------->  J
         // JJ             JJJ
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x + 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x + 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
 
     }
     return std::make_unique<L>(newShape);
@@ -446,18 +446,18 @@ std::unique_ptr<Shape> J::counter() {
 
     if(rotationState == defaultRotation) { // default -> rotation4
         rotationState = rotation2;
-        //            J
-        // J   -----> J
+        //             J
+        // J   ----->  J
         // JJJ        JJ
         
-        blocks[1].setX(x + 1);
-        blocks[1].setY(y + 0);
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x + 0);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation2) { // rotation2 -> default
         rotationState = rotation3;
@@ -465,14 +465,14 @@ std::unique_ptr<Shape> J::counter() {
         // J  ------> J
         // J          JJJ
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x - 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y + 0);
 
-        blocks[3].setY(x - 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setY(x + 2);
+        newShape.blocks[3].setY(y + 0);
         
     } else if (rotationState == rotation3) { // rotation3 -> rotation2
         rotationState = rotation4;
@@ -482,16 +482,16 @@ std::unique_ptr<Shape> J::counter() {
 
         // need to move the head to the lower left
         x -= 2;
-        blocks[0].setX(x);
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x + 0);
-        blocks[2].setY(y - 2);
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 2);
 
-        blocks[3].setX(x + 1);
-        blocks[3].setY(y - 2);
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 2);
 
     } else if (rotationState == rotation4) { // rotation 4 -> rotation3
         rotationState = defaultRotation;
@@ -500,19 +500,352 @@ std::unique_ptr<Shape> J::counter() {
         // JJ             xxJ
 
         x += 2;
+        newShape.blocks[0].setX(x);
 
-        blocks[1].setX(x + 0);
-        blocks[1].setY(y - 1);
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
 
-        blocks[2].setX(x - 1);
-        blocks[2].setY(y - 1);
+        newShape.blocks[2].setX(x - 1);
+        newShape.blocks[2].setY(y - 1);
 
-        blocks[3].setX(x - 2);
-        blocks[3].setY(y - 1);
+        newShape.blocks[3].setX(x - 2);
+        newShape.blocks[3].setY(y - 1);
 
     }
     return std::make_unique<L>(newShape);
 }
 
+// I ctor
+I::I(int startX, int startY): Shape('I') {
+    // IIII
+    
+    Block head = {startX - 2, startY, letter};
+    Block c2 = {startX - 1, startY, letter};
+    Block c3 = {startX, startY, letter};
+    Block c4 = {startX + 1, startY, letter};
+
+    blocks.emplace_back(head);
+    blocks.emplace_back(c2);
+    blocks.emplace_back(c3);
+    blocks.emplace_back(c4);
+}
+
+// I copy ctor
+I::I(const I&other) : Shape(other) {}
+
+// I clockwise
+std::unique_ptr<Shape> I::clockwise() {
+    int x = blocks.front().getX(); // get the x-axis of the axis
+    int y = blocks.front().getY(); // get the y-axis of the axis
+
+    I newShape(*this);
+
+    int defaultRotation = 1;
+    int rotation2 = 2;
+
+    if(rotationState == defaultRotation) { // default Rotation -> rotation 2
+        rotationState = rotation2;
+        // Head will not change!
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 2);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 3);
+
+    } else if (rotationState == rotation2) { // rotation2 ->default
+        rotationState = rotation2;
+        
+        // Head will not change!
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
+
+        newShape.blocks[2].setX(x + 2);
+        newShape.blocks[2].setY(y + 0);
+
+        newShape.blocks[3].setX(x + 3);
+        newShape.blocks[3].setY(y + 0);
+    }
+    return std::make_unique<L>(newShape);
+}
+
+// I counter-clockwise
+std::unique_ptr<Shape> I::counter() {
+    // since there are only 2 functions, repeat the steps for counter!
+    return clockwise();
+}
+
 // O ctor
-O::O(int startX, int startY)
+O::O(int startX, int startY): Shape('O') {
+    // OO
+    // OO
+    Block head = {startX, startY, letter};
+
+    Block c2 = {startX + 1, startY, letter};
+    Block c3 = {startX, startY - 1, letter};
+    Block c4 = {startX + 1, startY - 1, letter};
+
+    blocks.emplace_back(head);
+    blocks.emplace_back(c2);
+    blocks.emplace_back(c3);
+    blocks.emplace_back(c4);
+}
+
+// O copy ctor
+O::O(const O&other) : Shape(other) {}
+
+// O clockwise 
+std::unique_ptr<Shape> O::clockwise() {
+    O newShape(*this);
+    return std::make_unique<O>(newShape);
+}
+
+// O counter-clockwise 
+std::unique_ptr<Shape> O::counter() {
+    O newShape(*this);
+    return std::make_unique<O>(newShape);
+}
+
+// Z ctor
+Z::Z(int startX, int startY): Shape('Z') {
+    // ZZ
+    //  ZZ
+
+    Block head = {startX, startY, letter};
+    //
+    //  Z
+
+    Block c2 = {startX + 1, startY, letter};
+    //
+    //  ZZ
+
+    Block c3 = {startX, startY - 1, letter};
+    //  Z
+    //  ZZ
+
+    Block c4 = {startX - 1, startY - 1, letter};
+    // ZZ
+    //  ZZ
+    blocks.emplace_back(head);
+    blocks.emplace_back(c2);
+    blocks.emplace_back(c3);
+    blocks.emplace_back(c4);
+}
+
+// Z copy ctor
+Z::Z(const Z&other) : Shape(other) {}
+
+// Z clockwise
+std::unique_ptr<Shape> Z::clockwise() {
+    int x = blocks.front().getX(); // get the x-axis of the axis
+    int y = blocks.front().getY(); // get the y-axis of the axis
+
+    Z newShape(*this);
+
+    int defaultRotation = 1;
+    // ZZ
+    //  ZZ
+
+    int rotation2 = 2;
+    //  Z
+    // ZZ
+    // Z
+    
+    if(rotationState == defaultRotation) { // default -> rotation2
+        // head needs to move
+        rotationState = rotation2;
+        x -= 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 1);
+        newShape.blocks[3].setY(y - 2);
+    } else if (rotationState == rotation2) { // rotation2 -> default
+        rotationState = defaultRotation;
+        x += 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
+
+        newShape.blocks[2].setX(x + 0);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x - 1);
+        newShape.blocks[3].setY(y - 1);
+    }
+    return std::make_unique<Z>(newShape);
+}
+
+// Z counter-clockwise
+std::unique_ptr<Shape> Z::counter() {
+    return clockwise();
+}
+
+// S ctor
+S::S(int startX, int startY): Shape('S') {
+    //  SS
+    // SS
+
+    Block head = {startX - 1, startY, letter};
+    //
+    // S
+
+    Block c2 = {startX, startY, letter};
+    //
+    // SS
+
+    Block c3 = {startX, startY - 1, letter};
+    //  S
+    // SS
+
+    Block c4 = {startX + 1, startY - 1, letter};
+    //  SS
+    // SS
+    blocks.emplace_back(head);
+    blocks.emplace_back(c2);
+    blocks.emplace_back(c3);
+    blocks.emplace_back(c4);
+}
+
+// S copy ctor
+S::S(const S &other) : Shape(other) {}
+
+// S clockwise
+std::unique_ptr<Shape> S::clockwise() {
+    int x = blocks.front().getX(); // get the x-axis of the axis
+    int y = blocks.front().getY(); // get the y-axis of the axis
+
+    S newShape(*this);
+
+    int defaultRotation = 1;
+    //  SS
+    // SS
+
+    int rotation2 = 2;
+    // S
+    // SS
+    //  S
+
+    if(rotationState == defaultRotation) {  // default -> rotation2
+        rotationState = rotation2;
+        //             S
+        //  SS ----->  SS
+        // SS           S
+
+        x += 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+        
+        newShape.blocks[2].setX(x - 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x - 1);
+        newShape.blocks[3].setY(y - 2);
+    } else if (rotationState == rotation2) { // rotation2 ->default
+        rotationState = defaultRotation;
+        // S
+        // SS ------->  SS
+        //  S          SS
+
+        x -= 1;
+        newShape.blocks[0].setX(x);
+
+        newShape.blocks[1].setX(x + 1);
+        newShape.blocks[1].setY(y + 0);
+
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 2);
+        newShape.blocks[3].setY(y - 1);
+    }
+    return std::make_unique<S>(newShape);
+}
+
+// S counter-clockwise
+std::unique_ptr<Shape> S::counter() {
+    return clockwise();
+}
+
+// T ctor
+T::T(int startX, int startY): Shape('T') {
+    //  T 
+    // TTT
+
+    Block head = {startX - 1, startY, letter};
+    //
+    // T
+
+    Block c2 = {startX, startY, letter};
+    //
+    // TT
+
+    Block c3 = {startX, startY, letter};
+    //  T
+    // TT
+
+    Block c4 = {startX + 1, startY, letter};
+    blocks.emplace_back(head);
+    blocks.emplace_back(c2);
+    blocks.emplace_back(c3);
+    blocks.emplace_back(c4);
+}
+
+// T copy ctor
+T::T(const T &other) : Shape(other) {}
+
+// T clockwise
+std::unique_ptr<Shape> T::clockwise() {
+    int x = blocks.front().getX(); // get the x-axis of the axis
+    int y = blocks.front().getY(); // get the y-axis of the axis
+
+    T newShape(*this);
+
+    int defaultRotation = 1;
+    //
+    //  T
+    // TTT
+
+    int rotation2 = 2;
+    // T
+    // TT
+    // T
+
+    int rotation3 = 3;
+    //
+    // TTT
+    //  T
+
+    int rotation4 = 4;
+    //  T
+    // TT
+    //  T
+
+    if(rotationState == defaultRotation) { // default -> rotation2
+        rotationState = rotation2;
+        //            T
+        //  T  -----> TT
+        // TTT        T
+
+        newShape.blocks[1].setX(x + 0);
+        newShape.blocks[1].setY(y - 1);
+
+        newShape.blocks[2].setX(x + 1);
+        newShape.blocks[2].setY(y - 1);
+
+        newShape.blocks[3].setX(x + 0);
+        newShape.blocks[3].setY(y - 2);
+    } else if (rotationState == rotation2) { // rotation2 -> rotation3
+
+    }
+}
