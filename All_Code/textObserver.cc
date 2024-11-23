@@ -15,7 +15,7 @@ void textObserver::display_shape(Shape *next_shape) {
         cout << "" << endl;
         return;
     }
-    next_shape->render();
+    next_shape->display();
 }
 
 void textObserver::notify() {
