@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 #include "queue.h"
 #include "effect.h"
 #include "canvas.h"
@@ -85,10 +86,12 @@ bool Player::takeTurn(Canvas &game_board) {
             cout << "Invalid move!" << endl;
         }
     } else if (command == "down") {
-        currentShape->down();
-        if (!game_board.check_fit(currentShape)) {
+        std::unique_ptr<Shape> newShape = currentShape->down();
+        if (!game_board.check_fit(newShape)) {
             currentShape->up();
             cout << "Invalid move!" << endl;
+        } else {
+            currentShape = newShape;
         }
     } else if (command == "drop") {
         if (!game_board.drop(currentShape)) {

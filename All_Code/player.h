@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "queue.h"
 #include "effect.h"
 #include "canvas.h"
@@ -17,7 +18,7 @@ class Player {
     Queue* queue;
     std::vector<Effect*> effects;
     Canvas* canvas;
-    Shape* currentShape;
+    std::unique_ptr<Shape> currentShape;
 
   public:
     Player(int playerID, int score, Level* level, Queue* queue, Canvas* canvas);
