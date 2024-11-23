@@ -7,6 +7,7 @@ using namespace std;
 textObserver::textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *q)
     : canvas(canvas), width(11), height(18), level(level), score(score), q{q} {
     canvas->attach(this);
+    
 }
 
 void textObserver::display_shape(Shape *next_shape) {
