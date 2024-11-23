@@ -17,31 +17,32 @@ char Canvas::getState(int row, int col) const {
     return canvas[row][col];
 }
 
-bool Canvas::check_fit(Shape *shape, string dir_command, int row, int col) {
-    Shape *tmp;
+bool Canvas::check_fit(Shape* shape) const {
+    for (const auto& block : shape->getBlocks()) {
+        int row = block.getX();
+        int col = block.getY();
 
-    if (dir_command == "left") {
-        tmp = shape->left();
-    } else if (dir_command == "right") {
-        tmp = shape->right();
-    } else if (dir_command == "down") {
-        tmp = shape->down();
-    } else {
-        tmp = *shape;
-    }
-
-    for (const auto &block : tmp.getBlocks()) {
-        int newRow = row + block.getX();
-        int newCol = col + block.getY();
-
-        if (newRow < 0 || newRow >= height - 3 || newCol < 0 || newCol >= width) {
+        if (row < 0 || row >= height - 3 || col < 0 || col >= width) {
             return false;
         }
-        if (canvas[newRow][newCol] != ' ') {
+
+        if (canvas[row][col] != ' ') {
             return false;
         }
     }
+    return true;
+}
 
+bool Canvas::drop(Shape* shape) {
+    if (!check_fit(shape)) {
+        return false;
+    }
+
+    for (const auto& block : shape->getBlocks()) {
+        int row = block.getX();
+        int col = block.getY();
+        canvas[row][col] = shape->getLetter();
+    }
     return true;
 }
 

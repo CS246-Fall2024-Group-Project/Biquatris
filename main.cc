@@ -15,9 +15,9 @@ int main() {
     Player player2("Player 2", queue1);
 
     bool gameOver = false;
-    cout << "This is Player 1's first turn. Please choose a level: " << endl;
+    cout << "Player 1, please choose your starting level: ";
     player1.chooseLevel();
-    cout << "This is Player 2's first turn. Please choose a level: " << endl;
+    cout << "Player 2, please choose your starting level: ";
     player2.chooseLevel();
     while (!gameOver) {
         cout << "Player 1's turn: " << endl;

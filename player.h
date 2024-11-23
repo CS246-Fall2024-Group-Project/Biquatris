@@ -7,6 +7,7 @@
 #include "effect.h"
 #include "canvas.h"
 #include "level.h"
+#include "shape.h"
 
 class Player {
   protected:
@@ -15,11 +16,11 @@ class Player {
     Level* level;
     Queue* queue;
     std::vector<Effect*> effects;
-    std::vector<Effect*> powers;
     Canvas* canvas;
+    Shape* currentShape;
 
   public:
-    Player(int id, Level* level, Queue* playerQueue, Canvas* sharedCanvas);
+    Player(int playerID, int score, Level* level, Queue* queue, Canvas* canvas);
     void levelUp();
     void levelDown();
     int chooseLevel();
@@ -28,8 +29,10 @@ class Player {
     void applyEffect(Effect* effect);
     void removeEffect(Effect* effect);
     void processEffects();
+    bool takeTurn(Canvas &game_board);
     void drop();
     void reset();
+    bool gameOver() const;
     ~Player();
 };
 
