@@ -10,8 +10,8 @@ void welcomeMessage() {
 int main() {
     welcomeMessage();
     // creating the canvas for the players board
-    Canvas game_board1(18, 11);
-    Canvas game_board2(18, 11);
+    Canvas game_board1(15, 11);
+    Canvas game_board2(15, 11);
 
     Queue queue1, queue2;
 
