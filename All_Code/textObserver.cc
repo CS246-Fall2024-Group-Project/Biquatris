@@ -48,15 +48,15 @@ void textObserver::notify(Player *player1, Player *player2) {
     for (int j = 0; j < width; j++) cout << "-";
     cout << "+" << endl;
 
-    cout << " Next: " << endl;
+    cout << "  Next: " << endl;
     display_shape(player1->getQueue()->findNext());
 
 
 
 
     // starting of the second board
-    cout << "                    " <<" Level: " << level << endl;
-    cout << "                    " <<" Score: " << score << endl;
+    cout << "                      " <<" Level: " << level << endl;
+    cout << "                      " <<" Score: " << score << endl;
 
     cout << "                    " << "  +";
     for (int j = 0; j < width; j++) cout << "-";
@@ -83,7 +83,7 @@ void textObserver::notify(Player *player1, Player *player2) {
     for (int j = 0; j < width; j++) cout << "-";
     cout << "+" << endl;
 
-    cout << "               " << " Next: " << endl;
+    cout << "                    " << "  Next: " << endl;
     cout << "                    ";
     display_shape(player2->getQueue()->findNext());
 }
