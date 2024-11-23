@@ -22,6 +22,7 @@ class Shape {
         std::unique_ptr<Shape> down();
 
         char getLetter() const;
+        std::vector<Block> getBlocks() const;
         virtual ~Shape() = default;
 };
 

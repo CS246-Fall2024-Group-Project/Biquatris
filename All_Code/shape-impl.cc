@@ -17,6 +17,12 @@ Shape::Shape(const Shape& other)
       rotationState(other.rotationState),
       blocks(other.blocks) {}
 
+
+
+std::vector<Block> Shape::getBlocks() const {
+    return blocks;
+}
+
 char Shape::getLetter() const {
     return letter;
 }
