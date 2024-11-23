@@ -76,21 +76,24 @@ bool Player::takeTurn(Canvas &game_board) {
     cin >> command;
 
     if (command == "left") {
-        currentShape->left();
+        std::unique_ptr<Shape> newShape = currentShape->left();
         if (!game_board.check_fit(currentShape)) {
-            currentShape->right();
             cout << "Invalid move!" << endl;
+        } else {
+            currentShape = newShape;
         }
     } else if (command == "right") {
-        currentShape->right();
+        std::unique_ptr<Shape> newShape = currentShape->right();
+
         if (!game_board.check_fit(currentShape)) {
-            currentShape->left();
             cout << "Invalid move!" << endl;
+        } else {
+            currentShape = newShape;
         }
     } else if (command == "down") {
         std::unique_ptr<Shape> newShape = currentShape->down();
+
         if (!game_board.check_fit(newShape)) {
-            currentShape->up();
             cout << "Invalid move!" << endl;
         } else {
             currentShape = newShape;
