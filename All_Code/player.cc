@@ -11,7 +11,7 @@ using namespace std;
 // THis is a commnet!
 
 Player::Player(int playerID, int score, Level* level, Queue* queue, Canvas* canvas);
-    : playerID{playerID}, score{score}, level{0}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
+    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
 
 void levelUp() {
     if (level < 4) {
@@ -31,6 +31,10 @@ void addScore(int points) {
 
 int getScore() const {
     return score;
+}
+
+Canvas* Player::getCanvas() const {
+    return canvas;
 }
 
 void applyEffect(Effect* effect) {
@@ -109,16 +113,6 @@ bool Player::takeTurn(Canvas &game_board) {
     }
 
     return true;
-}
-
-void Player::drop() {
-    if (currentShape) {
-        if (canvas->drop(currentShape)) {
-            currentShape = nullptr;
-        } else {
-            cout << "Couldn't drop a shape!" << endl;
-        }
-    }
 }
 
 void reset() {

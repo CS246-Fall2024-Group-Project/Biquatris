@@ -31,8 +31,8 @@ class Player {
     void removeEffect(Effect* effect);
     void processEffects();
     bool takeTurn(Canvas &game_board);
-    void drop();
     void reset();
+    Canvas *getCanvas() const; 
     bool gameOver() const;
     ~Player();
 };
