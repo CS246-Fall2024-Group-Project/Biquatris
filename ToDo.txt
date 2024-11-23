@@ -14,6 +14,7 @@ Canvas---WIP
 Main---WIP
 textObserver---WIP
 player---WIP
+    Change all pointers to a unique_ptr<__TYPE__>
 Effects---WIP
 Blind---WIP
 
