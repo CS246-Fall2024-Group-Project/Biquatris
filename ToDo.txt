@@ -22,3 +22,12 @@ queue---Not-started
 XWindow---Not-started
 Heavy---Not-started
 Force---Not-started
+
+
+look at the spacing in textObserver.cc:
+    cout << "                    " << "  Next: " << endl;
+    cout << "                    ";
+    Shape *nextShape2 = player2->getQueue()->findNext();
+    if (nextShape2 != nullptr) {
+        nextShape2->display(); // Display the next shape directly
+    }

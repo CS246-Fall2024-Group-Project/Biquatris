@@ -13,7 +13,6 @@ class textObserver : public Observer {
 
 public:
     textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *q);
-    void display_shape(Shape *next_shape);
     void notify(Player *player1, Player *player2);
     ~textObserver();
 };

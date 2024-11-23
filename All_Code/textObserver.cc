@@ -10,14 +10,6 @@ textObserver::textObserver(Canvas *canvas, int width, int height, int level, int
     
 }
 
-void textObserver::display_shape(Shape *next_shape) {
-    if (!next_shape) {
-        cout << "" << endl;
-        return;
-    }
-    next_shape->display();
-}
-
 void textObserver::notify(Player *player1, Player *player2) {
     //starting of the first board
     cout << " Level: " << level << endl;
@@ -49,7 +41,10 @@ void textObserver::notify(Player *player1, Player *player2) {
     cout << "+" << endl;
 
     cout << "  Next: " << endl;
-    display_shape(player1->getQueue()->findNext());
+    Shape *nextShape1 = player1->getQueue()->findNext();
+    if (nextShape1 != nullptr) {
+        nextShape1->display(); // Display the next shape directly
+    }
 
 
 
@@ -85,7 +80,10 @@ void textObserver::notify(Player *player1, Player *player2) {
 
     cout << "                    " << "  Next: " << endl;
     cout << "                    ";
-    display_shape(player2->getQueue()->findNext());
+    Shape *nextShape2 = player2->getQueue()->findNext();
+    if (nextShape2 != nullptr) {
+        nextShape2->display(); // Display the next shape directly
+    }
 }
 
 textObserver::~textObserver() {
