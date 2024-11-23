@@ -93,7 +93,7 @@ bool Player::takeTurn(Canvas &game_board) {
     } else if (command == "drop") {
         if (!game_board.drop(currentShape)) {
             cout << "Cannot drop shape here!" << endl;
-            return false; // No valid moves, game over
+            return false;
         }
         return true;
     } else {
