@@ -4,6 +4,7 @@
 #include "observer.h"
 #include "queue.h"
 #include "canvas.h"
+#include "player.h"
 
 class textObserver : public Observer {
     Canvas *canvas;
@@ -13,7 +14,7 @@ class textObserver : public Observer {
 public:
     textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *q);
     void display_shape(Shape *next_shape);
-    void notify() override;
+    void notify(Player *player1, Player *player2);
     ~textObserver();
 };
 

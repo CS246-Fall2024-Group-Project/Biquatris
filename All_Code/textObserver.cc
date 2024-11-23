@@ -18,7 +18,8 @@ void textObserver::display_shape(Shape *next_shape) {
     next_shape->display();
 }
 
-void textObserver::notify() {
+void textObserver::notify(Player *player1, Player *player2) {
+    //starting of the first board
     cout << " Level: " << level << endl;
     cout << " Score: " << score << endl;
 
@@ -33,7 +34,7 @@ void textObserver::notify() {
             cout << "  |";
         }
         for (int j = 0; j < width; j++) {
-            char c = canvas->getState(i, j);
+            char c = player1->getCanvas()->getState(i, j);
             cout << c;
         }
         if (i == 3) {
@@ -48,7 +49,43 @@ void textObserver::notify() {
     cout << "+" << endl;
 
     cout << " Next: " << endl;
-    display_shape(q->findNext());
+    display_shape(player1->getQueue()->findNext());
+
+
+
+
+    // starting of the second board
+    cout << "                    " <<" Level: " << level << endl;
+    cout << "                    " <<" Score: " << score << endl;
+
+    cout << "                    " << "  +";
+    for (int j = 0; j < width; j++) cout << "-";
+    cout << "+" << endl;
+
+    for (int i = 0; i < height; i++) {
+        if (i == 3) {
+            cout << "                    " << "--|";
+        } else {
+            cout << "                    " << "  |";
+        }
+        for (int j = 0; j < width; j++) {
+            char c = player2->getCanvas()->getState(i, j);
+            cout << c;
+        }
+        if (i == 3) {
+            cout << "|--";
+        } else {
+            cout << "|" << endl;
+        }
+    }
+
+    cout << "                    " << "  +";
+    for (int j = 0; j < width; j++) cout << "-";
+    cout << "+" << endl;
+
+    cout << "               " << " Next: " << endl;
+    cout << "                    ";
+    display_shape(player2->getQueue()->findNext());
 }
 
 textObserver::~textObserver() {
@@ -58,30 +95,30 @@ textObserver::~textObserver() {
 
 
 /*
-  Level: 2
-  Score: 2
-  +-----------+
-  |           |
-  |           |
-  |           |
---+           +--
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  |           |
-  +-----------+
-  Next:
+  Level: 2            Level: 1
+  Score: 2            Score: 10
+  +-----------+       +-----------+   
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+--+           +--   --+           +--
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  |           |       |           |
+  +-----------+       +-----------+
+  Next:               Next:
     L
   LLL
 */
