@@ -21,12 +21,11 @@ std::ifstream& Level::getSequence() const {
 Level0::Level0(std::ifstream& stream): Level(0, stream) {}
 
 std::unique_ptr<Shape> Level0::genShape() {
-    std::unique_ptr<Shape> levelShapes;
+    // uses files
     char shapeType;
 
     // read from file
     sequence >> shapeType;
-    char shapeType;
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;
@@ -36,34 +35,35 @@ std::unique_ptr<Shape> Level0::genShape() {
             sequence.seekg(0, std::ios::beg);
             sequence >> shapeType;
         }
+
         // Create the shape based on the character read
         switch (shapeType) {
             case 'S':
-                shape = std::make_unique<S>(x, y, 0); // You can adjust x, y, turn as needed
+                shape = std::make_unique<S>(x, y); // You can adjust x, y, turn as needed
                 break;
             case 'Z':
-                shape = std::make_unique<Z>(x, y, 0);
+                shape = std::make_unique<Z>(x, y);
                 break;
             case 'T':
-                shape = std::make_unique<T>(x, y, 0);
+                shape = std::make_unique<T>(x, y);
                 break;
             case 'I':
-                shape = std::make_unique<I>(x, y, 0);
+                shape = std::make_unique<I>(x, y);
                 break;
             case 'O':
-                shape = std::make_unique<O>(x, y, 0);
+                shape = std::make_unique<O>(x, y);
                 break;
             case 'L':
-                shape = std::make_unique<L>(x, y, 0);
+                shape = std::make_unique<L>(x, y);
                 break;
             case 'J':
-                shape = std::make_unique<J>(x, y, 0);
+                shape = std::make_unique<J>(x, y);
                 break;
             default:
                 std::cerr << "Unknown shape type: " << shapeType << std::endl;
                 sequence >> shapeType; // go to next shape
         }
-    return levelShapes;  // Return the vector of generated shapes
+    return shape;  // Return the vector of generated shapes
 }
 
 Level1::Level1(std::ifstream& stream): Level(1, stream) {}
@@ -75,40 +75,40 @@ std::unique_ptr<Shape> Level1::genShape() {
 
     switch (random) {
         case 1: // 1/12 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_unique<Z>(x, y);
             break;
         case 2: // 1/12 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_unique<S>(x, y);
             break;
         case 3: // 2/12 chance for L
-            shape = std::make_unique<L>(x, y, 0);
+            shape = std::make_unique<L>(x, y);
             break;
         case 4:
-            shape = std::make_unique<L>(x, y, 0);
+            shape = std::make_unique<L>(x, y);
             break;
         case 5: // 2/12 chance for J
-            shape = std::make_unique<J>(x, y, 0);
+            shape = std::make_unique<J>(x, y);
             break;
         case 6:
-            shape = std::make_unique<J>(x, y, 0);
+            shape = std::make_unique<J>(x, y);
             break;
         case 7: // 2/12 chance for T
-            shape = std::make_unique<T>(x, y, 0);
+            shape = std::make_unique<T>(x, y);
             break;
         case 8:
-            shape = std::make_unique<T>(x, y, 0);
+            shape = std::make_unique<T>(x, y);
             break;
         case 9: // 2/12 chance for O
-            shape = std::make_unique<O>(x, y, 0);
+            shape = std::make_unique<O>(x, y);
             break;
         case 10:
-            shape = std::make_unique<O>(x, y, 0);
+            shape = std::make_unique<O>(x, y);
             break;
         case 11: // 2/12 chance for I
-            shape = std::make_unique<I>(x, y, 0);
+            shape = std::make_unique<I>(x, y);
             break;
         case 12:
-            shape = std::make_unique<I>(x, y, 0);
+            shape = std::make_unique<I>(x, y);
             break;
         default:
             std::cerr << "Unexpected random number: " << random << std::endl;
@@ -154,7 +154,7 @@ std::unique_ptr<Shape> Level2::genShape() {
     return shape;
 }
 
-Level3::Level3(std::ifstream& stream): Level(3, stream) {}
+Level3::Level3(std::ifstream& stream): Level(3, stream), rng{true} {}
 
 std::unique_ptr<Shape> Level3::genShape() {
     if (rng == false) {
@@ -201,15 +201,23 @@ std::unique_ptr<Shape> Level3::genShape() {
 }
 
 std::unique_ptr<Shape> Level3::genShapeFile() {
-    std::unique_ptr<Shape> levelShapes;
     char shapeType;
 
     // read from file
     sequence >> shapeType;
-    char shapeType;
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;
+        if(sequence.eof()) {
+            sequence.clear();
+            // moves to beginning
+            sequence.seekg(0, std::ios::beg);
+            sequence >> shapeType;
+        }
+
+    
+    
+    // Read each character from the file and create the corresponding shape
         
         // Create the shape based on the character read
         switch (shapeType) {
@@ -237,10 +245,10 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
             default:
                 sequence >> shapeType; // go to next shape
         }
-    return levelShapes;  // Return the vector of generated shapes
+    return shape;  // Return the vector of generated shapes
 }
 
-Level4::Level4(std::ifstream& stream): Level(4, stream) {}
+Level4::Level4(std::ifstream& stream): Level(4, stream), rng{true} {}
 
 std::unique_ptr<Shape> Level3::genShape() {
     if (rng == false) {
@@ -287,15 +295,21 @@ std::unique_ptr<Shape> Level3::genShape() {
 }
 
 std::unique_ptr<Shape> Level3::genShapeFile() {
-    std::unique_ptr<Shape> levelShapes;
     char shapeType;
 
     // read from file
     sequence >> shapeType;
-    char shapeType;
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;
+        if(sequence.eof()) {
+            sequence.clear();
+            // moves to beginning
+            sequence.seekg(0, std::ios::beg);
+            sequence >> shapeType;
+        }
+    
+    // Read each character from the file and create the corresponding shape
         
         // Create the shape based on the character read
         switch (shapeType) {
@@ -323,5 +337,5 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
             default:
                 sequence >> shapeType; // go to next shape
         }
-    return levelShapes;  // Return the vector of generated shapes
+    return shape;  // Return the vector of generated shapes
 }

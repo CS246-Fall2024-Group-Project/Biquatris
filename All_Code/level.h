@@ -13,7 +13,7 @@ class Level {
     public:
         Level(int difficulty, std::ifstream& sequence);
         // will generate shapes based on the properties of each level
-        virtual std::unique_ptr<Shape> genShape();
+        virtual std::unique_ptr<Shape> genShape() = 0;
         // will be any additional modifiers or things levels will add
         // such as heavy and others
         //virtual void levelEffects();
