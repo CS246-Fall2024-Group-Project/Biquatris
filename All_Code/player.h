@@ -15,7 +15,7 @@ class Player {
     int playerID;
     int score;
     std::unique_ptr<Level> level;
-    std::unique_ptr<Queue> queue;
+    Queue queue;
     std::vector<std::unique_ptr<Effect>> effects;
     std::unique_ptr<Canvas> canvas;
     std::unique_ptr<Shape> currentShape;
