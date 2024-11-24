@@ -11,10 +11,16 @@ Subect---Done
 Subject---Done
 
 Canvas---WIP
+    Line clear
 Main---WIP
+    Need to work on an interface still
+    implement the features for starting a game
+    constructing players, queues and level
+    textObserver and graphic Ovserver stuff
 textObserver---WIP
 player---WIP
-    Change all pointers to a unique_ptr<__TYPE__>
+    Change all pointers to a unique_ptr<__TYPE__> Done
+    Make sure that we can access the observers
 Effects---WIP
 Blind---WIP
 
