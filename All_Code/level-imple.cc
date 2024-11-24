@@ -5,6 +5,7 @@
 #include "level.h"
 #include "shape.h"
 
+// Starting point!
 const int x = 1, y = 3;
 
 Level0::Level0(std::ifstream& stream): sequence{stream} {}

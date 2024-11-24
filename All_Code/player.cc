@@ -95,14 +95,20 @@ bool Player::takeTurn(Canvas &game_board) {
             currentShape = newShape;
         }
     } else if (command == "down") {
+        // runs the down command
         std::unique_ptr<Shape> newShape = currentShape->down();
 
+        // checks if can fit?
         if (!game_board.check_fit(newShape)) {
+            // does not fit
             cout << "Invalid move!" << endl;
         } else {
+            // does fit, move shape down
+            // replaces current with new shape
             currentShape = newShape;
         }
     } else if (command == "drop") {
+        // find lowest point where this shape can be dropped
         if (!game_board.drop(currentShape)) {
             cout << "Cannot drop shape here!" << endl;
             return false;

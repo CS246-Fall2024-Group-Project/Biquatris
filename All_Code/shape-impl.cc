@@ -36,10 +36,14 @@ std::unique_ptr<Shape> Shape::left() {
 
 // move shape right
 std::unique_ptr<Shape> Shape::right() {
+    // making a new shape
     auto newShape = std::make_unique<Shape>(*this);
+
+    // looping through the vector and adding 1 to move right
     for(auto & block: newShape->blocks) {
         block.setX(block.getX() + 1);
     }
+    
     return newShape;
 }
 
@@ -55,6 +59,7 @@ std::unique_ptr<Shape> Shape::down() {
 // ctor
 L::L(int startX, int startY): Shape('L') {
     // this is de default L rotation state
+
     Block head = {startX - 1, startY, letter};
     // 
     // L
