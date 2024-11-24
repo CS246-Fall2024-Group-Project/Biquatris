@@ -55,3 +55,5 @@ class Level4 : public Level {
         std::unique_ptr<Shape> genShapeFile(std::ifstream &sequence) override;
         //void levelEffects() override;
 };
+
+#endif

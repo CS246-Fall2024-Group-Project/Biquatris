@@ -6,6 +6,8 @@
 #include "canvas.h"
 using namespace std;
 
+// CONCRETE SUBJECT
+
 Canvas::Canvas(int width, int height) : width{width}, height{height} {
     canvas.resize(height);
     for (int i = 0; i < height; i++) {
@@ -50,7 +52,9 @@ void Canvas::setState(int row, int col, char c) {
     canvas[row][col] = c;
 }
 
-void Canvas::display() const {
+void Canvas::display(/*SHOULD TAKE IN A BOOL*/) const {
+
+    // YOU NEED TO CALL NOTIFY OBSERVER IN HERE
     for (int i = 0; i < height; i++) {
         for (int j = 0; i < width; j++) {
             cout << canvas[i][j];

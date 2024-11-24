@@ -8,9 +8,9 @@
 #include "level.h"
 using namespace std;
 
-// THis is a commnet!
+// This is a commnet!
 
-Player::Player(int playerID, int score, Level* level, Queue* queue, Canvas* canvas);
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas);
     : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
 
 void levelUp() {
@@ -33,11 +33,11 @@ int getScore() const {
     return score;
 }
 
-Canvas* Player::getCanvas() const {
+std::unique_ptr<Canvas> Player::getCanvas() const {
     return canvas;
 }
 
-void applyEffect(Effect* effect) {
+void applyEffect(std::unique_ptr<Effect> effect) {
     if (effect == blind) {
         sharedCanvas.add_blindEffect();
     } else if (effect == heavy) {
@@ -47,7 +47,7 @@ void applyEffect(Effect* effect) {
     }
 }
 
-void removeEffect(Effect* effect) {
+void removeEffect(std::unique_ptr<Effect> effect) {
     if (effect == blind) {
         sharedCanvas.remove_blindEffect();
     } else if (effect == heavy) {
@@ -120,6 +120,8 @@ void reset() {
     level = 0;
     effects.clear();
     currentShape = nullptr;
+
+    // needs to loop through all of the vectors and replace everything with '_'
 }
 
 bool Player::gameOver() const {

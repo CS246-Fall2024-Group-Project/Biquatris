@@ -1,6 +1,9 @@
 #include <iostream>
 #include "canvas.h"
 #include "player.h"
+#include "observer.h"
+#include "textObserver.h"
+//#include "graphicsObserver.h"
 using namespace std;
 
 void welcomeMessage() {
@@ -75,23 +78,41 @@ int main(int argc, char *argvp[]) {
     std::srand(seed);
 
     // important stuff
-
     Canvas game_board1(15, 11);
     Canvas game_board2(15, 11);
-
-    
-
-    // player ctor?
-    
-
-    bool gameOver = false;
+    vector<unique_ptr<Observer>> obs;
 
     if(startLevel == 0) {
         Queue queue1, queue2;
         // make pointers for level0
         Player player1(1, 0,  queue1);
-        layer player2(2, queue1);
+        Player player2(2, queue1);
+    } else if {
+
     }
+
+    // determine the if it is textMode or not
+    if (textMode) { // textMode is true
+        // ONLY DO TEXT
+        
+        // player1
+        textObserver(game_baord1, 15, 11, startLevel, 0, queue1);
+
+        // player2
+        textObserver(game_board2, 15, 11, startLevel, 0, queue2);
+
+    } else {
+
+        // player1
+        textObserver(game_baord1, 15, 11, startLevel, 0, queue1);
+        // graphicObserver();
+
+        // player2
+        textObserver(game_board2, 15, 11, startLevel, 0, queue2);
+        // graphicObserver();
+    }
+
+    bool gameOver = false;
 
 
     /*cout << "Player 1, please choose your starting level: ";
