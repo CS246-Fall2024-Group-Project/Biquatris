@@ -117,6 +117,8 @@ textObserver::~textObserver() {
   |           |       |           |
   +-----------+       +-----------+
   Next:               Next:
-    L
-  LLL
+    L                   L
+  LLL                 LLL
+
+  // work with displaying the next shape better
 */

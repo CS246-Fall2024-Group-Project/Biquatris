@@ -12,16 +12,22 @@ int main(int argc, char *argvp[]) {
     
     // command line arguments stuff ****************************
     // defaults
-    bool textMode = false;
-    int seed = std::random_device
+    bool textMode = false; // default, display txt and XWindow
+
+    int seed = std::random_device // generates a random seed
+
     string scriptfile1 = "sequence1.txt";
     string scriptfile2 = "sequence2.txt";
+
+    // by default level == 0
     int startLevel = 0;
 
     for(int i = 1; i < argc; ++i) {
         srd::string arg = argv[i];
         if (arg == "-text") {
             textMode = true;
+            // Means that we will not display Xwindow
+
         } else if (arg == "-seed") {
             if (i + 1 < argc) {
                 seed = std::atoi(argv[++i]); // Get the next argument as the seed
@@ -29,6 +35,8 @@ int main(int argc, char *argvp[]) {
                 std::cerr << "Error: Missing argument for -seed\n";
                 return 1;
             }
+
+            // changes the sequence file of player 1
         } else if (arg == "-scriptfile1") {
             if (i + 1 < argc) {
                 scriptfile1 = argv[++i];
@@ -36,6 +44,8 @@ int main(int argc, char *argvp[]) {
                 std::cerr << "Error: Missing argument for -scriptfile1\n";
                 return 1;
             }
+
+            // changes the sequence file of player 1
         } else if (arg == "-scriptfile2") {
             if (i + 1 < argc) {
                 scriptfile2 = argv[++i];
@@ -69,15 +79,18 @@ int main(int argc, char *argvp[]) {
     Canvas game_board1(15, 11);
     Canvas game_board2(15, 11);
 
-    Queue queue1, queue2;
+    
 
-    Player player1("Player 1", queue1);
-    Player player2("Player 2", queue1);
+    // player ctor?
+    
 
     bool gameOver = false;
 
     if(startLevel == 0) {
-        
+        Queue queue1, queue2;
+        // make pointers for level0
+        Player player1(1, 0,  queue1);
+        layer player2(2, queue1);
     }
 
 
@@ -91,7 +104,10 @@ int main(int argc, char *argvp[]) {
     // Loop while the game is playing
     while (!gameOver) {
         cout << "Player 1's turn: " << endl;
-        player1.takeTurn(game_board1);
+
+        // PRINT BOARD
+
+        player1.takeTurn(player1.canvas);
 
         if (player1.gameOver()) {
             gameOver = true;
@@ -99,8 +115,10 @@ int main(int argc, char *argvp[]) {
 
         //queue.nextShape(); // MAKE QUEUE GET NEXT SHAPE
 
+        // PRINT BOARD
+
         cout << "Player 2's turn: " << endl;
-        player2.takeTurn(game_board2);
+        player2.takeTurn(player2.canvas);
 
         if (player2.gameOver()) {
             gameOver = true;

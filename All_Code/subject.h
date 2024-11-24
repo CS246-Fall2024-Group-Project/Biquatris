@@ -11,7 +11,7 @@ class Subject {
   public:
     virtual void attach(Observer* observer);
     virtual void detach(Observer* observer);
-    virtual void notifyObservers();
+    virtual void notifyObservers(bool graphics);
     virtual char getState( int row, int col ) const = 0;
     virtual ~Subject() = default;
 };

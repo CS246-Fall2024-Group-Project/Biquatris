@@ -15,7 +15,12 @@ void Subject::detach( Observer* o ) {
         }
 }
 
-void Subject::notifyObservers() {
+void Subject::notifyObservers(bool graphics) {
+    if (graphics == false) {
+        // display XWindow AND textObserver
+    } else {
+        // ONLY textObserver!!!!!!!!!!!!
+    }
     for (auto* o : observers) {
         o->notify();
     }
