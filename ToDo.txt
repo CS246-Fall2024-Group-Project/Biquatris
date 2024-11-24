@@ -15,16 +15,18 @@ Canvas---WIP
 Main---WIP
     Need to work on an interface still
     implement the features for starting a game
-    constructing players, queues and level
-    textObserver and graphic Ovserver stuff
+    constructing players, queues and level -- almost done, need to finish queue and player
+    textObserver and graphic Ovserver stuff -- I think I am done
 textObserver---WIP
+
 player---WIP
     Change all pointers to a unique_ptr<__TYPE__> Done
     Make sure that we can access the observers
+    CHANGE LEVEL UP AND LEVEL DOWN, IT IS INCORRECT. It needs to change level not JUST an integer.
 Effects---WIP
 Blind---WIP
 
-queue---Not-started
+queue---Not-started ---- Do this
 XWindow---Not-started
 Heavy---Not-started
 Force---Not-started

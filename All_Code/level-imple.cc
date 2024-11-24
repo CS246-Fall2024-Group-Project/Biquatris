@@ -6,9 +6,9 @@
 #include "shape.h"
 
 
-Level0::Level0() : {} {}
+Level0::Level0(std::ifstream& stream): stream{sequence} {}
 
-std::unique_ptr<Shape> Level0::genShapeFile(std::ifstream &sequence) {
+std::unique_ptr<Shape> Level0::genShapeFile() {
     std::unique_ptr<Shape> levelShapes;
     char shapeType;
 
@@ -19,7 +19,12 @@ std::unique_ptr<Shape> Level0::genShapeFile(std::ifstream &sequence) {
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;
-        
+        if(sequence.eof()) {
+            sequence.clear();
+            // moves to beginning
+            sequence.seekg(0, std::ios::beg);
+            sequence >> shapeType;
+        }
         // Create the shape based on the character read
         switch (shapeType) {
             case 'S':
@@ -142,7 +147,7 @@ std::unique_ptr<Shape> Level2::genShapeRNG() {
     return shape;
 }
 
-Level3::Level3() {}
+Level3::Level3(std::ifstream& stream): stream{sequence} {}
 
 std::unique_ptr<Shape> Level3::genShapeRNG() {
     int random = 1 + (rand() % 9);
@@ -186,7 +191,7 @@ std::unique_ptr<Shape> Level3::genShapeRNG() {
     return shape;
 }
 
-std::unique_ptr<Shape> Level3::genShapeFile(std::ifstream &sequence) {
+std::unique_ptr<Shape> Level3::genShapeFile() {
     std::unique_ptr<Shape> levelShapes;
     char shapeType;
 
@@ -227,7 +232,7 @@ std::unique_ptr<Shape> Level3::genShapeFile(std::ifstream &sequence) {
     return levelShapes;  // Return the vector of generated shapes
 }
 
-Level4::Level4() {}
+Level4::Level4(std::ifstream& stream): stream{sequence} {}
 
 std::unique_ptr<Shape> Level3::genShapeRNG() {
     int random = 1 + (rand() % 9);
@@ -271,7 +276,7 @@ std::unique_ptr<Shape> Level3::genShapeRNG() {
     return shape;
 }
 
-std::unique_ptr<Shape> Level3::genShapeFile(std::ifstream &sequence) {
+std::unique_ptr<Shape> Level3::genShapeFile() {
     std::unique_ptr<Shape> levelShapes;
     char shapeType;
 

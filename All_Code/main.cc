@@ -82,14 +82,48 @@ int main(int argc, char *argvp[]) {
     Canvas game_board2(15, 11);
     vector<unique_ptr<Observer>> obs;
 
-    if(startLevel == 0) {
-        Queue queue1, queue2;
-        // make pointers for level0
-        Player player1(1, 0,  queue1);
-        Player player2(2, queue1);
-    } else if {
+    ifstream file {scriptfile1};
+    ifstream file {scriptfile2};
 
+    Queue queue1, queue2;
+
+    if(startLevel == 0) {
+        Level0 p1Lv0(file);
+        std::unique_ptr<Level> p1LVL(p1Lv0);
+
+        Level0 p2Lv0(file);
+        std::unique_ptr<Level> p2LVL(p2Lv0);
+    } else if (startLevel == 1) {
+        Level1 p1Lv1();
+        std::unique_ptr<Level> p1LVL(p1Lv1);
+
+        Level1 p2Lv1();
+        std::unique_ptr<Level> p2LVL(p2Lv1);
+    } else if (startLevel == 2) {
+        Level2 p1Lv2();
+        std::unique_ptr<Level> p1LVL(p1Lv2);
+
+        Level2 p2Lv2();
+        std::unique_ptr<Level> p2LVL(p2Lv2);
+    } else if (startLevel == 3) {
+        Level3 p1Lv3(file);
+        std::unique_ptr<Level> p1LVL(p1Lv3);
+
+        Level3 p2Lv3(file);
+        std::unique_ptr<Level> p2LVL(p2Lv3);
+    } else if (startLevel == 4) {
+        Level4 p1Lv4(file);
+        std::unique_ptr<Level> p1LVL(p1Lv4);
+
+        Level4 p2Lv4(file);
+        std::unique_ptr<Level> p2LVL(p2Lv4);
+    } else {
+        cerr << "That is not allowed!" <<endl;
+        return 1;
     }
+
+    Player player1(1, 0,  queue1);
+    Player player2(2, queue1);
 
     // determine the if it is textMode or not
     if (textMode) { // textMode is true

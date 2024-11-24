@@ -10,7 +10,7 @@ class Level {
     public:
         // will generate shapes based on the properties of each level
         virtual std::unique_ptr<Shape> genShapeRNG();
-        virtual std::unique_ptr<Shape> genShapeFile(std::ifstream &sequence);
+        virtual std::unique_ptr<Shape> genShapeFile();
         // will be any additional modifiers or things levels will add
         // such as heavy and others
         //virtual void levelEffects();
@@ -18,9 +18,10 @@ class Level {
 };
 
 class Level0: public Level {
+    std::ifstream& sequence;
     public:
-        Level0();
-        std::unique_ptr<Shape> genShapeFile(std::ifstream &sequence) override;
+        Level0(std::ifstream& stream);
+        std::unique_ptr<Shape> genShapeFile() override;
         //void levelEffects() override; // this function will do nothing
 };
 
@@ -39,20 +40,22 @@ class Level2 : public Level {
 };
 
 class Level3 : public Level {
+    std::ifstream& sequence;
     public:
         bool rng;
-        Level3();
+        Level3(std::ifstream& stream);
         std::unique_ptr<Shape> genShapeRNG() override;
-        std::unique_ptr<Shape> genShapeFile(std::ifstream &sequence) override;
+        std::unique_ptr<Shape> genShapeFile() override;
         //void levelEffects() override;
 };
 
 class Level4 : public Level {
+    std::ifstream& sequence;
     public:
         bool rng;
-        Level4();
+        Level4(std::ifstream& stream);
         std::unique_ptr<Shape> genShapeRNG() override;
-        std::unique_ptr<Shape> genShapeFile(std::ifstream &sequence) override;
+        std::unique_ptr<Shape> genShapeFile() override;
         //void levelEffects() override;
 };
 
