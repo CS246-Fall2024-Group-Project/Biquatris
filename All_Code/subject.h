@@ -10,9 +10,9 @@ class Subject {
     std::vector<std::unique_ptr<Observer>> observers; // List of observers
 
   public:
-    virtual void attach(Observer* observer);
-    virtual void detach(Observer* observer);
-    virtual void notifyObservers();
+    virtual void attach(std::unique_ptr<Observer> o);
+    virtual void detach(std::unique_ptr<Observer> o);
+    virtual void notifyObservers() const;
     virtual char getState( int row, int col ) const = 0;
     virtual ~Subject() = default;
 };

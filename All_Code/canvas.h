@@ -17,7 +17,6 @@ class Canvas : public Subject {
     void setState(int row, int col, char c);
     bool check_fit(Shape *shape) const;
     void drop(Shape *shape);
-    int max_height();
     void clearLine();
     void display() const;
     ~Canvas() = default;

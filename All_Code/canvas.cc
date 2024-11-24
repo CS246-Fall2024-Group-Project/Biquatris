@@ -23,11 +23,11 @@ bool Canvas::check_fit(Shape* shape) const {
     for (const auto& block : shape->getBlocks()) {
         int row = block.getX();
         int col = block.getY();
-
+        // if it is out of bounds
         if (row < 0 || row >= height - 3 || col < 0 || col >= width) {
             return false;
         }
-
+        // if place is occupied
         if (canvas[row][col] != ' ') {
             return false;
         }
@@ -54,17 +54,6 @@ void Canvas::drop(Shape* shape) {
     }
 }
 
-int Canvas::max_height() {
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            if (canvas[i][j] != ' ') {
-                return i;
-            }
-        }
-    }
-    return -1;
-}
-
 void Canvas::clearLine() {
     for (int i = 0; i < height; i++) {
         bool line_filled = true;
@@ -89,9 +78,8 @@ void Canvas::setState(int row, int col, char c) {
     canvas[row][col] = c;
 }
 
-void Canvas::display(/*SHOULD TAKE IN A BOOL*/) const {
-
-    // YOU NEED TO CALL NOTIFY OBSERVER IN HERE
+void Canvas::display() const {
+    notifyObservers();
     for (int i = 0; i < height; i++) {
         for (int j = 0; i < width; j++) {
             cout << canvas[i][j];

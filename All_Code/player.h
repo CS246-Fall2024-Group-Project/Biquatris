@@ -21,7 +21,7 @@ class Player {
     std::unique_ptr<Shape> currentShape;
 
   public:
-    Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas);
+    Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas, std::unique_ptr<Shape> currentShape);
     void levelUp();
     void levelDown();
     int chooseLevel();
