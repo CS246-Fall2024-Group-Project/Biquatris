@@ -9,7 +9,7 @@
 class textObserver : public Observer {
     Canvas *canvas;
     int width, height, level, score;
-    Queue *q;
+    Queue q;
 
 public:
     textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *q);

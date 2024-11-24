@@ -17,6 +17,7 @@ class Shape {
         virtual ~Shape() = default;
         virtual std::unique_ptr<Shape> clockwise() = 0;
         virtual std::unique_ptr<Shape> counter() = 0;
+        
         std::unique_ptr<Shape> left();
         std::unique_ptr<Shape> right();
         std::unique_ptr<Shape> down();

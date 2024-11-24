@@ -20,7 +20,7 @@ std::ifstream& Level::getSequence() const {
 
 Level0::Level0(std::ifstream& stream): Level(0, stream) {}
 
-std::unique_ptr<Shape> Level0::genShapeFile() {
+std::unique_ptr<Shape> Level0::genShape() {
     std::unique_ptr<Shape> levelShapes;
     char shapeType;
 
@@ -68,7 +68,7 @@ std::unique_ptr<Shape> Level0::genShapeFile() {
 
 Level1::Level1(std::ifstream& stream): Level(1, stream) {}
 
-std::unique_ptr<Shape> Level1::genShapeRNG() {
+std::unique_ptr<Shape> Level1::genShape() {
     int random = 1 + (rand() % 12);
 
     std::unique_ptr<Shape> shape;
@@ -120,7 +120,7 @@ std::unique_ptr<Shape> Level1::genShapeRNG() {
 
 Level2::Level2(std::ifstream& stream): Level(2, stream) {}
 
-std::unique_ptr<Shape> Level2::genShapeRNG() {
+std::unique_ptr<Shape> Level2::genShape() {
     int random = 1 + (rand() % 7);
 
     std::unique_ptr<Shape> shape;
@@ -156,7 +156,11 @@ std::unique_ptr<Shape> Level2::genShapeRNG() {
 
 Level3::Level3(std::ifstream& stream): Level(3, stream) {}
 
-std::unique_ptr<Shape> Level3::genShapeRNG() {
+std::unique_ptr<Shape> Level3::genShape() {
+    if (rng == false) {
+        return Level3::genShapeFile();
+    }
+
     int random = 1 + (rand() % 9);
 
     std::unique_ptr<Shape> shape;
@@ -238,7 +242,11 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
 
 Level4::Level4(std::ifstream& stream): Level(4, stream) {}
 
-std::unique_ptr<Shape> Level3::genShapeRNG() {
+std::unique_ptr<Shape> Level3::genShape() {
+    if (rng == false) {
+        return Level3::genShapeFile();
+    }
+    
     int random = 1 + (rand() % 9);
 
     std::unique_ptr<Shape> shape;

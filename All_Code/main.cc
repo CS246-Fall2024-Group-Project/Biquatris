@@ -3,6 +3,7 @@
 #include "player.h"
 #include "observer.h"
 #include "textObserver.h"
+#include <cstdlib>
 //#include "graphicsObserver.h"
 using namespace std;
 
@@ -11,13 +12,12 @@ void welcomeMessage() {
 }
 
 
-int main(int argc, char *argvp[]) {
+int main(int argc, char *argv[]) {
     
     // command line arguments stuff ****************************
     // defaults
     bool textMode = false; // default, display txt and XWindow
-
-    int seed = std::random_device // generates a random seed
+    int seed = 556; // generates a random seed
 
     string scriptfile1 = "sequence1.txt";
     string scriptfile2 = "sequence2.txt";
@@ -26,7 +26,7 @@ int main(int argc, char *argvp[]) {
     int startLevel = 0;
 
     for(int i = 1; i < argc; ++i) {
-        srd::string arg = argv[i];
+        std::string arg = argv[i];
         if (arg == "-text") {
             textMode = true;
             // Means that we will not display Xwindow
@@ -80,61 +80,56 @@ int main(int argc, char *argvp[]) {
     // important stuff
     Canvas game_board1(15, 11);
     Canvas game_board2(15, 11);
-    vector<unique_ptr<Observer>> obs;
 
-    ifstream file {scriptfile1};
-    ifstream file {scriptfile2};
+    
 
-    Queue queue1, queue2;
+    ifstream file1 {scriptfile1};
+    ifstream file2 {scriptfile2};
+
+    //Queue queue1, queue2;
+
+    std::unique_ptr<Level> p1LVL;
+    std::unique_ptr<Level> p2LVL;
 
     // determines the level
     if(startLevel == 0) {
-        Level0 p1Lv0(file);
-        std::unique_ptr<Level> p1LVL(p1Lv0);
+        p1LVL = std::make_unique<Level0>(file1);
 
-        Level0 p2Lv0(file);
-        std::unique_ptr<Level> p2LVL(p2Lv0);
+        p2LVL= std::make_unique<Level0>(file2);
     } else if (startLevel == 1) {
-        Level1 p1Lv1();
-        std::unique_ptr<Level> p1LVL(p1Lv1);
+        p1LVL = std::make_unique<Level1>(file2);
 
-        Level1 p2Lv1();
-        std::unique_ptr<Level> p2LVL(p2Lv1);
+        p2LVL = std::make_unique<Level1>(file1);
     } else if (startLevel == 2) {
-        Level2 p1Lv2();
-        std::unique_ptr<Level> p1LVL(p1Lv2);
+        p1LVL = std::make_unique<Level2>(file1);
 
-        Level2 p2Lv2();
-        std::unique_ptr<Level> p2LVL(p2Lv2);
+        p2LVL = std::make_unique<Level2>(file2);
     } else if (startLevel == 3) {
-        Level3 p1Lv3(file);
-        std::unique_ptr<Level> p1LVL(p1Lv3);
+        p1LVL = std::make_unique<Level3>(file1);
 
-        Level3 p2Lv3(file);
-        std::unique_ptr<Level> p2LVL(p2Lv3);
+        p2LVL = std::make_unique<Level3>(file2);
     } else if (startLevel == 4) {
-        Level4 p1Lv4(file);
-        std::unique_ptr<Level> p1LVL(p1Lv4);
+        p1LVL = std::make_unique<Level4>(file1);
 
-        Level4 p2Lv4(file);
-        std::unique_ptr<Level> p2LVL(p2Lv4);
+        p2LVL = std::make_unique<Level4>(file2);
     } else {
         cerr << "That is not allowed!" <<endl;
         return 1;
     }
 
-    // make the players queue
+    Queue queue1(p1LVL.get());
+    Queue queue2(p2LVL.get());
 
-    // plater stuff
-    Player player1(1, 0,  queue1);
-    Player player2(2, queue1);
+    //////////////////////////////////////////////////
+    /*vector<unique_ptr<Observer>> obs1;
+    vector<unique_ptr<Observer>> obs2;*/
 
     // determine the if it is textMode or not
     if (textMode) { // textMode is true
         // ONLY DO TEXT
         
         // player1
-        textObserver(game_baord1, 15, 11, startLevel, 0, queue1);
+        textObserver(game_board1, 15, 11, startLevel, 0, queue1);
 
         // player2
         textObserver(game_board2, 15, 11, startLevel, 0, queue2);
@@ -142,7 +137,7 @@ int main(int argc, char *argvp[]) {
     } else {
 
         // player1
-        textObserver(game_baord1, 15, 11, startLevel, 0, queue1);
+        textObserver(game_board1, 15, 11, startLevel, 0, queue1);
         // graphicObserver();
 
         // player2

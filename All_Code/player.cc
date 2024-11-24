@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "queue.h"
-#include "effect.h"
+//#include "effect.h"
 #include "canvas.h"
 #include "level.h"
 using namespace std;

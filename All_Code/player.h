@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include "queue.h"
-#include "effect.h"
+//#include "effect.h"
 #include "canvas.h"
 #include "level.h"
 #include "shape.h"
@@ -16,7 +16,7 @@ class Player {
     int score;
     std::unique_ptr<Level> level;
     Queue queue;
-    std::vector<std::unique_ptr<Effect>> effects;
+    //std::vector<std::unique_ptr<Effect>> effects;
     std::unique_ptr<Canvas> canvas;
     std::unique_ptr<Shape> currentShape;
 
@@ -25,14 +25,16 @@ class Player {
     void levelUp();
     void levelDown();
     int chooseLevel();
+    void random();
+    void noRandom();
     void addScore(int points);
     int getScore() const;
-    void applyEffect(std::unique_ptr<Effect> effect);
-    void removeEffect(std::unique_ptr<Effect> effect);
+    //void applyEffect(Effect* effect);
+    //void removeEffect(Effect* effect);
     void processEffects();
     bool takeTurn();
     void reset();
-    std::unique_ptr<Canvas> getCanvas() const; // YAY
+    Canvas* getCanvas() const; // YAY
     bool gameOver() const;
     ~Player();
 };
