@@ -7,8 +7,6 @@ using namespace std;
 
 // the third rowfrom the top, bottom parts of shapes will start at 2 and build upwards towards the top of the screen
 // Each shape will work in a "3x3" grid
-int TOP_OF_SCREEN = 3;
-int MIDDLE_OF_SCREEN = 6;
 
 Shape::Shape(char letter) : letter{letter}, rotationState(1) {}
 
