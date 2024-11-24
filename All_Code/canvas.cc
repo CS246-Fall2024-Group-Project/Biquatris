@@ -35,17 +35,43 @@ bool Canvas::check_fit(Shape* shape) const {
     return true;
 }
 
-bool Canvas::drop(Shape* shape) {
-    if (!check_fit(shape)) {
-        return false;
-    }
-
+void Canvas::drop(Shape* shape) {
     for (const auto& block : shape->getBlocks()) {
         int row = block.getX();
         int col = block.getY();
         canvas[row][col] = shape->getLetter();
     }
-    return true;
+}
+
+int Canvas::max_height() {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if (canvas[i][j] != ' ') {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+void Canvas::clearLine() {
+    for (int i = 0; i < height; i++) {
+        bool line_filled = true;
+
+        for (int j = 0; j < width; j++) {
+            if (canvas[i][j] == ' ') { // check if all the blocks are filled
+                line_filled = false;
+                break;
+            }
+        }
+        if (line_filled == true) { // if the line is filled
+            for (int k = i; k > 0; k--) { //recursively move all the blocks downwards by 1 unit
+                for (int j = 0; j < width; j++) {
+                    canvas[k][j] = canvas[k - 1][j]; // move the blocks downwards by 1 unit
+                }
+            }
+        }
+    }
 }
 
 void Canvas::setState(int row, int col, char c) {

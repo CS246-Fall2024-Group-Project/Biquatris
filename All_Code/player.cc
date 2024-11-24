@@ -107,12 +107,11 @@ bool Player::takeTurn(Canvas &game_board) {
             cout << "Cannot drop shape here!" << endl;
             return false;
         }
+        game_board.drop(currentShape);
         return true;
-    } else {
-        cout << "Invalid command. Try again." << endl;
     }
 
-    return true;
+    return false;
 }
 
 void reset() {
@@ -125,7 +124,10 @@ void reset() {
 }
 
 bool Player::gameOver() const {
-    return !canvas.check_fit(currentShape);
+    if (!canvas->check_fit(currentShape)) {
+        return true;
+    }
+    return false;
 }
 
 Player::~Player() {

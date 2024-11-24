@@ -14,9 +14,11 @@ class Canvas : public Subject {
   public:
     Canvas(int width, int height);
     char getState(int row, int col) const;
-    bool check_fit(Shape *shape) const;
-    bool drop(Shape *shape);
     void setState(int row, int col, char c);
+    bool check_fit(Shape *shape) const;
+    void drop(Shape *shape);
+    int max_height();
+    void clearLine();
     void display() const;
     ~Canvas() = default;
 };
