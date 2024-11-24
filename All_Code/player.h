@@ -30,7 +30,7 @@ class Player {
     void applyEffect(std::unique_ptr<Effect> effect);
     void removeEffect(std::unique_ptr<Effect> effect);
     void processEffects();
-    bool takeTurn(Canvas &game_board);
+    bool takeTurn();
     void reset();
     std::unique_ptr<Canvas> getCanvas() const; // YAY
     bool gameOver() const;

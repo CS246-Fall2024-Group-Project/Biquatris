@@ -8,7 +8,17 @@
 // Starting point!
 const int x = 1, y = 3;
 
-Level0::Level0(std::ifstream& stream): sequence{stream} {}
+Level::Level(int diffuculty, std::ifstream& stream): difficulty{difficulty}, sequence{stream} {}
+
+int Level::getDifficulty() const {
+    return difficulty;
+}
+
+std::ifstream& Level::getSequence() const {
+    return sequence;
+}
+
+Level0::Level0(std::ifstream& stream): Level(0, stream) {}
 
 std::unique_ptr<Shape> Level0::genShapeFile() {
     std::unique_ptr<Shape> levelShapes;
@@ -56,7 +66,7 @@ std::unique_ptr<Shape> Level0::genShapeFile() {
     return levelShapes;  // Return the vector of generated shapes
 }
 
-Level1::Level1(){}
+Level1::Level1(std::ifstream& stream): Level(1, stream) {}
 
 std::unique_ptr<Shape> Level1::genShapeRNG() {
     int random = 1 + (rand() % 12);
@@ -108,7 +118,7 @@ std::unique_ptr<Shape> Level1::genShapeRNG() {
     return shape;
 }
 
-Level2::Level2() {}
+Level2::Level2(std::ifstream& stream): Level(2, stream) {}
 
 std::unique_ptr<Shape> Level2::genShapeRNG() {
     int random = 1 + (rand() % 7);
@@ -144,7 +154,7 @@ std::unique_ptr<Shape> Level2::genShapeRNG() {
     return shape;
 }
 
-Level3::Level3(std::ifstream& stream): sequence{stream} {}
+Level3::Level3(std::ifstream& stream): Level(3, stream) {}
 
 std::unique_ptr<Shape> Level3::genShapeRNG() {
     int random = 1 + (rand() % 9);
@@ -193,7 +203,6 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
     // read from file
     sequence >> shapeType;
     char shapeType;
-    int x = 1, y = 3;  // Example starting coordinates for all shapes
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;
@@ -227,12 +236,10 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
     return levelShapes;  // Return the vector of generated shapes
 }
 
-Level4::Level4(std::ifstream& stream): sequence{stream} {}
+Level4::Level4(std::ifstream& stream): Level(4, stream) {}
 
 std::unique_ptr<Shape> Level3::genShapeRNG() {
     int random = 1 + (rand() % 9);
-    int x = 1;
-    int y = 3;
 
     std::unique_ptr<Shape> shape;
 
@@ -278,7 +285,6 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
     // read from file
     sequence >> shapeType;
     char shapeType;
-    int x = 1, y = 3;  // Example starting coordinates for all shapes
     
     // Read each character from the file and create the corresponding shape
         std::unique_ptr<Shape> shape;

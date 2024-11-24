@@ -14,14 +14,41 @@ Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::uniqu
     : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
 
 void levelUp() {
-    if (level < 4) {
-        level++;
+    // level up the difficulty
+    int dif = level->getDifficulty();
+    if(dif == 0) {
+        Level1 lv {Level->getSequence()};
+        Level = make_unique<Level> // make a level1 pointer
+    } else if (dif == 1) {
+        Level2 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else if (dif == 2) {
+        Level3 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else if (dif == 3) {
+        Level4 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else {
+        cerr << "Cannot level up anymore." << endl;
     }
 }
 
 void levelDown() {
-    if (level > 0) {
-        level--;
+    int dif = level->getDifficulty();
+    if(dif == 0) {
+        cerr << "Cannot level down anymore." << endl;
+    } else if (dif == 1) {
+        Level0 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else if (dif == 2) {
+        Level1 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else if (dif == 3) {
+        Level2 lv {Level->getSequence()};
+        Level = make_unique<Level>
+    } else {
+        Level3 lv {Level->getSequence()};
+        Level = make_unique<Level>
     }
 }
 
@@ -70,7 +97,7 @@ int chooseLevel() {
     }
 }
 
-bool Player::takeTurn(Canvas &game_board) {
+bool Player::takeTurn() {
     if (!currentShape) {
         currentShape = queue->getNext();
     }
@@ -81,7 +108,7 @@ bool Player::takeTurn(Canvas &game_board) {
 
     if (command == "left") {
         std::unique_ptr<Shape> newShape = currentShape->left();
-        if (!game_board.check_fit(currentShape)) {
+        if (!canvas.check_fit(currentShape)) {
             cout << "Invalid move!" << endl;
         } else {
             currentShape = newShape;
@@ -89,7 +116,7 @@ bool Player::takeTurn(Canvas &game_board) {
     } else if (command == "right") {
         std::unique_ptr<Shape> newShape = currentShape->right();
 
-        if (!game_board.check_fit(currentShape)) {
+        if (!canvas.check_fit(currentShape)) {
             cout << "Invalid move!" << endl;
         } else {
             currentShape = newShape;
@@ -99,7 +126,7 @@ bool Player::takeTurn(Canvas &game_board) {
         std::unique_ptr<Shape> newShape = currentShape->down();
 
         // checks if can fit?
-        if (!game_board.check_fit(newShape)) {
+        if (!canvas.check_fit(newShape)) {
             // does not fit
             cout << "Invalid move!" << endl;
         } else {
@@ -109,11 +136,11 @@ bool Player::takeTurn(Canvas &game_board) {
         }
     } else if (command == "drop") {
         // find lowest point where this shape can be dropped
-        if (!game_board.drop(currentShape)) {
+        if (!canvas.drop(currentShape)) {
             cout << "Cannot drop shape here!" << endl;
             return false;
         }
-        game_board.drop(currentShape);
+        canvas.drop(currentShape);
         return true;
     }
 

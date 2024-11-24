@@ -87,6 +87,7 @@ int main(int argc, char *argvp[]) {
 
     Queue queue1, queue2;
 
+    // determines the level
     if(startLevel == 0) {
         Level0 p1Lv0(file);
         std::unique_ptr<Level> p1LVL(p1Lv0);
@@ -122,6 +123,9 @@ int main(int argc, char *argvp[]) {
         return 1;
     }
 
+    // make the players queue
+
+    // plater stuff
     Player player1(1, 0,  queue1);
     Player player2(2, queue1);
 
@@ -147,14 +151,6 @@ int main(int argc, char *argvp[]) {
     }
 
     bool gameOver = false;
-
-
-    /*cout << "Player 1, please choose your starting level: ";
-
-    player1.chooseLevel();
-    
-    cout << "Player 2, please choose your starting level: ";
-    player2.chooseLevel();*/
 
     // Loop while the game is playing
     while (!gameOver) {
