@@ -36,10 +36,21 @@ bool Canvas::check_fit(Shape* shape) const {
 }
 
 void Canvas::drop(Shape* shape) {
-    for (const auto& block : shape->getBlocks()) {
+    std::unique_ptr<Shape> tmpShape = std::make_unique<Shape>(*shape);
+
+    while (true) {
+        std::unique_ptr<Shape> nextShape = tmpShape->down();
+        if (!check_fit(nextShape.get())) {
+            break;
+        }
+
+        tmpShape = std::make_unique<Shape>(*nextShape);
+    }
+
+    for (const auto& block : tmpShape->getBlocks()) {
         int row = block.getX();
         int col = block.getY();
-        canvas[row][col] = shape->getLetter();
+        canvas[row][col] = tmpShape->getLetter();
     }
 }
 
