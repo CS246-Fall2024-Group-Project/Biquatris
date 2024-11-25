@@ -76,19 +76,22 @@ int main(int argc, char *argv[]) {
     Queue queue1(p1LVL.get());
     Queue queue2(p2LVL.get());
 
-    Player player1(1, 0, std::move(p1LVL), &queue1, game_board1, std::make_unique<Shape>(*queue1.getCurrent()));
-    Player player2(2, 0, std::move(p2LVL), &queue2, game_board2, std::make_unique<Shape>(*queue2.getCurrent()));
+    std::unique_ptr<Player> player1(1, 0, std::move(p1LVL), &queue1, game_board1, std::make_unique<Shape>(*queue1.getCurrent()));
+    std::unique_ptr<Player> player2(2, 0, std::move(p2LVL), &queue2, game_board2, std::make_unique<Shape>(*queue2.getCurrent()));
 
     // observers for players
     vector<unique_ptr<Observer>> obs1;
-    vector<unique_ptr<Observer>> obs2;
 
     if (textMode) {
-        obs1.emplace_back(std::make_unique<textObserver>(&game_board1, 15, 11, startLevel, 0, &queue1));
-        obs2.emplace_back(std::make_unique<textObserver>(&game_board2, 15, 11, startLevel, 0, &queue2));
+        obs1.emplace_back(std::make_unique<textObserver>(player1.get(), 15, 11));
+        obs1.emplace_back(std::make_unique<textObserver>(player2.get(), 15, 11));
     } else {
-        obs1.emplace_back(std::make_unique<textObserver>(&game_board1, 15, 11, startLevel, 0, &queue1));
-        obs2.emplace_back(std::make_unique<textObserver>(&game_board2, 15, 11, startLevel, 0, &queue2));
+        obs1.emplace_back(std::make_unique<textObserver>(player1.get(), 15, 11));
+        obs1.emplace_back(std::make_unique<textObserver>(player2.get(), 15, 11));
+
+        // palce Xwindow observers here once we do that:
+        // Xwindow
+        // Xwindow
     }
 
     bool gameOver = false;

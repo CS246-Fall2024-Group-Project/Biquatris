@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-textObserver::textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *queue)
-    : canvas(canvas), width(11), height(18), level(level), score(score), queue{queue} {
+textObserver::textObserver(Player *p1, Player *p2, int width, int height)
+    : player1{p1}, player2{p2}, width(11), height(18) {
     canvas->attach(std::shared_ptr<Observer>(this));
 }
 

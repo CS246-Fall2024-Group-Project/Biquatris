@@ -7,12 +7,12 @@
 #include "player.h"
 
 class textObserver : public Observer {
-    Canvas *canvas;
-    int width, height, level, score;
-    Queue *queue;
+    Player* player1;
+    Player *player2;
+    int width, height;
 
 public:
-    textObserver(Canvas *canvas, int width, int height, int level, int score, Queue *queue);
+    textObserver(Player *p1, Player *p2, int width, int height);
     void notify(Player* player1, Player* player2) override;
     ~textObserver();
 };
