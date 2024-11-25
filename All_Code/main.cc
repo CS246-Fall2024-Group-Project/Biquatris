@@ -83,11 +83,12 @@ int main(int argc, char *argv[]) {
     vector<unique_ptr<Observer>> obs1;
 
     if (textMode) {
-        obs1.emplace_back(std::make_unique<textObserver>(player1.get(), 15, 11));
-        obs1.emplace_back(std::make_unique<textObserver>(player2.get(), 15, 11));
+        // Can you do this??
+        obs1.emplace_back(std::make_shared<textObserver>(player1.get(), 15, 11));
+        obs1.emplace_back(std::make_shared<textObserver>(player2.get(), 15, 11));
     } else {
-        obs1.emplace_back(std::make_unique<textObserver>(player1.get(), 15, 11));
-        obs1.emplace_back(std::make_unique<textObserver>(player2.get(), 15, 11));
+        obs1.emplace_back(std::make_shared<textObserver>(player1.get(), 15, 11));
+        obs1.emplace_back(std::make_shared<textObserver>(player2.get(), 15, 11));
 
         // palce Xwindow observers here once we do that:
         // Xwindow

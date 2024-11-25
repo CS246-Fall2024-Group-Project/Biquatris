@@ -11,7 +11,7 @@ class Queue {
 
 public:
     explicit Queue(Level* lv);
-    Shape* getCurrent(); 
+    std::shared_ptr<Shape> getCurrent(); 
     Shape* getNext();
 
     void findNext(Level* lv);

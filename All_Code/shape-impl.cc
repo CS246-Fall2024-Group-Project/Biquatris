@@ -26,8 +26,8 @@ char Shape::getLetter() const {
 }
 
 // move shape left
-std::unique_ptr<Shape> Shape::left() {
-    auto newShape = std::make_unique<Shape>(*this);
+std::shared_ptr<Shape> Shape::left() {
+    auto newShape = std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
         block.setX(block.getX() - 1);
     }
@@ -35,9 +35,9 @@ std::unique_ptr<Shape> Shape::left() {
 }
 
 // move shape right
-std::unique_ptr<Shape> Shape::right() {
+std::shared_ptr<Shape> Shape::right() {
     // making a new shape
-    auto newShape = std::make_unique<Shape>(*this);
+    auto newShape = std::make_shared<Shape>(*this);
 
     // looping through the vector and adding 1 to move right
     for(auto & block: newShape->blocks) {
@@ -48,8 +48,8 @@ std::unique_ptr<Shape> Shape::right() {
 }
 
 // Move shape down
-std::unique_ptr<Shape> Shape::down() {
-    auto newShape = std::make_unique<Shape>(*this);
+std::shared_ptr<Shape> Shape::down() {
+    auto newShape = std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
         block.setY(block.getY() - 1);
     }
@@ -85,7 +85,7 @@ L::L(int startX, int startY): Shape('L') {
 L::L(const L&other) : Shape(other) {}
 
 // L clockwise
-std::unique_ptr<Shape> L::clockwise() {
+std::shared_ptr<Shape> L::clockwise() {
     // axis of rotation does not change!
 
     int x = blocks.front().getX(); // get the x-axis of the axis
@@ -194,11 +194,11 @@ std::unique_ptr<Shape> L::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_unique<L>(newShape);
+    return std::make_shared<L>(newShape);
 }
 
 // L counter-clockwise
-std::unique_ptr<Shape> L::counter() {
+std::shared_ptr<Shape> L::counter() {
     // axis of rotation does not change!
 
     int x = blocks.front().getX(); // get the x-axis of the axis
@@ -291,7 +291,7 @@ std::unique_ptr<Shape> L::counter() {
         newShape.blocks[3].setY(y - 1);
     }
 
-    return std::make_unique<L>(newShape);
+    return std::make_shared<L>(newShape);
 }
 
 // J ctor
@@ -326,7 +326,7 @@ J::J(int startX, int startY): Shape('J') {
 J::J(const J&other) : Shape(other) {}
 
 // J clockwise
-std::unique_ptr<Shape> J::clockwise() {
+std::shared_ptr<Shape> J::clockwise() {
     // axis of rotation does not change!
 
     int x = blocks.front().getX(); // get the x-axis of the axis
@@ -422,11 +422,11 @@ std::unique_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_unique<L>(newShape);
+    return std::make_shared<L>(newShape);
 }
 
 // J counter-clockwise
-std::unique_ptr<Shape> J::counter() {
+std::shared_ptr<Shape> J::counter() {
     // axis of rotation does not change!
 
     int x = blocks.front().getX(); // get the x-axis of the axis
@@ -521,7 +521,7 @@ std::unique_ptr<Shape> J::counter() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_unique<L>(newShape);
+    return std::make_shared<L>(newShape);
 }
 
 // I ctor
@@ -543,7 +543,7 @@ I::I(int startX, int startY): Shape('I') {
 I::I(const I&other) : Shape(other) {}
 
 // I clockwise
-std::unique_ptr<Shape> I::clockwise() {
+std::shared_ptr<Shape> I::clockwise() {
     int x = blocks.front().getX(); // get the x-axis of the axis
     int y = blocks.front().getY(); // get the y-axis of the axis
 
@@ -577,11 +577,11 @@ std::unique_ptr<Shape> I::clockwise() {
         newShape.blocks[3].setX(x + 3);
         newShape.blocks[3].setY(y + 0);
     }
-    return std::make_unique<L>(newShape);
+    return std::make_shared<L>(newShape);
 }
 
 // I counter-clockwise
-std::unique_ptr<Shape> I::counter() {
+std::shared_ptr<Shape> I::counter() {
     // since there are only 2 functions, repeat the steps for counter!
     return clockwise();
 }
@@ -606,15 +606,15 @@ O::O(int startX, int startY): Shape('O') {
 O::O(const O&other) : Shape(other) {}
 
 // O clockwise 
-std::unique_ptr<Shape> O::clockwise() {
+std::shared_ptr<Shape> O::clockwise() {
     O newShape(*this);
-    return std::make_unique<O>(newShape);
+    return std::make_shared<O>(newShape);
 }
 
 // O counter-clockwise 
-std::unique_ptr<Shape> O::counter() {
+std::shared_ptr<Shape> O::counter() {
     O newShape(*this);
-    return std::make_unique<O>(newShape);
+    return std::make_shared<O>(newShape);
 }
 
 // Z ctor
@@ -647,7 +647,7 @@ Z::Z(int startX, int startY): Shape('Z') {
 Z::Z(const Z&other) : Shape(other) {}
 
 // Z clockwise
-std::unique_ptr<Shape> Z::clockwise() {
+std::shared_ptr<Shape> Z::clockwise() {
     int x = blocks.front().getX(); // get the x-axis of the axis
     int y = blocks.front().getY(); // get the y-axis of the axis
 
@@ -690,11 +690,11 @@ std::unique_ptr<Shape> Z::clockwise() {
         newShape.blocks[3].setX(x - 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_unique<Z>(newShape);
+    return std::make_shared<Z>(newShape);
 }
 
 // Z counter-clockwise
-std::unique_ptr<Shape> Z::counter() {
+std::shared_ptr<Shape> Z::counter() {
     return clockwise();
 }
 
@@ -728,7 +728,7 @@ S::S(int startX, int startY): Shape('S') {
 S::S(const S &other) : Shape(other) {}
 
 // S clockwise
-std::unique_ptr<Shape> S::clockwise() {
+std::shared_ptr<Shape> S::clockwise() {
     int x = blocks.front().getX(); // get the x-axis of the axis
     int y = blocks.front().getY(); // get the y-axis of the axis
 
@@ -778,11 +778,11 @@ std::unique_ptr<Shape> S::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_unique<S>(newShape);
+    return std::make_shared<S>(newShape);
 }
 
 // S counter-clockwise
-std::unique_ptr<Shape> S::counter() {
+std::shared_ptr<Shape> S::counter() {
     return clockwise();
 }
 
@@ -814,7 +814,7 @@ T::T(int startX, int startY): Shape('T') {
 T::T(const T &other) : Shape(other) {}
 
 // T clockwise
-std::unique_ptr<Shape> T::clockwise() {
+std::shared_ptr<Shape> T::clockwise() {
     int x = blocks.front().getX(); // get the x-axis of the axis
     int y = blocks.front().getY(); // get the y-axis of the axis
 
@@ -901,11 +901,11 @@ std::unique_ptr<Shape> T::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[2].setY(y + 0);
     }
-    return std::make_unique<T>(newShape);
+    return std::make_shared<T>(newShape);
 }
 
 // T counter-clockwise
-std::unique_ptr<Shape> T::counter() {
+std::shared_ptr<Shape> T::counter() {
     int x = blocks.front().getX(); // get the x-axis of the axis
     int y = blocks.front().getY(); // get the y-axis of the axis
 
@@ -989,5 +989,5 @@ std::unique_ptr<Shape> T::counter() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_unique<T>(newShape);
+    return std::make_shared<T>(newShape);
 }

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas& canvas, Shape* currentShape)
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape)
     : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
 
 void Player::levelUp() {
@@ -56,7 +56,7 @@ Canvas& Player::getCanvas() const {
     return canvas;
 }
 
-Queue* Player::getQueue() const {
+Queue& Player::getQueue() const {
     return queue;
 }
 
@@ -68,26 +68,26 @@ bool Player::takeTurn() {
     if (command == "left") {
         auto newShape = currentShape->left();
         if (canvas.check_fit(newShape.get())) {
-            currentShape = newShape.get();
+            currentShape = newShape;
         } else {
             cout << "Invalid move!" << endl;
         }
     } else if (command == "right") {
         auto newShape = currentShape->right();
         if (canvas.check_fit(newShape.get())) {
-            currentShape = newShape.get();
+            currentShape = newShape;
         } else {
             cout << "Invalid move!" << endl;
         }
     } else if (command == "down") {
         auto newShape = currentShape->down();
         if (canvas.check_fit(newShape.get())) {
-            currentShape = newShape.get();
+            currentShape = newShape;
         } else {
             cout << "Invalid move!" << endl;
         }
     } else if (command == "drop") {
-        canvas.drop(currentShape);
+        canvas.drop(currentShape.get());
         currentShape = nullptr; // Shape is now on the canvas
         return true;
     }
@@ -98,7 +98,7 @@ bool Player::takeTurn() {
 void Player::reset(std::unique_ptr<Level> newLevel) {
     score = 0;
     level = std::move(newLevel);
-    currentShape = queue->getCurrent();
+    currentShape = queue.getCurrent();
     for (int i = 0; i < canvas.getHeight(); ++i) {
         for (int j = 0; j < canvas.getWidth(); ++j) {
             canvas.setState(i, j, ' ');
@@ -109,7 +109,7 @@ void Player::reset(std::unique_ptr<Level> newLevel) {
 
 bool Player::gameOver() const {
     if (canvas.getState(0, 0) != ' ') {
-        if (!canvas.check_fit(currentShape)) {
+        if (!canvas.check_fit(currentShape.get())) {
             return true;
         }
     }

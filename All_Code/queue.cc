@@ -4,8 +4,8 @@
 Queue::Queue(Level* lv) 
     : current{lv->genShape()}, next{lv->genShape()} {}
 
-Shape* Queue::getCurrent() {
-    return current.get(); // Expose as a const pointer
+std::shared_ptr<Shape> Queue::getCurrent() {
+    return current; // Expose as a const pointer
 }
 
 Shape* Queue::getNext() {
