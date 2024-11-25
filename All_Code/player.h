@@ -24,10 +24,14 @@ class Player {
     void levelUp();
     void levelDown();
     void addScore(int points);
+
     int getScore() const;
     Queue* getQueue() const;
+    int getLevel() const;
+
     bool takeTurn();
     void reset(std::unique_ptr<Level> newLevel); // Reset with new level
+
     Canvas& getCanvas() const;
     bool gameOver() const;
     ~Player();

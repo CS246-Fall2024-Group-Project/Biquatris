@@ -13,7 +13,7 @@ class textObserver : public Observer {
 
 public:
     textObserver(Player *p1, Player *p2, int width, int height);
-    void notify(Player* player1, Player* player2) override;
+    void notify() override;
     ~textObserver();
 };
 

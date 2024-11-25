@@ -40,6 +40,10 @@ void Player::levelDown() {
     }
 }
 
+int Player::getLevel() const {
+    return level->getDifficulty();
+}
+
 void Player::addScore(int points) {
     score += points;
 }

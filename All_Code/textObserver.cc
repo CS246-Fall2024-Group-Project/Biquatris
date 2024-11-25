@@ -6,6 +6,7 @@ using namespace std;
 
 textObserver::textObserver(Player *p1, Player *p2, int width, int height)
     : player1{p1}, player2{p2}, width(11), height(18) {
+        
     canvas->attach(std::shared_ptr<Observer>(this));
 }
 
@@ -19,10 +20,10 @@ void printBlock(int row, int column, char letter) {
     cout << letter;
 }
 
-void textObserver::notify(Player* player1, Player* player2) {
+void textObserver::notify() {
     //starting of the first board
-    cout << " Level: " << level << endl;
-    cout << " Score: " << score << endl;
+    cout << " Level: " << player1->getLevel() << endl;
+    cout << " Score: " << player2->getScore() << endl;
 
     cout << "  +";
     for (int j = 0; j < width; j++) cout << "-";
