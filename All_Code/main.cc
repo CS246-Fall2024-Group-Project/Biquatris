@@ -98,12 +98,12 @@ int main(int argc, char *argv[]) {
 
     while (!gameOver) {
         cout << "Player 1's turn: " << endl;
-        player1.takeTurn();
-        if (player1.gameOver()) gameOver = true;
+        player1->takeTurn();
+        if (player1->gameOver()) gameOver = true;
 
         cout << "Player 2's turn: " << endl;
-        player2.takeTurn();
-        if (player2.gameOver()) gameOver = true;
+        player2->takeTurn();
+        if (player2->gameOver()) gameOver = true;
     }
 
     cout << "Game over!" << endl;
