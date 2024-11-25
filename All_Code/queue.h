@@ -6,7 +6,7 @@
 #include "shape.h"
 
 class Queue {
-    std::unique_ptr<Shape> current;
+    std::shared_ptr<Shape> current;
     std::unique_ptr<Shape> next;
 
 public:

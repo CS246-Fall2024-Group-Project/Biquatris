@@ -19,7 +19,7 @@ class Player {
     Shape* currentShape;
 
   public:
-    Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas& canvas, Shape* currentShape);
+    Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas& canvas, std::shared_ptr<Shape> currentShape);
 
     void levelUp();
     void levelDown();

@@ -7,7 +7,7 @@
 
 class Subject {
   protected:
-    std::vector<std::unique_ptr<Observer>> observers; // List of observers
+    std::vector<std::shared_ptr<Observer>> observers; // List of observers
 
   public:
     virtual void attach(std::shared_ptr<Observer> o);
