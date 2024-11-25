@@ -11,8 +11,8 @@ using namespace std;
 
 // This is a commnet!
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, Shape* currentShape)
-    : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas canvas, std::unique_ptr<Shape> currentShape)
+    : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{std::move(currentShape)} {}
 
 void Player::levelUp() {
     int dif = level->getDifficulty();
@@ -79,9 +79,6 @@ void removeEffect(std::unique_ptr<Effect> effect) {
 */ 
 
 bool Player::takeTurn() {
-    if (!currentShape) {
-        currentShape = queue.getNext();
-    }
 
     string command;
     cout << "Enter command (left, right, down, drop): ";
@@ -92,7 +89,7 @@ bool Player::takeTurn() {
         if (!canvas.check_fit(newShape.get())) {
             cout << "Invalid move!" << endl;
         } else {
-            currentShape = newShape.release();;
+            currentShape = std::move(newShape); // transferring ownership of newShape to currentShape
         }
     } else if (command == "right") {
         std::unique_ptr<Shape> newShape = currentShape->right();
@@ -100,22 +97,28 @@ bool Player::takeTurn() {
         if (!canvas.check_fit(newShape.get())) {
             cout << "Invalid move!" << endl;
         } else {
-            currentShape = newShape.release();;
+            currentShape = std::move(newShape);
         }
     } else if (command == "down") {
+        // runs the down command
         std::unique_ptr<Shape> newShape = currentShape->down();
 
+        // checks if can fit?
         if (!canvas.check_fit(newShape.get())) {
+            // does not fit
             cout << "Invalid move!" << endl;
         } else {
-            currentShape = newShape.release();;
+            // does fit, move shape down
+            // replaces current with new shape
+            currentShape = make_unique<Shape> (newShape);
         }
     } else if (command == "drop") {
-        if (!canvas.drop(currentShape)) {
+        // find lowest point where this shape can be dropped
+        if (!canvas.check_fit(currentShape.get())) {
             cout << "Cannot drop shape here!" << endl;
             return false;
         }
-        canvas.drop(currentShape);
+        canvas.drop(currentShape.get());
         return true;
     }
 
@@ -133,7 +136,7 @@ void Player::reset() {
 
 bool Player::gameOver() const {
     if (canvas.getState(0, 0) != ' ') {
-        if (!canvas.check_fit(currentShape)) {
+        if (!canvas.check_fit(currentShape.get())) {
             return true;
         }
     }
