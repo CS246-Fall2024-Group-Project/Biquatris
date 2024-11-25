@@ -8,170 +8,101 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-//#include "graphicsObserver.h"
+
 using namespace std;
 
 void welcomeMessage() {
     cout << "Welcome to Biquadris! A turn-based Tetris-inspired game." << endl;
 }
 
-
 int main(int argc, char *argv[]) {
-    
-    // command line arguments stuff ****************************
-    // defaults
-    bool textMode = false; // default, display txt and XWindow
-    int seed = 556; // generates a random seed
-
+    // Command line arguments
+    bool textMode = false;
+    int seed = 556;
     string scriptfile1 = "sequence1.txt";
     string scriptfile2 = "sequence2.txt";
-
-    // by default level == 0
     int startLevel = 0;
 
-    for(int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
+    for (int i = 1; i < argc; ++i) {
+        string arg = argv[i];
         if (arg == "-text") {
             textMode = true;
-            // Means that we will not display Xwindow
-
-        } else if (arg == "-seed") {
-            if (i + 1 < argc) {
-                seed = std::atoi(argv[++i]); // Get the next argument as the seed
-            } else {
-                std::cerr << "Error: Missing argument for -seed\n";
-                return 1;
-            }
-
-            // changes the sequence file of player 1
-        } else if (arg == "-scriptfile1") {
-            if (i + 1 < argc) {
-                scriptfile1 = argv[++i];
-            } else {
-                std::cerr << "Error: Missing argument for -scriptfile1\n";
-                return 1;
-            }
-
-            // changes the sequence file of player 1
-        } else if (arg == "-scriptfile2") {
-            if (i + 1 < argc) {
-                scriptfile2 = argv[++i];
-            } else {
-                std::cerr << "Error: Missing argument for -scriptfile2\n";
-                return 1;
-            }
-        } else if (arg == "-startlevel") {
-            if (i + 1 < argc) {
-                startLevel = std::atoi(argv[++i]); // Get the next argument as the start level
-            } else {
-                std::cerr << "Error: Missing argument for -startlevel\n";
-                return 1;
-            }
+        } else if (arg == "-seed" && i + 1 < argc) {
+            seed = std::atoi(argv[++i]);
+        } else if (arg == "-scriptfile1" && i + 1 < argc) {
+            scriptfile1 = argv[++i];
+        } else if (arg == "-scriptfile2" && i + 1 < argc) {
+            scriptfile2 = argv[++i];
+        } else if (arg == "-startlevel" && i + 1 < argc) {
+            startLevel = std::atoi(argv[++i]);
         } else {
-            std::cerr << "Unknown option: " << arg << "\n";
+            cerr << "Unknown option: " << arg << "\n";
             return 1;
         }
     }
 
-
-    // creating the canvas for the players board
-    // generates a random seed.
-    
     welcomeMessage();
-
     std::srand(seed);
 
-    // important stuff
     Canvas game_board1(15, 11);
     Canvas game_board2(15, 11);
 
-    
+    ifstream file1{scriptfile1};
+    ifstream file2{scriptfile2};
 
-    ifstream file1 {scriptfile1};
-    ifstream file2 {scriptfile2};
-
-    //Queue queue1, queue2;
-
-    std::unique_ptr<Level> p1LVL;
-    std::unique_ptr<Level> p2LVL;
-
-    // determines the level
-    if(startLevel == 0) {
+    std::unique_ptr<Level> p1LVL, p2LVL;
+    if (startLevel == 0) {
         p1LVL = std::make_unique<Level0>(file1);
-
-        p2LVL= std::make_unique<Level0>(file2);
+        p2LVL = std::make_unique<Level0>(file2);
     } else if (startLevel == 1) {
-        p1LVL = std::make_unique<Level1>(file2);
-
-        p2LVL = std::make_unique<Level1>(file1);
+        p1LVL = std::make_unique<Level1>(file1);
+        p2LVL = std::make_unique<Level1>(file2);
     } else if (startLevel == 2) {
         p1LVL = std::make_unique<Level2>(file1);
-
         p2LVL = std::make_unique<Level2>(file2);
     } else if (startLevel == 3) {
         p1LVL = std::make_unique<Level3>(file1);
-
         p2LVL = std::make_unique<Level3>(file2);
     } else if (startLevel == 4) {
         p1LVL = std::make_unique<Level4>(file1);
-
         p2LVL = std::make_unique<Level4>(file2);
     } else {
-        cerr << "That is not allowed!" <<endl;
+        cerr << "Invalid starting level!" << endl;
         return 1;
     }
+
+
 
     Queue queue1(p1LVL.get());
     Queue queue2(p2LVL.get());
 
-    //////////////////////////////////////////////////
-    /*vector<unique_ptr<Observer>> obs1;
-    vector<unique_ptr<Observer>> obs2;*/
+    Player player1(1, 0, p1LVL.get(), &queue1, game_board1, std::make_unique<Shape>(*queue1.getCurrent()));
+    Player player2(2, 0, p2LVL.get(), &queue2, game_board2, std::make_unique<Shape>(*queue2.getCurrent()));
 
-    // determine the if it is textMode or not
-    if (textMode) { // textMode is true
-        // ONLY DO TEXT
-        
-        // player1
+    // observers for players
+    vector<unique_ptr<Observer>> obs1;
+    vector<unique_ptr<Observer>> obs2;
+
+    if (textMode) {
         textObserver(game_board1, 15, 11, startLevel, 0, queue1);
-
-        // player2
         textObserver(game_board2, 15, 11, startLevel, 0, queue2);
-
     } else {
-
-        // player1
         textObserver(game_board1, 15, 11, startLevel, 0, queue1);
-        // graphicObserver();
-
-        // player2
         textObserver(game_board2, 15, 11, startLevel, 0, queue2);
-        // graphicObserver();
     }
 
     bool gameOver = false;
 
-    // Loop while the game is playing
     while (!gameOver) {
         cout << "Player 1's turn: " << endl;
-
-        // PRINT BOARD
-
-        player1.takeTurn(player1.canvas);
-
-        if (player1.gameOver()) {
-            gameOver = true;
-        }
-
-        //queue.nextShape(); // MAKE QUEUE GET NEXT SHAPE
-
-        // PRINT BOARD
+        player1.takeTurn();
+        if (player1.gameOver()) gameOver = true;
 
         cout << "Player 2's turn: " << endl;
-        player2.takeTurn(player2.canvas);
-
-        if (player2.gameOver()) {
-            gameOver = true;
-        }
+        player2.takeTurn();
+        if (player2.gameOver()) gameOver = true;
     }
+
+    cout << "Game over!" << endl;
+    return 0;
 }

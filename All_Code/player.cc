@@ -1,17 +1,13 @@
 #include <iostream>
-#include <string>
-#include <vector>
 #include <memory>
-#include "queue.h"
 #include "player.h"
-//#include "effect.h"
 #include "canvas.h"
+#include "queue.h"
 #include "level.h"
+
 using namespace std;
 
-// This is a commnet!
-
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas canvas, std::unique_ptr<Shape> currentShape)
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue* queue, Canvas& canvas, std::unique_ptr<Shape> currentShape)
     : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{std::move(currentShape)} {}
 
 void Player::levelUp() {
@@ -52,99 +48,56 @@ int Player::getScore() const {
     return score;
 }
 
-Canvas Player::getCanvas() const {
+Canvas& Player::getCanvas() const {
     return canvas;
 }
 
-/*
-void applyEffect(std::unique_ptr<Effect> effect) {
-    if (effect == blind) {
-        sharedCanvas.add_blindEffect();
-    } else if (effect == heavy) {
-        sharedCanvas.add_heavyEffect();
-    } else {
-        sharedCanvas.add_forceEffect();
-    }
-}
-
-void removeEffect(std::unique_ptr<Effect> effect) {
-    if (effect == blind) {
-        sharedCanvas.remove_blindEffect();
-    } else if (effect == heavy) {
-        sharedCanvas.remove_heavyEffect();
-    } else {
-        sharedCanvas.remove_forceEffect();
-    }
-}
-*/ 
-
 bool Player::takeTurn() {
-
     string command;
     cout << "Enter command (left, right, down, drop): ";
     cin >> command;
 
     if (command == "left") {
-        std::unique_ptr<Shape> newShape = currentShape->left();
-        if (!canvas.check_fit(newShape.get())) {
-            cout << "Invalid move!" << endl;
+        auto newShape = currentShape->left();
+        if (canvas.check_fit(newShape.get())) {
+            currentShape = std::move(newShape);
         } else {
-            currentShape = std::move(newShape); // transferring ownership of newShape to currentShape
+            cout << "Invalid move!" << endl;
         }
     } else if (command == "right") {
-        std::unique_ptr<Shape> newShape = currentShape->right();
-
-        if (!canvas.check_fit(newShape.get())) {
-            cout << "Invalid move!" << endl;
-        } else {
+        auto newShape = currentShape->right();
+        if (canvas.check_fit(newShape.get())) {
             currentShape = std::move(newShape);
+        } else {
+            cout << "Invalid move!" << endl;
         }
     } else if (command == "down") {
-        // runs the down command
-        std::unique_ptr<Shape> newShape = currentShape->down();
-
-        // checks if can fit?
-        if (!canvas.check_fit(newShape.get())) {
-            // does not fit
-            cout << "Invalid move!" << endl;
+        auto newShape = currentShape->down();
+        if (canvas.check_fit(newShape.get())) {
+            currentShape = std::move(newShape);
         } else {
-            // does fit, move shape down
-            // replaces current with new shape
-            currentShape = make_unique<Shape> (newShape);
+            cout << "Invalid move!" << endl;
         }
     } else if (command == "drop") {
-        // find lowest point where this shape can be dropped
-        if (!canvas.check_fit(currentShape.get())) {
-            cout << "Cannot drop shape here!" << endl;
-            return false;
-        }
         canvas.drop(currentShape.get());
+        currentShape = nullptr; // Shape is now on the canvas
         return true;
     }
 
     return false;
 }
 
-void Player::reset() {
+void Player::reset(std::unique_ptr<Level> newLevel) {
     score = 0;
-    level = 0;
-    //effects->clear();
-    currentShape = nullptr;
-
-    // needs to loop through all of the vectors and replace everything with '_'
+    level = std::move(newLevel);
+    currentShape = std::make_unique<Shape>(queue->getCurrent());
+    // HOW DO WE RESET THE CANVAS
 }
 
 bool Player::gameOver() const {
-    if (canvas.getState(0, 0) != ' ') {
-        if (!canvas.check_fit(currentShape.get())) {
-            return true;
-        }
-    }
-    return false;
+    return !canvas.check_fit(currentShape.get());
 }
 
 Player::~Player() {
-    /*for (auto* effect : effects) {
-        delete effect;
-    }*/
+    // Automatic cleanup for unique_ptr
 }
