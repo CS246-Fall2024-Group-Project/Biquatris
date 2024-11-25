@@ -7,7 +7,8 @@ using namespace std;
 textObserver::textObserver(Player *p1, Player *p2, int width, int height)
     : player1{p1}, player2{p2}, width(11), height(18) {
 
-    canvas->attach(std::shared_ptr<Observer>(this));
+    player1->getCanvas().attach(std::shared_ptr<Observer>(this));
+    player2->getCanvas().attach(std::shared_ptr<Observer>(this));
 }
 
 void printBlock(int row, int column, char letter) {
@@ -107,7 +108,8 @@ void textObserver::notify() {
 }
 
 textObserver::~textObserver() {
-    canvas->detach(std::shared_ptr<Observer>(this));
+    player1->getCanvas().detach(std::shared_ptr<Observer>(this));
+    player2->getCanvas().detach(std::shared_ptr<Observer>(this));
 }
 
 
