@@ -1,19 +1,19 @@
-#include <memory>
-#include "level.h"
-#include "shape.h"
 #include "queue.h"
+#include <utility>
 
-Queue::Queue(Level* lv): current{lv->genShape()}, next{lv->genShape()} {}
+Queue::Queue(Level* lv) 
+    : current{lv->genShape()}, next{lv->genShape()} {}
 
-Shape* Queue::getCurrent() const {
-    return current.get();
+const Shape* Queue::getCurrent() const {
+    return current.get(); // Expose as a const pointer
 }
-Shape* Queue::getNext() const {
-    return next.get();
-}
 
+const Shape* Queue::getNext() const {
+    return next.get(); // Expose as a const pointer
+}
 
 void Queue::findNext(Level* lv) {
-    current = std::move(next);
-    next = lv->genShape();
+    current = std::move(next); // Transfer ownership of `next` to `current`
+    next = lv->genShape();     // Generate a new Shape for `next`
 }
+

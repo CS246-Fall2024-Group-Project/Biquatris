@@ -9,11 +9,13 @@ class Queue {
     std::unique_ptr<Shape> current;
     std::unique_ptr<Shape> next;
 
-    public:
-        Queue(Level* lv);
-        Shape* getCurrent() const;
-        Shape* getNext() const;
+public:
+    explicit Queue(Level* lv);
+    const Shape* getCurrent() const; // Use const Shape* to avoid implying ownership
+    const Shape* getNext() const;
 
-        void findNext(Level* lv);
+    void findNext(Level* lv);
 };
+
 #endif
+
