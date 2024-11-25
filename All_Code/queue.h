@@ -11,8 +11,8 @@ class Queue {
 
 public:
     explicit Queue(Level* lv);
-    const Shape* getCurrent() const; // Use const Shape* to avoid implying ownership
-    const Shape* getNext() const;
+    Shape* getCurrent(); 
+    Shape* getNext();
 
     void findNext(Level* lv);
 };

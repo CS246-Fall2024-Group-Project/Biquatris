@@ -4,11 +4,11 @@
 Queue::Queue(Level* lv) 
     : current{lv->genShape()}, next{lv->genShape()} {}
 
-const Shape* Queue::getCurrent() const {
+Shape* Queue::getCurrent() {
     return current.get(); // Expose as a const pointer
 }
 
-const Shape* Queue::getNext() const {
+Shape* Queue::getNext() {
     return next.get(); // Expose as a const pointer
 }
 
