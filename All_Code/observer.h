@@ -5,7 +5,7 @@ class Player;
 
 class Observer {
   public:
-    virtual void notify(Player* player1, Player* player2) = 0;
+    virtual void notify() = 0;
     virtual ~Observer() = default;
 };
 
