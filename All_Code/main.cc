@@ -3,6 +3,10 @@
 #include "player.h"
 #include "observer.h"
 #include "textObserver.h"
+#include "shape.h"
+#include "block.h"
+#include <fstream>
+#include <string>
 #include <cstdlib>
 //#include "graphicsObserver.h"
 using namespace std;
