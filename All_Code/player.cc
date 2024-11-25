@@ -11,7 +11,7 @@ using namespace std;
 
 // This is a commnet!
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, std::unique_ptr<Shape> currentShape)
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, Shape* currentShape)
     : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
 
 void Player::levelUp() {
@@ -128,18 +128,18 @@ bool Player::takeTurn() {
     return false;
 }
 
-void reset() {
+void Player::reset() {
     score = 0;
     level = 0;
-    effects.clear();
+    //effects->clear();
     currentShape = nullptr;
 
     // needs to loop through all of the vectors and replace everything with '_'
 }
 
 bool Player::gameOver() const {
-    if (canvas->getState(0, 0) != ' ') {
-        if (!canvas->check_fit(currentShape.get())) {
+    if (canvas.getState(0, 0) != ' ') {
+        if (!canvas.check_fit(currentShape.get())) {
             return true;
         }
     }
@@ -147,7 +147,7 @@ bool Player::gameOver() const {
 }
 
 Player::~Player() {
-    for (auto* effect : effects) {
+    /*for (auto* effect : effects) {
         delete effect;
-    }
+    }*/
 }

@@ -19,10 +19,10 @@ class Player {
     Queue queue;
     //std::vector<std::unique_ptr<Effect>> effects;
     Canvas canvas;
-    std::unique_ptr<Shape> currentShape;
+    Shape* currentShape;
 
   public:
-    Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, std::unique_ptr<Shape> currentShape);
+    Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, Shape* currentShape);
 
     void levelUp();
     void levelDown();
