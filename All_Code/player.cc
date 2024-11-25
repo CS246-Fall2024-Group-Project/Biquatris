@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "queue.h"
+#include "player.h"
 //#include "effect.h"
 #include "canvas.h"
 #include "level.h"
@@ -10,57 +11,48 @@ using namespace std;
 
 // This is a commnet!
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas, std::unique_ptr<Shape> currentShape);
-    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue queue, Canvas canvas, std::unique_ptr<Shape> currentShape)
+    : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
 
-void levelUp() {
-    // level up the difficulty
+void Player::levelUp() {
     int dif = level->getDifficulty();
-    if(dif == 0) {
-        Level1 lv {Level->getSequence()};
-        Level = make_unique<Level> // make a level1 pointer
+    if (dif == 0) {
+        level = std::make_unique<Level1>(level->getSequence());
     } else if (dif == 1) {
-        Level2 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level2>(level->getSequence());
     } else if (dif == 2) {
-        Level3 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level3>(level->getSequence());
     } else if (dif == 3) {
-        Level4 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level4>(level->getSequence());
     } else {
-        cerr << "Cannot level up anymore." << endl;
+        std::cerr << "Cannot level up anymore." << std::endl;
     }
 }
 
-void levelDown() {
+void Player::levelDown() {
     int dif = level->getDifficulty();
-    if(dif == 0) {
-        cerr << "Cannot level down anymore." << endl;
+    if (dif == 0) {
+        std::cerr << "Cannot level down anymore." << std::endl;
     } else if (dif == 1) {
-        Level0 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level0>(level->getSequence());
     } else if (dif == 2) {
-        Level1 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level1>(level->getSequence());
     } else if (dif == 3) {
-        Level2 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level2>(level->getSequence());
     } else {
-        Level3 lv {Level->getSequence()};
-        Level = make_unique<Level>
+        level = std::make_unique<Level3>(level->getSequence());
     }
 }
 
-void addScore(int points) {
+void Player::addScore(int points) {
     score += points;
 }
 
-int getScore() const {
+int Player::getScore() const {
     return score;
 }
 
-std::unique_ptr<Canvas> Player::getCanvas() const {
+Canvas Player::getCanvas() const {
     return canvas;
 }
 
@@ -84,24 +76,11 @@ void removeEffect(std::unique_ptr<Effect> effect) {
         sharedCanvas.remove_forceEffect();
     }
 }
-*/
-
-int chooseLevel() {
-    while (true) {
-        int tmp;
-        cin >> tmp;
-        if (tmp >= 0 && tmp <= 4) {
-            level = tmp;
-            return level;
-        } else {
-            cout << "Please enter a valid level." << endl;
-        }
-    }
-}
+*/ 
 
 bool Player::takeTurn() {
     if (!currentShape) {
-        currentShape = queue->getNext();
+        currentShape = queue.getNext();
     }
 
     string command;
