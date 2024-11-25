@@ -52,6 +52,10 @@ Canvas& Player::getCanvas() const {
     return canvas;
 }
 
+Queue* Player::getQueue() const {
+    return queue;
+}
+
 bool Player::takeTurn() {
     string command;
     cout << "Enter command (left, right, down, drop): ";

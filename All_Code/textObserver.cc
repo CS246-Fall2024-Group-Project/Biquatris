@@ -9,6 +9,16 @@ textObserver::textObserver(Canvas *canvas, int width, int height, int level, int
     canvas->attach(std::shared_ptr<Observer>(this));
 }
 
+void printBlock(int row, int column, char letter) {
+    for (int i = 1; i < row; i++) {
+        cout << endl;
+    }
+    for (int j = 1; j < column; j++) {
+        cout << " ";
+    }
+    cout << letter;
+}
+
 void textObserver::notify(Player* player1, Player* player2) {
     //starting of the first board
     cout << " Level: " << level << endl;
@@ -40,9 +50,14 @@ void textObserver::notify(Player* player1, Player* player2) {
     cout << "+" << endl;
 
     cout << "  Next: " << endl;
-    Shape *nextShape1 = player1->getQueue()->findNext();
+    Shape *nextShape1 = player1->getQueue()->getNext();
     if (nextShape1 != nullptr) {
-        nextShape1->display(); // Display the next shape directly
+        for (const auto& block : nextShape1->getBlocks()) { 
+            int row = block.getY();
+            int column = 2 + block.getX();
+            char letter = block.getC();
+            printBlock(row, column, letter);
+        }
     }
 
 
@@ -79,9 +94,14 @@ void textObserver::notify(Player* player1, Player* player2) {
 
     cout << "                    " << "  Next: " << endl;
     cout << "                    ";
-    Shape *nextShape2 = player2->getQueue()->findNext();
+    Shape *nextShape2 = player2->getQueue()->getNext();
     if (nextShape2 != nullptr) {
-        nextShape2->display(); // Display the next shape directly
+        for (const auto& block : nextShape1->getBlocks()) { 
+            int row = block.getY();
+            int column = 21 + block.getX();
+            char letter = block.getC();
+            printBlock(row, column, letter);
+        }
     }
 }
 
@@ -116,8 +136,8 @@ textObserver::~textObserver() {
   |           |       |           |
   +-----------+       +-----------+
   Next:               Next:
-    L                   L
-  LLL                 LLL
+  OO                    L
+  OO                  LLL
 
   // work with displaying the next shape better
 */
