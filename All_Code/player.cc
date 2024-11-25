@@ -10,8 +10,8 @@ using namespace std;
 
 // This is a commnet!
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, Canvas canvas)
-    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{queue.getCurrent()} {}
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas, std::unique_ptr<Shape> currentShape);
+    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
 
 void levelUp() {
     // level up the difficulty
@@ -64,6 +64,7 @@ std::unique_ptr<Canvas> Player::getCanvas() const {
     return canvas;
 }
 
+/*
 void applyEffect(std::unique_ptr<Effect> effect) {
     if (effect == blind) {
         sharedCanvas.add_blindEffect();
@@ -83,6 +84,7 @@ void removeEffect(std::unique_ptr<Effect> effect) {
         sharedCanvas.remove_forceEffect();
     }
 }
+*/
 
 int chooseLevel() {
     while (true) {
@@ -157,8 +159,10 @@ void reset() {
 }
 
 bool Player::gameOver() const {
-    if (!canvas->check_fit(currentShape)) {
-        return true;
+    if (canvas->getState(0, 0) != ' ') {
+        if (!canvas->check_fit(currentShape.get())) {
+            return true;
+        }
     }
     return false;
 }

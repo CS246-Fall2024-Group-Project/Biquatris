@@ -17,7 +17,7 @@ void Subject::detach( std::unique_ptr<Observer> o ) {
 }
 
 // might have some errors
-void Subject::notifyObservers() {
+void Subject::notifyObservers() const {
     for (auto& o : observers) {
         o->notify();
     }
