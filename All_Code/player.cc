@@ -87,7 +87,7 @@ bool Player::takeTurn() {
             cout << "Invalid move!" << endl;
         }
     } else if (command == "drop") {
-        canvas.drop(currentShape.get());
+        canvas.drop(currentShape);
         currentShape = nullptr; // Shape is now on the canvas
         return true;
     }

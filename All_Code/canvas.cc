@@ -43,16 +43,16 @@ bool Canvas::check_fit(Shape* shape) const {
     return true;
 }
 
-bool Canvas::drop(Shape* shape) {
-    std::unique_ptr<Shape> tmpShape = std::make_unique<Shape>(*shape);
+bool Canvas::drop(std::shared_ptr<Shape> shape) {
+    std::shared_ptr<Shape> tmpShape = shape;
 
     while (true) {
-        std::unique_ptr<Shape> nextShape = tmpShape->down();
+        std::shared_ptr<Shape> nextShape = tmpShape->down();
         if (!check_fit(nextShape.get())) {
             break;
         }
 
-        tmpShape = std::move(nextShape);
+        tmpShape = nextShape;
     }
 
     if (!check_fit(tmpShape.get())) {

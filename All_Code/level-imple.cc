@@ -20,7 +20,7 @@ std::ifstream& Level::getSequence() const {
 
 Level0::Level0(std::ifstream& stream): Level(0, stream) {}
 
-std::unique_ptr<Shape> Level0::genShape() {
+std::shared_ptr<Shape> Level0::genShape() {
     // uses files
     char shapeType;
 
@@ -28,7 +28,7 @@ std::unique_ptr<Shape> Level0::genShape() {
     sequence >> shapeType;
     
     // Read each character from the file and create the corresponding shape
-        std::unique_ptr<Shape> shape;
+        std::shared_ptr<Shape> shape;
         if(sequence.eof()) {
             sequence.clear();
             // moves to beginning
@@ -39,25 +39,25 @@ std::unique_ptr<Shape> Level0::genShape() {
         // Create the shape based on the character read
         switch (shapeType) {
             case 'S':
-                shape = std::make_unique<S>(x, y); // You can adjust x, y, turn as needed
+                shape = std::make_shared<S>(x, y); // You can adjust x, y, turn as needed
                 break;
             case 'Z':
-                shape = std::make_unique<Z>(x, y);
+                shape = std::make_shared<Z>(x, y);
                 break;
             case 'T':
-                shape = std::make_unique<T>(x, y);
+                shape = std::make_shared<T>(x, y);
                 break;
             case 'I':
-                shape = std::make_unique<I>(x, y);
+                shape = std::make_shared<I>(x, y);
                 break;
             case 'O':
-                shape = std::make_unique<O>(x, y);
+                shape = std::make_shared<O>(x, y);
                 break;
             case 'L':
-                shape = std::make_unique<L>(x, y);
+                shape = std::make_shared<L>(x, y);
                 break;
             case 'J':
-                shape = std::make_unique<J>(x, y);
+                shape = std::make_shared<J>(x, y);
                 break;
             default:
                 std::cerr << "Unknown shape type: " << shapeType << std::endl;
@@ -68,47 +68,47 @@ std::unique_ptr<Shape> Level0::genShape() {
 
 Level1::Level1(std::ifstream& stream): Level(1, stream) {}
 
-std::unique_ptr<Shape> Level1::genShape() {
+std::shared_ptr<Shape> Level1::genShape() {
     int random = 1 + (rand() % 12);
 
-    std::unique_ptr<Shape> shape;
+    std::shared_ptr<Shape> shape;
 
     switch (random) {
         case 1: // 1/12 chance for Z
-            shape = std::make_unique<Z>(x, y);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 2: // 1/12 chance for S
-            shape = std::make_unique<S>(x, y);
+            shape = std::make_shared<S>(x, y);
             break;
         case 3: // 2/12 chance for L
-            shape = std::make_unique<L>(x, y);
+            shape = std::make_shared<L>(x, y);
             break;
         case 4:
-            shape = std::make_unique<L>(x, y);
+            shape = std::make_shared<L>(x, y);
             break;
         case 5: // 2/12 chance for J
-            shape = std::make_unique<J>(x, y);
+            shape = std::make_shared<J>(x, y);
             break;
         case 6:
-            shape = std::make_unique<J>(x, y);
+            shape = std::make_shared<J>(x, y);
             break;
         case 7: // 2/12 chance for T
-            shape = std::make_unique<T>(x, y);
+            shape = std::make_shared<T>(x, y);
             break;
         case 8:
-            shape = std::make_unique<T>(x, y);
+            shape = std::make_shared<T>(x, y);
             break;
         case 9: // 2/12 chance for O
-            shape = std::make_unique<O>(x, y);
+            shape = std::make_shared<O>(x, y);
             break;
         case 10:
-            shape = std::make_unique<O>(x, y);
+            shape = std::make_shared<O>(x, y);
             break;
         case 11: // 2/12 chance for I
-            shape = std::make_unique<I>(x, y);
+            shape = std::make_shared<I>(x, y);
             break;
         case 12:
-            shape = std::make_unique<I>(x, y);
+            shape = std::make_shared<I>(x, y);
             break;
         default:
             std::cerr << "Unexpected random number: " << random << std::endl;
@@ -120,32 +120,32 @@ std::unique_ptr<Shape> Level1::genShape() {
 
 Level2::Level2(std::ifstream& stream): Level(2, stream) {}
 
-std::unique_ptr<Shape> Level2::genShape() {
+std::shared_ptr<Shape> Level2::genShape() {
     int random = 1 + (rand() % 7);
 
-    std::unique_ptr<Shape> shape;
+    std::shared_ptr<Shape> shape;
 
     switch (random) {
         case 1: // 1/7 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 2: // 1/7 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_shared<S>(x, y);
             break;
         case 3: // 1/7 chance for L
-            shape = std::make_unique<L>(x, y, 0);
+            shape = std::make_shared<L>(x, y);
             break;
         case 4: // 1/7 chance for J
-            shape = std::make_unique<J>(x, y, 0);
+            shape = std::make_shared<J>(x, y);
             break;;
         case 5: // 1/7 chance for T
-            shape = std::make_unique<T>(x, y, 0);
+            shape = std::make_shared<T>(x, y);
             break;
         case 6: // 1/7 chance for O
-            shape = std::make_unique<O>(x, y, 0);
+            shape = std::make_shared<O>(x, y);
             break;
         case 7: // 1/7 chance for I
-            shape = std::make_unique<I>(x, y, 0);
+            shape = std::make_shared<I>(x, y);
             break;
         default:
             break;
@@ -156,42 +156,42 @@ std::unique_ptr<Shape> Level2::genShape() {
 
 Level3::Level3(std::ifstream& stream): Level(3, stream), rng{true} {}
 
-std::unique_ptr<Shape> Level3::genShape() {
+std::shared_ptr<Shape> Level3::genShape() {
     if (rng == false) {
         return Level3::genShapeFile();
     }
 
     int random = 1 + (rand() % 9);
 
-    std::unique_ptr<Shape> shape;
+    std::shared_ptr<Shape> shape;
 
     switch (random) {
         case 1: // 1/9 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 2: // 1/9 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_shared<S>(x, y);
             break;
         case 3: // 1/9 chance for L
-            shape = std::make_unique<L>(x, y, 0);
+            shape = std::make_shared<L>(x, y);
             break;
         case 4: // 1/9 chance for J
-            shape = std::make_unique<J>(x, y, 0);
+            shape = std::make_shared<J>(x, y);
             break;;
         case 5: // 1/9 chance for T
-            shape = std::make_unique<T>(x, y, 0);
+            shape = std::make_shared<T>(x, y);
             break;
         case 6: // 1/9 chance for O
-            shape = std::make_unique<O>(x, y, 0);
+            shape = std::make_shared<O>(x, y);
             break;
         case 7: // 1/9 chance for I
-            shape = std::make_unique<I>(x, y, 0);
+            shape = std::make_shared<I>(x, y);
             break;
         case 8: // 2/9 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 9: // 2/9 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_shared<S>(x, y);
             break;
         default:
             random = 1 + (rand() % 7);
@@ -200,14 +200,14 @@ std::unique_ptr<Shape> Level3::genShape() {
     return shape;
 }
 
-std::unique_ptr<Shape> Level3::genShapeFile() {
+std::shared_ptr<Shape> Level3::genShapeFile() {
     char shapeType;
 
     // read from file
     sequence >> shapeType;
     
     // Read each character from the file and create the corresponding shape
-        std::unique_ptr<Shape> shape;
+        std::shared_ptr<Shape> shape;
         if(sequence.eof()) {
             sequence.clear();
             // moves to beginning
@@ -222,25 +222,25 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
         // Create the shape based on the character read
         switch (shapeType) {
             case 'S':
-                shape = std::make_unique<S>(x, y, 0); // You can adjust x, y, turn as needed
+                shape = std::make_shared<S>(x, y); // You can adjust x, y, turn as needed
                 break;
             case 'Z':
-                shape = std::make_unique<Z>(x, y, 0);
+                shape = std::make_shared<Z>(x, y);
                 break;
             case 'T':
-                shape = std::make_unique<T>(x, y, 0);
+                shape = std::make_shared<T>(x, y);
                 break;
             case 'I':
-                shape = std::make_unique<I>(x, y, 0);
+                shape = std::make_shared<I>(x, y);
                 break;
             case 'O':
-                shape = std::make_unique<O>(x, y, 0);
+                shape = std::make_shared<O>(x, y);
                 break;
             case 'L':
-                shape = std::make_unique<L>(x, y, 0);
+                shape = std::make_shared<L>(x, y);
                 break;
             case 'J':
-                shape = std::make_unique<J>(x, y, 0);
+                shape = std::make_shared<J>(x, y);
                 break;
             default:
                 sequence >> shapeType; // go to next shape
@@ -250,42 +250,42 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
 
 Level4::Level4(std::ifstream& stream): Level(4, stream), rng{true} {}
 
-std::unique_ptr<Shape> Level3::genShape() {
+std::shared_ptr<Shape> Level4::genShape() {
     if (rng == false) {
-        return Level3::genShapeFile();
+        return this->genShapeFile();
     }
     
     int random = 1 + (rand() % 9);
 
-    std::unique_ptr<Shape> shape;
+    std::shared_ptr<Shape> shape;
 
     switch (random) {
         case 1: // 1/9 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 2: // 1/9 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_shared<S>(x, y);
             break;
         case 3: // 1/9 chance for L
-            shape = std::make_unique<L>(x, y, 0);
+            shape = std::make_shared<L>(x, y);
             break;
         case 4: // 1/9 chance for J
-            shape = std::make_unique<J>(x, y, 0);
+            shape = std::make_shared<J>(x, y);
             break;;
         case 5: // 1/9 chance for T
-            shape = std::make_unique<T>(x, y, 0);
+            shape = std::make_shared<T>(x, y);
             break;
         case 6: // 1/9 chance for O
-            shape = std::make_unique<O>(x, y, 0);
+            shape = std::make_shared<O>(x, y);
             break;
         case 7: // 1/9 chance for I
-            shape = std::make_unique<I>(x, y, 0);
+            shape = std::make_shared<I>(x, y);
             break;
         case 8: // 2/9 chance for Z
-            shape = std::make_unique<Z>(x, y, 0);
+            shape = std::make_shared<Z>(x, y);
             break;
         case 9: // 2/9 chance for S
-            shape = std::make_unique<S>(x, y, 0);
+            shape = std::make_shared<S>(x, y);
             break;
         default:
             random = 1 + (rand() % 7);
@@ -294,14 +294,14 @@ std::unique_ptr<Shape> Level3::genShape() {
     return shape;
 }
 
-std::unique_ptr<Shape> Level3::genShapeFile() {
+std::shared_ptr<Shape> Level4::genShapeFile() {
     char shapeType;
 
     // read from file
     sequence >> shapeType;
     
     // Read each character from the file and create the corresponding shape
-        std::unique_ptr<Shape> shape;
+        std::shared_ptr<Shape> shape;
         if(sequence.eof()) {
             sequence.clear();
             // moves to beginning
@@ -314,25 +314,25 @@ std::unique_ptr<Shape> Level3::genShapeFile() {
         // Create the shape based on the character read
         switch (shapeType) {
             case 'S':
-                shape = std::make_unique<S>(x, y, 0); // You can adjust x, y, turn as needed
+                shape = std::make_shared<S>(x, y); // You can adjust x, y, turn as needed
                 break;
             case 'Z':
-                shape = std::make_unique<Z>(x, y, 0);
+                shape = std::make_shared<Z>(x, y);
                 break;
             case 'T':
-                shape = std::make_unique<T>(x, y, 0);
+                shape = std::make_shared<T>(x, y);
                 break;
             case 'I':
-                shape = std::make_unique<I>(x, y, 0);
+                shape = std::make_shared<I>(x, y);
                 break;
             case 'O':
-                shape = std::make_unique<O>(x, y, 0);
+                shape = std::make_shared<O>(x, y);
                 break;
             case 'L':
-                shape = std::make_unique<L>(x, y, 0);
+                shape = std::make_shared<L>(x, y);
                 break;
             case 'J':
-                shape = std::make_unique<J>(x, y, 0);
+                shape = std::make_shared<J>(x, y);
                 break;
             default:
                 sequence >> shapeType; // go to next shape

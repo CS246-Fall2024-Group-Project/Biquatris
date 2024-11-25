@@ -1,7 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include <block.h>
+#include "block.h"
 #include <vector>
 #include <memory>
 
@@ -24,7 +24,6 @@ class Shape {
 
         char getLetter() const;
         std::vector<Block> getBlocks() const;
-        virtual ~Shape() = default;
 };
 
 class L : public Shape {

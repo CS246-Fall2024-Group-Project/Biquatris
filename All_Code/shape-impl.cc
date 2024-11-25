@@ -959,7 +959,8 @@ std::shared_ptr<Shape> T::counter() {
         newShape.blocks[2].setY(y - 1);
 
         newShape.blocks[3].setX(x + 0);
-        newShape.blocks[3].setY(y + 0);
+        newShape.blocks[3].setY(y + 2);
+        
     } else if (rotationState == rotation3) { // rotation3 -> rotation2
         //               T
         // TTT  -------> TT

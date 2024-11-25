@@ -2,6 +2,7 @@
 #define CANVAS_H
 
 #include <vector>
+#include <memory>
 #include "subject.h"
 #include "shape.h"
 #include "block.h"
@@ -18,7 +19,7 @@ class Canvas : public Subject {
     int getHeight() const;
     int getWidth() const;
     bool check_fit(Shape *shape) const;
-    bool drop(Shape *shape);
+    bool drop(std::shared_ptr<Shape> shape);
     void clearLine();
     void display() const;
     ~Canvas() = default;
