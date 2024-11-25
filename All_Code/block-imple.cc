@@ -1,4 +1,4 @@
-#include <block.h>
+#include "block.h"
 
 Block::Block(int x, int y, char c/*, int life*/): x{x}, y{y}, c{c}/*, lifespan{life}*/ {}
 
