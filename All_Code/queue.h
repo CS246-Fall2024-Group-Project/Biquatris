@@ -7,7 +7,7 @@
 
 class Queue {
     std::shared_ptr<Shape> current;
-    std::unique_ptr<Shape> next;
+    std::shared_ptr<Shape> next;
 
 public:
     explicit Queue(Level* lv);

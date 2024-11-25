@@ -8,7 +8,7 @@
 
 class textObserver : public Observer {
     Player* player1;
-    Player *player2;
+    Player* player2;
     int width, height;
 
 public:

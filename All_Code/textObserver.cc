@@ -52,7 +52,7 @@ void textObserver::notify() {
     cout << "+" << endl;
 
     cout << "  Next: " << endl;
-    Shape *nextShape1 = player1->getQueue()->getNext();
+    Shape *nextShape1 = player1->getQueue().getNext();
     if (nextShape1 != nullptr) {
         for (const auto& block : nextShape1->getBlocks()) { 
             int row = block.getY();
@@ -96,7 +96,7 @@ void textObserver::notify() {
 
     cout << "                    " << "  Next: " << endl;
     cout << "                    ";
-    Shape *nextShape2 = player2->getQueue()->getNext();
+    Shape *nextShape2 = player2->getQueue().getNext();
     if (nextShape2 != nullptr) {
         for (const auto& block : nextShape1->getBlocks()) { 
             int row = block.getY();
