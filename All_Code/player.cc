@@ -10,8 +10,8 @@ using namespace std;
 
 // This is a commnet!
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas);
-    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{nullptr} {}
+Player::Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, Canvas canvas)
+    : playerID{playerID}, score{score}, level{level}, queue{queue}, canvas{canvas}, currentShape{queue.getCurrent()} {}
 
 void levelUp() {
     // level up the difficulty

@@ -89,7 +89,7 @@ void Canvas::setState(int row, int col, char c) {
     canvas[row][col] = c;
 }
 
-void Canvas::display(/*SHOULD TAKE IN A BOOL*/) const {
+void Canvas::display() const {
 
     // YOU NEED TO CALL NOTIFY OBSERVER IN HERE
     for (int i = 0; i < height; i++) {

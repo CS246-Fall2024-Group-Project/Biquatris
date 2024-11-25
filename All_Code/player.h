@@ -17,11 +17,11 @@ class Player {
     std::unique_ptr<Level> level;
     Queue queue;
     //std::vector<std::unique_ptr<Effect>> effects;
-    std::unique_ptr<Canvas> canvas;
+    Canvas canvas;
     std::unique_ptr<Shape> currentShape;
 
   public:
-    Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, std::unique_ptr<Canvas> canvas);
+    Player(int playerID, int score, std::unique_ptr<Level> level, std::unique_ptr<Queue> queue, Canvas canvas);
     void levelUp();
     void levelDown();
     int chooseLevel();
@@ -34,7 +34,7 @@ class Player {
     void processEffects();
     bool takeTurn();
     void reset();
-    Canvas* getCanvas() const; // YAY
+    Canvas getCanvas() const; // YAY
     bool gameOver() const;
     ~Player();
 };
