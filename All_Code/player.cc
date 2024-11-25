@@ -91,11 +91,21 @@ void Player::reset(std::unique_ptr<Level> newLevel) {
     score = 0;
     level = std::move(newLevel);
     currentShape = std::make_unique<Shape>(queue->getCurrent());
-    // HOW DO WE RESET THE CANVAS
+    for (int i = 0; i < canvas.getHeight(); ++i) {
+        for (int j = 0; j < canvas.getWidth(); ++j) {
+            canvas.setState(i, j, ' ');
+        }
+    }
+    canvas.notifyObservers();
 }
 
 bool Player::gameOver() const {
-    return !canvas.check_fit(currentShape.get());
+    if (canvas.getState(0, 0) != ' ') {
+        if (!canvas.check_fit(currentShape.get())) {
+            return true;
+        }
+    }
+    return false;
 }
 
 Player::~Player() {

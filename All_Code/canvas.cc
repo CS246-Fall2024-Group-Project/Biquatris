@@ -19,6 +19,14 @@ char Canvas::getState(int row, int col) const {
     return canvas[row][col];
 }
 
+int Canvas::getHeight() const {
+    return height;
+}
+
+int Canvas::getWidth() const {
+    return width;
+}
+
 bool Canvas::check_fit(Shape* shape) const {
     for (const auto& block : shape->getBlocks()) {
         int row = block.getX();
