@@ -35,7 +35,7 @@ bool Canvas::check_fit(Shape* shape) const {
     return true;
 }
 
-void Canvas::drop(Shape* shape) {
+bool Canvas::drop(Shape* shape) {
     std::unique_ptr<Shape> tmpShape = std::make_unique<Shape>(*shape);
 
     while (true) {
@@ -44,7 +44,11 @@ void Canvas::drop(Shape* shape) {
             break;
         }
 
-        tmpShape = std::make_unique<Shape>(*nextShape);
+        tmpShape = std::move(nextShape);
+    }
+
+    if (!check_fit(tmpShape.get())) {
+        return false;
     }
 
     for (const auto& block : tmpShape->getBlocks()) {
@@ -52,6 +56,7 @@ void Canvas::drop(Shape* shape) {
         int col = block.getY();
         canvas[row][col] = tmpShape->getLetter();
     }
+    return true;
 }
 
 void Canvas::clearLine() {

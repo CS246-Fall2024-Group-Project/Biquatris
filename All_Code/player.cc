@@ -89,34 +89,28 @@ bool Player::takeTurn() {
 
     if (command == "left") {
         std::unique_ptr<Shape> newShape = currentShape->left();
-        if (!canvas.check_fit(currentShape)) {
+        if (!canvas.check_fit(newShape.get())) {
             cout << "Invalid move!" << endl;
         } else {
-            currentShape = newShape;
+            currentShape = newShape.release();;
         }
     } else if (command == "right") {
         std::unique_ptr<Shape> newShape = currentShape->right();
 
-        if (!canvas.check_fit(currentShape)) {
+        if (!canvas.check_fit(newShape.get())) {
             cout << "Invalid move!" << endl;
         } else {
-            currentShape = newShape;
+            currentShape = newShape.release();;
         }
     } else if (command == "down") {
-        // runs the down command
         std::unique_ptr<Shape> newShape = currentShape->down();
 
-        // checks if can fit?
-        if (!canvas.check_fit(newShape)) {
-            // does not fit
+        if (!canvas.check_fit(newShape.get())) {
             cout << "Invalid move!" << endl;
         } else {
-            // does fit, move shape down
-            // replaces current with new shape
-            currentShape = newShape;
+            currentShape = newShape.release();;
         }
     } else if (command == "drop") {
-        // find lowest point where this shape can be dropped
         if (!canvas.drop(currentShape)) {
             cout << "Cannot drop shape here!" << endl;
             return false;
@@ -139,7 +133,7 @@ void Player::reset() {
 
 bool Player::gameOver() const {
     if (canvas.getState(0, 0) != ' ') {
-        if (!canvas.check_fit(currentShape.get())) {
+        if (!canvas.check_fit(currentShape)) {
             return true;
         }
     }
