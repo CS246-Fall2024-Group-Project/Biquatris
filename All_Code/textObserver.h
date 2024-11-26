@@ -6,15 +6,15 @@
 #include "canvas.h"
 #include "player.h"
 
-class textObserver : public Observer {
-    std::shared_ptr<Player> player1;
-    std::shared_ptr<Player> player2;
+class TextObserver : public Observer {
+    Player* player1;
+    Player* player2;
     int width, height;
 
 public:
-    textObserver(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2, int width, int height);
+    TextObserver(Player* p1, Player* p2, int width, int height);
     void notify() override;
-    ~textObserver();
+    ~TextObserver();
 };
 
 #endif

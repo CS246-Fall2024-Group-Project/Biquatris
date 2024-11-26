@@ -26,14 +26,18 @@ class Player {
     void addScore(int points);
 
     int getScore() const;
-    Queue& getQueue() const;
+    int getLevel() const;
     int getDifficulty() const;
-    Level* getLevel() const;
-
-    void takeTurn();
-    void reset(std::shared_ptr<Level> newLevel); // Reset with new level
-
+    int getPlayerID() const; // New method
     Canvas& getCanvas() const;
+    Queue& getQueue() const;
+
+    std::shared_ptr<Shape> getCurrentShape() const; // New method
+    void setCurrentShape(std::shared_ptr<Shape> shape); // New method
+
+    bool takeTurn(Player& opponent); // Modified to accept opponent reference
+    void reset(std::unique_ptr<Level> newLevel);
+
     bool gameOver() const;
     ~Player();
 };
