@@ -14,8 +14,8 @@ TextObserver::TextObserver(Player* p1, Player* p2, int width, int height)
 
 void TextObserver::notify() {
     // Player 1 Board
-    cout << " Level: " << player1->getLevel() << "         ";
-    cout << "Level: " << player2->getLevel() << endl;
+    cout << " Level: " << player1->getDifficulty() << "         ";
+    cout << "Level: " << player2->getDifficulty() << endl;
     cout << " Score: " << player1->getScore() << "         ";
     cout << "Score: " << player2->getScore() << endl;
 

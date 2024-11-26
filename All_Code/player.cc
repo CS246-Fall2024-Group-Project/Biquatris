@@ -11,6 +11,20 @@ using namespace std;
 Player::Player(int playerID, int score, std::shared_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape)
     : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
 
+
+int Player::getPlayerID() const {
+    return playerID;
+}
+
+std::shared_ptr<Shape> Player::getCurrentShape() const {
+    return currentShape;
+}
+
+void Player::setCurrentShape(std::shared_ptr<Shape> shape) {
+    currentShape = shape;
+    return;
+}
+
 void Player::levelUp() {
     int dif = level->getDifficulty();
     if (dif == 0) {

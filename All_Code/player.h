@@ -26,7 +26,7 @@ class Player {
     void addScore(int points);
 
     int getScore() const;
-    int getLevel() const;
+    Level* getLevel() const;
     int getDifficulty() const;
     int getPlayerID() const; // New method
     Canvas& getCanvas() const;
@@ -36,7 +36,7 @@ class Player {
     void setCurrentShape(std::shared_ptr<Shape> shape); // New method
 
     bool takeTurn(Player& opponent); // Modified to accept opponent reference
-    void reset(std::unique_ptr<Level> newLevel);
+    void reset(std::shared_ptr<Level> newLevel);
 
     bool gameOver() const;
     ~Player();
