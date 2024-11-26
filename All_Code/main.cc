@@ -85,8 +85,8 @@ int main(int argc, char *argv[]) {
         // Player 1's turn
         bool turnEnded = false;
         while (!turnEnded) {
-            turnEnded = player1.takeTurn(player2);
             textDisplay.notify();
+            turnEnded = player1.takeTurn(player2);
             if (player1.gameOver()) break;
         }
 
@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
         // Player 2's turn
         turnEnded = false;
         while (!turnEnded) {
+            
             turnEnded = player2.takeTurn(player1);
-            textDisplay.notify();
             if (player2.gameOver()) break;
         }
     }

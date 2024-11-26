@@ -53,18 +53,19 @@ bool Canvas::drop(std::shared_ptr<Shape> shape) {
         }
 
         tmpShape = nextShape;
-    }
+        }
 
-    if (!check_fit(tmpShape.get())) {
-        return false;
-    }
+        if (!check_fit(tmpShape.get())) {
+            return false;
+        }
 
-    for (const auto& block : tmpShape->getBlocks()) {
-        int row = block.getX();
-        int col = block.getY();
-        canvas[row][col] = tmpShape->getLetter();
+        for (const auto& block : tmpShape->getBlocks()) {
+            int row = block.getX();
+            int col = block.getY();
+            canvas[row][col] = tmpShape->getLetter();
+        }
+        return true;
     }
-    return true;
 }
 
 int Canvas::clearLine() {
