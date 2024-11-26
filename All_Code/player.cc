@@ -138,11 +138,9 @@ bool Player::takeTurn(Player& opponent) {
                 cout << "Invalid move!" << endl;
             }
         } else if (command == "drop") {
-            while (canvas.check_fit(currentShape->down().get())) {
-                currentShape = currentShape->down();
-            }
             canvas.drop(currentShape);
             // Clear lines and calculate score
+            cout << "drop Done!"<< endl;
             int linesCleared = canvas.clearLine();
 
             // Remove blind effect if present

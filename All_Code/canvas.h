@@ -19,7 +19,7 @@ class Canvas : public Subject {
     int getHeight() const;
     int getWidth() const;
     bool check_fit(Shape *shape) const;
-    bool drop(std::shared_ptr<Shape> shape);
+    void drop(std::shared_ptr<Shape> shape);
     int clearLine();
     void display() const;
     ~Canvas() = default;

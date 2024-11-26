@@ -34,7 +34,7 @@ void TextObserver::notify() {
 
             // Check for BlindEffect on player1
             if (EffectManager::getInstance().hasEffect(*player1, "blind") &&
-                i >= 3 && i <= 12 && j >= 2 && j <= 8) {
+                i >= 3 && i <= height - 3 && j >= 2 && j <= width - 3) {
                 cout << "?";
             } else {
                 cout << c;

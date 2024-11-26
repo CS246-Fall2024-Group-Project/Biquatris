@@ -53,7 +53,7 @@ std::shared_ptr<Shape> Shape::down() {
     auto newShape = this->clone();
     //std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
-        block.setY(block.getY() - 1);
+        block.setY(block.getY() + 1);
     }
     return newShape;
 }
@@ -74,7 +74,7 @@ L::L(int startX, int startY): Shape('L') {
     // 
     // LLL
 
-    Block c4 = {startX + 1, startY + 1, letter};
+    Block c4 = {startX + 1, startY - 1, letter};
     //   L
     // LLL
     blocks.emplace_back(head);
@@ -592,11 +592,11 @@ std::shared_ptr<Shape> I::counter() {
 O::O(int startX, int startY): Shape('O') {
     // OO
     // OO
-    Block head = {startX, startY, letter};
+    Block head = {startX - 1, startY, letter};
 
-    Block c2 = {startX + 1, startY, letter};
-    Block c3 = {startX, startY - 1, letter};
-    Block c4 = {startX + 1, startY - 1, letter};
+    Block c2 = {startX, startY, letter};
+    Block c3 = {startX - 1, startY - 1, letter};
+    Block c4 = {startX, startY - 1, letter};
 
     blocks.emplace_back(head);
     blocks.emplace_back(c2);

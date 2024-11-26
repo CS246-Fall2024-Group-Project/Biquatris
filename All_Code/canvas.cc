@@ -29,8 +29,8 @@ int Canvas::getWidth() const {
 
 bool Canvas::check_fit(Shape* shape) const {
     for (const auto& block : shape->getBlocks()) {
-        int row = block.getX();
-        int col = block.getY();
+        int row = block.getY();
+        int col = block.getX();
         // if it is out of bounds
         if (row < 0 || row >= height - 3 || col < 0 || col >= width) {
             return false;
@@ -43,29 +43,23 @@ bool Canvas::check_fit(Shape* shape) const {
     return true;
 }
 
-bool Canvas::drop(std::shared_ptr<Shape> shape) {
-    std::shared_ptr<Shape> tmpShape = shape;
+void Canvas::drop(std::shared_ptr<Shape> shape) {
 
     while (true) {
-        std::shared_ptr<Shape> nextShape = tmpShape->down();
-        if (!check_fit(nextShape.get())) {
+        std::shared_ptr<Shape> nextShape = shape->down();
+        if (check_fit(nextShape.get())) {
+            shape = nextShape;
+        } else {
             break;
         }
-
-        tmpShape = nextShape;
-        }
-
-        if (!check_fit(tmpShape.get())) {
-            return false;
-        }
-
-        for (const auto& block : tmpShape->getBlocks()) {
-            int row = block.getX();
-            int col = block.getY();
-            canvas[row][col] = tmpShape->getLetter();
-        }
-        return true;
+        
     }
+    for (const auto& block : shape->getBlocks()) {
+            int row = block.getY();
+            int col = block.getX();
+            canvas[row][col] = shape->getLetter();
+        }
+    
 }
 
 int Canvas::clearLine() {

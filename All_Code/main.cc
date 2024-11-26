@@ -44,8 +44,8 @@ int main(int argc, char *argv[]) {
     welcomeMessage();
     std::srand(seed);
 
-    Canvas game_board1(11, 18);
-    Canvas game_board2(11, 18);
+    Canvas game_board1(11, 15);
+    Canvas game_board2(11, 15);
 
     ifstream file1{scriptfile1};
     ifstream file2{scriptfile2};
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     Player player1(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
     Player player2(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
 
-    TextObserver textDisplay(&player1, &player2, 11, 18);
+    TextObserver textDisplay(&player1, &player2, 11, 15);
 
     while (!player1.gameOver() && !player2.gameOver()) {
         // Player 1's turn
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
         // Player 2's turn
         turnEnded = false;
         while (!turnEnded) {
-            
+            textDisplay.notify();
             turnEnded = player2.takeTurn(player1);
             if (player2.gameOver()) break;
         }
