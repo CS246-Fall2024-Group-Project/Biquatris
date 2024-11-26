@@ -25,6 +25,12 @@ void TextObserver::notify() {
         cout << "|";
         for (int j = 0; j < width; j++) {
             char c = player1->getCanvas().getState(i, j);
+            Shape *s = player1->getCurrentShape().get();
+            for(auto & block: s->getBlocks()) {
+                if(block.getX() == j && block.getY() == i) {
+                    c = block.getC();
+                }
+            }
 
             // Check for BlindEffect on player1
             if (EffectManager::getInstance().hasEffect(*player1, "blind") &&
@@ -37,6 +43,12 @@ void TextObserver::notify() {
         cout << "|     |";
         for (int j = 0; j < width; j++) {
             char c = player2->getCanvas().getState(i, j);
+            Shape *s = player2->getCurrentShape().get();
+            for(auto & block: s->getBlocks()) {
+                if(block.getX() == j && block.getY() == i) {
+                    c = block.getC();
+                }
+            }
 
             // Check for BlindEffect on player2
             if (EffectManager::getInstance().hasEffect(*player2, "blind") &&
