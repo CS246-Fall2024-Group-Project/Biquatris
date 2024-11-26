@@ -6,15 +6,15 @@
 #include "canvas.h"
 #include "player.h"
 
-class textObserver : public Observer {
+class TextObserver : public Observer {
     Player* player1;
     Player* player2;
     int width, height;
 
 public:
-    textObserver(Player *p1, Player *p2, int width, int height);
+    TextObserver(Player* p1, Player* p2, int width, int height);
     void notify() override;
-    ~textObserver();
+    ~TextObserver();
 };
 
 #endif

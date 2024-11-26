@@ -67,24 +67,32 @@ bool Canvas::drop(std::shared_ptr<Shape> shape) {
     return true;
 }
 
-void Canvas::clearLine() {
+int Canvas::clearLine() {
+    int linesCleared = 0;
     for (int i = 0; i < height; i++) {
         bool line_filled = true;
 
         for (int j = 0; j < width; j++) {
-            if (canvas[i][j] == ' ') { // check if all the blocks are filled
+            if (canvas[i][j] == ' ') {
                 line_filled = false;
                 break;
             }
         }
-        if (line_filled == true) { // if the line is filled
-            for (int k = i; k > 0; k--) { //recursively move all the blocks downwards by 1 unit
+        if (line_filled) {
+            linesCleared++;
+            for (int k = i; k > 0; k--) {
                 for (int j = 0; j < width; j++) {
-                    canvas[k][j] = canvas[k - 1][j]; // move the blocks downwards by 1 unit
+                    canvas[k][j] = canvas[k - 1][j];
                 }
             }
+            // Clear the top row
+            for (int j = 0; j < width; j++) {
+                canvas[0][j] = ' ';
+            }
+            i--; // Re-check the same row after shifting
         }
     }
+    return linesCleared;
 }
 
 void Canvas::setState(int row, int col, char c) {

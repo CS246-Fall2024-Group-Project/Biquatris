@@ -76,33 +76,37 @@ int main(int argc, char *argv[]) {
     Queue queue1(p1LVL.get());
     Queue queue2(p2LVL.get());
 
-    std::unique_ptr<Player> player1 = std::make_unique<Player>(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
-    std::unique_ptr<Player> player2 = std::make_unique<Player>(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
+    Player player1(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
+    Player player2(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
 
-    // observers for players
-    vector<shared_ptr<Observer>> obs1;
+    TextObserver textDisplay(&player1, &player2, 11, 15);
 
-    if (textMode) {
-        // Can you do this??
-        obs1.emplace_back(std::make_shared<textObserver>(player1.get(), player2.get(), 15, 11));
-    } else {
-        obs1.emplace_back(std::make_shared<textObserver>(player1.get(),player2.get(), 15, 11));
+    while (!player1.gameOver() && !player2.gameOver()) {
+        // Player 1's turn
+        bool turnEnded = false;
+        while (!turnEnded) {
+            turnEnded = player1.takeTurn(player2);
+            textDisplay.notify();
+            if (player1.gameOver()) break;
+        }
 
-        // palce Xwindow observers here once we do that:
+        if (player1.gameOver()) break;
+
+        // Player 2's turn
+        turnEnded = false;
+        while (!turnEnded) {
+            turnEnded = player2.takeTurn(player1);
+            textDisplay.notify();
+            if (player2.gameOver()) break;
+        }
     }
 
-    bool gameOver = false;
-
-    while (!gameOver) {
-        cout << "Player 1's turn: " << endl;
-        player1->takeTurn();
-        if (player1->gameOver()) gameOver = true;
-
-        cout << "Player 2's turn: " << endl;
-        player2->takeTurn();
-        if (player2->gameOver()) gameOver = true;
+    if (player1.gameOver()) {
+        std::cout << "Player 1 loses!" << std::endl;
+    } else if (player2.gameOver()) {
+        std::cout << "Player 2 loses!" << std::endl;
     }
 
-    cout << "Game over!" << endl;
+    return 0;
     return 0;
 }
