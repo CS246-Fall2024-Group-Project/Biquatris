@@ -8,7 +8,7 @@
 // Starting point!
 const int x = 1, y = 3;
 
-Level::Level(int diffuculty, std::ifstream& stream): difficulty{difficulty}, sequence{stream} {}
+Level::Level(int difficulty, std::ifstream& stream): difficulty{difficulty}, sequence{stream} {}
 
 int Level::getDifficulty() const {
     return difficulty;
