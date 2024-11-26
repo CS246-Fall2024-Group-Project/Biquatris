@@ -800,7 +800,7 @@ T::T(int startX, int startY): Shape('T') {
     //
     // TT
 
-    Block c3 = {startX, startY, letter};
+    Block c3 = {startX, startY - 1, letter};
     //  T
     // TT
 
