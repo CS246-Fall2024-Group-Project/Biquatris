@@ -14,9 +14,7 @@ Shape::Shape(const Shape& other)
     : letter(other.letter),
       rotationState(other.rotationState),
       blocks(other.blocks) {}
-
-
-
+      
 std::vector<Block> Shape::getBlocks() const {
     return blocks;
 }
