@@ -44,28 +44,28 @@ int main(int argc, char *argv[]) {
     welcomeMessage();
     std::srand(seed);
 
-    Canvas game_board1(15, 11);
-    Canvas game_board2(15, 11);
+    Canvas game_board1(11, 18);
+    Canvas game_board2(11, 18);
 
     ifstream file1{scriptfile1};
     ifstream file2{scriptfile2};
 
-    std::unique_ptr<Level> p1LVL, p2LVL;
+    std::shared_ptr<Level> p1LVL, p2LVL;
     if (startLevel == 0) {
-        p1LVL = std::make_unique<Level0>(file1);
-        p2LVL = std::make_unique<Level0>(file2);
+        p1LVL = std::make_shared<Level0>(file1);
+        p2LVL = std::make_shared<Level0>(file2);
     } else if (startLevel == 1) {
-        p1LVL = std::make_unique<Level1>(file1);
-        p2LVL = std::make_unique<Level1>(file2);
+        p1LVL = std::make_shared<Level1>(file1);
+        p2LVL = std::make_shared<Level1>(file2);
     } else if (startLevel == 2) {
-        p1LVL = std::make_unique<Level2>(file1);
-        p2LVL = std::make_unique<Level2>(file2);
+        p1LVL = std::make_shared<Level2>(file1);
+        p2LVL = std::make_shared<Level2>(file2);
     } else if (startLevel == 3) {
-        p1LVL = std::make_unique<Level3>(file1);
-        p2LVL = std::make_unique<Level3>(file2);
+        p1LVL = std::make_shared<Level3>(file1);
+        p2LVL = std::make_shared<Level3>(file2);
     } else if (startLevel == 4) {
-        p1LVL = std::make_unique<Level4>(file1);
-        p2LVL = std::make_unique<Level4>(file2);
+        p1LVL = std::make_shared<Level4>(file1);
+        p2LVL = std::make_shared<Level4>(file2);
     } else {
         cerr << "Invalid starting level!" << endl;
         return 1;
@@ -76,33 +76,35 @@ int main(int argc, char *argv[]) {
     Queue queue1(p1LVL.get());
     Queue queue2(p2LVL.get());
 
-    std::unique_ptr<Player> player1 = std::make_unique<Player>(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
-    std::unique_ptr<Player> player2 = std::make_unique<Player>(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
+    std::shared_ptr<Player> player1 = std::make_shared<Player>(1, 0, p1LVL, queue1, game_board1, queue1.getCurrent());
+    std::shared_ptr<Player> player2 = std::make_shared<Player>(2, 0, p2LVL, queue2, game_board2, queue2.getCurrent());
 
     // observers for players
     vector<shared_ptr<Observer>> obs1;
 
-    if (textMode) {
+    /*if (textMode) {
         // Can you do this??
-        obs1.emplace_back(std::make_shared<textObserver>(player1.get(), player2.get(), 15, 11));
+        obs1.emplace_back(std::make_shared<textObserver>(player1, player2, 15, 11));
     } else {
-        obs1.emplace_back(std::make_shared<textObserver>(player1.get(),player2.get(), 15, 11));
+        obs1.emplace_back(std::make_shared<textObserver>(player1, player2, 15, 11));
 
         // palce Xwindow observers here once we do that:
-    }
+    }*/
 
     bool gameOver = false;
-
-    while (!gameOver) {
+    int n = 0;
+    while (!gameOver && n != 4) {
         cout << "Player 1's turn: " << endl;
         player1->takeTurn();
         if (player1->gameOver()) gameOver = true;
 
+        
+
         cout << "Player 2's turn: " << endl;
         player2->takeTurn();
         if (player2->gameOver()) gameOver = true;
+        ++n;
     }
 
     cout << "Game over!" << endl;
-    return 0;
 }

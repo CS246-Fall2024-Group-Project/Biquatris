@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-textObserver::textObserver(Player *p1, Player *p2, int width, int height)
+textObserver::textObserver(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2, int width, int height)
     : player1{p1}, player2{p2}, width(11), height(18) {
 
     player1->getCanvas().attach(std::shared_ptr<Observer>(this));
@@ -23,7 +23,7 @@ void printBlock(int row, int column, char letter) {
 
 void textObserver::notify() {
     //starting of the first board
-    cout << " Level: " << player1->getLevel() << endl;
+    cout << " Level: " << player1->getDifficulty() << endl;
     cout << " Score: " << player2->getScore() << endl;
 
     cout << "  +";
@@ -36,10 +36,11 @@ void textObserver::notify() {
         } else {
             cout << "  |";
         }
-        for (int j = 0; j < width; j++) {
+
+        /*for (int j = 0; j < width; j++) {
             char c = player1->getCanvas().getState(i, j);
             cout << c;
-        }
+        }*/
         if (i == 3) {
             cout << "|--";
         } else {
@@ -52,7 +53,7 @@ void textObserver::notify() {
     cout << "+" << endl;
 
     cout << "  Next: " << endl;
-    Shape *nextShape1 = player1->getQueue().getNext();
+    /*Shape *nextShape1 = player1->getQueue().getNext();
     if (nextShape1 != nullptr) {
         for (const auto& block : nextShape1->getBlocks()) { 
             int row = block.getY();
@@ -60,13 +61,13 @@ void textObserver::notify() {
             char letter = block.getC();
             printBlock(row, column, letter);
         }
-    }
+    }*/
 
 
 
 
     // starting of the second board
-    cout << "                      " <<" Level: " << player1->getLevel() << endl;
+    cout << "                      " <<" Level: " << player1->getDifficulty() << endl;
     cout << "                      " <<" Score: " << player2->getScore() << endl;
 
     cout << "                    " << "  +";
@@ -79,10 +80,10 @@ void textObserver::notify() {
         } else {
             cout << "                    " << "  |";
         }
-        for (int j = 0; j < width; j++) {
+        /*for (int j = 0; j < width; j++) {
             char c = player2->getCanvas().getState(i, j);
             cout << c;
-        }
+        }*/
         if (i == 3) {
             cout << "|--";
         } else {
@@ -96,7 +97,7 @@ void textObserver::notify() {
 
     cout << "                    " << "  Next: " << endl;
     cout << "                    ";
-    Shape *nextShape2 = player2->getQueue().getNext();
+    /*Shape *nextShape2 = player2->getQueue().getNext();
     if (nextShape2 != nullptr) {
         for (const auto& block : nextShape1->getBlocks()) { 
             int row = block.getY();
@@ -104,7 +105,7 @@ void textObserver::notify() {
             char letter = block.getC();
             printBlock(row, column, letter);
         }
-    }
+    }*/
 }
 
 textObserver::~textObserver() {

@@ -17,6 +17,7 @@ class Shape {
         virtual ~Shape() = default;
         virtual std::shared_ptr<Shape> clockwise() = 0;
         virtual std::shared_ptr<Shape> counter() = 0;
+        virtual std::shared_ptr<Shape> clone() const = 0;
         
         std::shared_ptr<Shape> left();
         std::shared_ptr<Shape> right();
@@ -32,6 +33,8 @@ class L : public Shape {
         L(const L& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
+
 };
 
 class J : public Shape {
@@ -40,6 +43,7 @@ class J : public Shape {
         J(const J& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 
 class I : public Shape {
@@ -48,6 +52,7 @@ class I : public Shape {
         I(const I& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 
 class O : public Shape {
@@ -56,6 +61,7 @@ class O : public Shape {
         O(const O& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 
 class Z : public Shape {
@@ -64,6 +70,7 @@ class Z : public Shape {
         Z(const Z& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 
 class S : public Shape {
@@ -72,6 +79,7 @@ class S : public Shape {
         S(const S& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 
 class T : public Shape {
@@ -80,5 +88,6 @@ class T : public Shape {
         T(const T& other);
         std::shared_ptr<Shape> clockwise() override;
         std::shared_ptr<Shape> counter() override;
+        std::shared_ptr<Shape> clone() const override;
 };
 #endif

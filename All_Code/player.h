@@ -13,13 +13,13 @@ class Player {
   protected:
     int playerID;
     int score;
-    std::unique_ptr<Level> level;
+    std::shared_ptr<Level> level;
     Queue& queue; // Pointer to Queue
     Canvas& canvas; // Reference to Canvas
     std::shared_ptr<Shape> currentShape;
 
   public:
-    Player(int playerID, int score, std::unique_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape);
+    Player(int playerID, int score, std::shared_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape);
 
     void levelUp();
     void levelDown();
@@ -27,10 +27,11 @@ class Player {
 
     int getScore() const;
     Queue& getQueue() const;
-    int getLevel() const;
+    int getDifficulty() const;
+    Level* getLevel() const;
 
-    bool takeTurn();
-    void reset(std::unique_ptr<Level> newLevel); // Reset with new level
+    void takeTurn();
+    void reset(std::shared_ptr<Level> newLevel); // Reset with new level
 
     Canvas& getCanvas() const;
     bool gameOver() const;
