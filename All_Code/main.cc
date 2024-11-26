@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     Player player1(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
     Player player2(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
 
-    TextObserver textDisplay(&player1, &player2, 11, 15);
+    TextObserver textDisplay(&player1, &player2, 11, 18);
 
     while (!player1.gameOver() && !player2.gameOver()) {
         // Player 1's turn

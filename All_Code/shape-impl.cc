@@ -29,6 +29,7 @@ std::shared_ptr<Shape> Shape::left() {
     //std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
         block.setX(block.getX() - 1);
+        
     }
     return newShape;
 }
@@ -73,7 +74,7 @@ L::L(int startX, int startY): Shape('L') {
     // 
     // LLL
 
-    Block c4 = {startX + 1, startY - 1, letter};
+    Block c4 = {startX + 1, startY + 1, letter};
     //   L
     // LLL
     blocks.emplace_back(head);
@@ -800,7 +801,7 @@ T::T(int startX, int startY): Shape('T') {
     //
     // TT
 
-    Block c3 = {startX, startY, letter};
+    Block c3 = {startX, startY - 1, letter};
     //  T
     // TT
 

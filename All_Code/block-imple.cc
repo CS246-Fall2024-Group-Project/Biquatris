@@ -10,11 +10,11 @@ int Block::getY() const {
 }
 
 void Block::setX(int n) {
-    x = x + n;
+    x = n;
     return;
 }
 void Block::setY(int n) {
-    y = y + n;
+    y = n;
     return;
 }
 /*bool Block::isDead(int turn) const {
