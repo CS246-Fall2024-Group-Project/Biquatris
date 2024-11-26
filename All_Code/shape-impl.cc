@@ -14,9 +14,7 @@ Shape::Shape(const Shape& other)
     : letter(other.letter),
       rotationState(other.rotationState),
       blocks(other.blocks) {}
-
-
-
+      
 std::vector<Block> Shape::getBlocks() const {
     return blocks;
 }
@@ -27,7 +25,8 @@ char Shape::getLetter() const {
 
 // move shape left
 std::shared_ptr<Shape> Shape::left() {
-    auto newShape = std::make_shared<Shape>(*this);
+    auto newShape = this->clone();
+    //std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
         block.setX(block.getX() - 1);
     }
@@ -37,7 +36,8 @@ std::shared_ptr<Shape> Shape::left() {
 // move shape right
 std::shared_ptr<Shape> Shape::right() {
     // making a new shape
-    auto newShape = std::make_shared<Shape>(*this);
+    auto newShape = this->clone();
+    // std::make_shared<Shape>(*this);
 
     // looping through the vector and adding 1 to move right
     for(auto & block: newShape->blocks) {
@@ -49,7 +49,8 @@ std::shared_ptr<Shape> Shape::right() {
 
 // Move shape down
 std::shared_ptr<Shape> Shape::down() {
-    auto newShape = std::make_shared<Shape>(*this);
+    auto newShape = this->clone();
+    //std::make_shared<Shape>(*this);
     for(auto & block: newShape->blocks) {
         block.setY(block.getY() - 1);
     }
@@ -194,7 +195,7 @@ std::shared_ptr<Shape> L::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<L>(newShape);
+    return std::make_shared<L>(*this);
 }
 
 // L counter-clockwise
@@ -291,7 +292,7 @@ std::shared_ptr<Shape> L::counter() {
         newShape.blocks[3].setY(y - 1);
     }
 
-    return std::make_shared<L>(newShape);
+    return std::make_shared<L>(*this);
 }
 
 // J ctor
@@ -422,7 +423,7 @@ std::shared_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<L>(newShape);
+    return std::make_shared<J>(*this);
 }
 
 // J counter-clockwise
@@ -521,7 +522,7 @@ std::shared_ptr<Shape> J::counter() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<L>(newShape);
+    return std::make_shared<J>(*this);
 }
 
 // I ctor
@@ -577,7 +578,7 @@ std::shared_ptr<Shape> I::clockwise() {
         newShape.blocks[3].setX(x + 3);
         newShape.blocks[3].setY(y + 0);
     }
-    return std::make_shared<L>(newShape);
+    return std::make_shared<I>(*this);
 }
 
 // I counter-clockwise
@@ -690,7 +691,7 @@ std::shared_ptr<Shape> Z::clockwise() {
         newShape.blocks[3].setX(x - 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<Z>(newShape);
+    return std::make_shared<Z>(*this);
 }
 
 // Z counter-clockwise
@@ -778,7 +779,7 @@ std::shared_ptr<Shape> S::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<S>(newShape);
+    return std::make_shared<S>(*this);
 }
 
 // S counter-clockwise
@@ -901,7 +902,7 @@ std::shared_ptr<Shape> T::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[2].setY(y + 0);
     }
-    return std::make_shared<T>(newShape);
+    return std::make_shared<T>(*this);
 }
 
 // T counter-clockwise
@@ -990,5 +991,33 @@ std::shared_ptr<Shape> T::counter() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<T>(newShape);
+    return std::make_shared<T>(*this);
+}
+
+std::shared_ptr<Shape> L:: clone() const {
+    return std::make_shared<L>(*this);
+}
+
+std::shared_ptr<Shape> J:: clone() const {
+    return std::make_shared<J>(*this);
+}
+
+std::shared_ptr<Shape> I:: clone() const {
+    return std::make_shared<I>(*this);
+}
+
+std::shared_ptr<Shape> O:: clone() const {
+    return std::make_shared<O>(*this);
+}
+
+std::shared_ptr<Shape> S:: clone() const {
+    return std::make_shared<S>(*this);
+}
+
+std::shared_ptr<Shape> Z:: clone() const {
+    return std::make_shared<Z>(*this);
+}
+
+std::shared_ptr<Shape> T:: clone() const {
+    return std::make_shared<T>(*this);
 }

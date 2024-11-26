@@ -44,28 +44,28 @@ int main(int argc, char *argv[]) {
     welcomeMessage();
     std::srand(seed);
 
-    Canvas game_board1(15, 11);
-    Canvas game_board2(15, 11);
+    Canvas game_board1(11, 18);
+    Canvas game_board2(11, 18);
 
     ifstream file1{scriptfile1};
     ifstream file2{scriptfile2};
 
-    std::unique_ptr<Level> p1LVL, p2LVL;
+    std::shared_ptr<Level> p1LVL, p2LVL;
     if (startLevel == 0) {
-        p1LVL = std::make_unique<Level0>(file1);
-        p2LVL = std::make_unique<Level0>(file2);
+        p1LVL = std::make_shared<Level0>(file1);
+        p2LVL = std::make_shared<Level0>(file2);
     } else if (startLevel == 1) {
-        p1LVL = std::make_unique<Level1>(file1);
-        p2LVL = std::make_unique<Level1>(file2);
+        p1LVL = std::make_shared<Level1>(file1);
+        p2LVL = std::make_shared<Level1>(file2);
     } else if (startLevel == 2) {
-        p1LVL = std::make_unique<Level2>(file1);
-        p2LVL = std::make_unique<Level2>(file2);
+        p1LVL = std::make_shared<Level2>(file1);
+        p2LVL = std::make_shared<Level2>(file2);
     } else if (startLevel == 3) {
-        p1LVL = std::make_unique<Level3>(file1);
-        p2LVL = std::make_unique<Level3>(file2);
+        p1LVL = std::make_shared<Level3>(file1);
+        p2LVL = std::make_shared<Level3>(file2);
     } else if (startLevel == 4) {
-        p1LVL = std::make_unique<Level4>(file1);
-        p2LVL = std::make_unique<Level4>(file2);
+        p1LVL = std::make_shared<Level4>(file1);
+        p2LVL = std::make_shared<Level4>(file2);
     } else {
         cerr << "Invalid starting level!" << endl;
         return 1;

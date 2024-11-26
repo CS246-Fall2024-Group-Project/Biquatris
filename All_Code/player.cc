@@ -8,19 +8,19 @@
 
 using namespace std;
 
-Player::Player(int playerID, int score, std::unique_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape)
+Player::Player(int playerID, int score, std::shared_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape)
     : playerID{playerID}, score{score}, level{std::move(level)}, queue{queue}, canvas{canvas}, currentShape{currentShape} {}
 
 void Player::levelUp() {
     int dif = level->getDifficulty();
     if (dif == 0) {
-        level = std::make_unique<Level1>(level->getSequence());
+        level = std::make_shared<Level1>(level->getSequence());
     } else if (dif == 1) {
-        level = std::make_unique<Level2>(level->getSequence());
+        level = std::make_shared<Level2>(level->getSequence());
     } else if (dif == 2) {
-        level = std::make_unique<Level3>(level->getSequence());
+        level = std::make_shared<Level3>(level->getSequence());
     } else if (dif == 3) {
-        level = std::make_unique<Level4>(level->getSequence());
+        level = std::make_shared<Level4>(level->getSequence());
     } else {
         std::cerr << "Cannot level up anymore." << std::endl;
     }
@@ -31,18 +31,22 @@ void Player::levelDown() {
     if (dif == 0) {
         std::cerr << "Cannot level down anymore." << std::endl;
     } else if (dif == 1) {
-        level = std::make_unique<Level0>(level->getSequence());
+        level = std::make_shared<Level0>(level->getSequence());
     } else if (dif == 2) {
-        level = std::make_unique<Level1>(level->getSequence());
+        level = std::make_shared<Level1>(level->getSequence());
     } else if (dif == 3) {
-        level = std::make_unique<Level2>(level->getSequence());
+        level = std::make_shared<Level2>(level->getSequence());
     } else {
-        level = std::make_unique<Level3>(level->getSequence());
+        level = std::make_shared<Level3>(level->getSequence());
     }
 }
 
-int Player::getLevel() const {
+int Player::getDifficulty() const {
     return level->getDifficulty();
+}
+
+Level* Player::getLevel() const {
+    return level.get();
 }
 
 void Player::addScore(int points) {
@@ -161,7 +165,7 @@ bool Player::takeTurn(Player& opponent) {
     return false; // Turn continues
 }
 
-void Player::reset(std::unique_ptr<Level> newLevel) {
+void Player::reset(std::shared_ptr<Level> newLevel) {
     score = 0;
     level = std::move(newLevel);
     currentShape = queue.getCurrent();

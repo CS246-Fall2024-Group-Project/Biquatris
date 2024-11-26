@@ -103,6 +103,8 @@ void Canvas::display() const {
     notifyObservers();
     for (int i = 0; i < height; i++) {
         for (int j = 0; i < width; j++) {
+            // i = height / row
+            // j = col / width
             cout << canvas[i][j];
         }
         cout << endl;
