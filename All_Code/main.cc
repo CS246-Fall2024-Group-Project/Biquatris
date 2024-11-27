@@ -110,8 +110,8 @@ int main(int argc, char *argv[]) {
     welcomeMessage();
     std::srand(seed);
 
-    Canvas game_board1(11, 15);
-    Canvas game_board2(11, 15);
+    Canvas game_board1(11, 18);
+    Canvas game_board2(11, 18);
 
     ifstream file1{scriptfile1};
     ifstream file2{scriptfile2};

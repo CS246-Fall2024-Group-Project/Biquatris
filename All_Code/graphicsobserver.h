@@ -22,6 +22,8 @@ public:
     // Constructor
     GraphicObserver(Player *p1, Player *p2, int width, int height);
 
+    void drawBorders();
+
     // Notify method to update the graphical display
     void notify() override;
 
