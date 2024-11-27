@@ -11,7 +11,6 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include<stdlib.h>
 
 using namespace std;
 
@@ -20,7 +19,66 @@ void welcomeMessage() {
     cout << "*------------------------------------------------------*"<< endl;
     cout << "\n Press enter to start the Game:";
     cin.get();
-    system("cls");
+}
+
+bool gameLogic(Player &player1, Player &player2, vector<std::unique_ptr<Observer>>& observers, int &highscore) {
+    while (!player1.gameOver() && !player2.gameOver()) {
+        // Player 1's turn
+        bool turnEnded = false;
+        while (!turnEnded) {
+            // Notify all observers
+            for (const auto &observer : observers) {
+                observer->notify();
+            }
+
+            turnEnded = player1.takeTurn(player2);
+            if (player1.gameOver()) break;
+        }
+
+        if (player1.gameOver()) break;
+
+        // Player 2's turn
+        turnEnded = false;
+        while (!turnEnded) {
+            // Notify all observers
+            for (const auto &observer : observers) {
+                observer->notify();
+            }
+
+            turnEnded = player2.takeTurn(player1);
+            if (player2.gameOver()) break;
+        }
+    }
+
+    // End game message
+    if (player1.gameOver()) {
+        std::cout << "Player 1 loses!" << std::endl;
+    } else if (player2.gameOver()) {
+        std::cout << "Player 2 loses!" << std::endl;
+    }
+
+    if(player1.getScore() > player2.getScore()) {
+        highscore = player1.getScore();
+    } else {
+        player2.getScore();
+    }
+    
+    char c;
+    bool play = true;
+    while(play) {
+        cout << "Do you want to play again? (y / n): ";
+        cin >> c;
+        if (c == 'y' || c == 'Y') {
+            play = false;
+            cout << endl;
+            gameLogic(player1, player2, observers, highscore);
+        } else if (c== 'n' || c == 'N') {
+            play = false;
+            cout << "Thank you for playing Biquadris!" << endl;
+        } else {
+            cout << "That was not a correct output, please try again." << endl;
+        }
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -97,41 +155,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Game loop
-    while (!player1.gameOver() && !player2.gameOver()) {
-        // Player 1's turn
-        bool turnEnded = false;
-        while (!turnEnded) {
-            // Notify all observers
-            for (const auto &observer : observers) {
-                observer->notify();
-            }
-
-            turnEnded = player1.takeTurn(player2);
-            if (player1.gameOver()) break;
-        }
-
-        if (player1.gameOver()) break;
-
-        // Player 2's turn
-        turnEnded = false;
-        while (!turnEnded) {
-            // Notify all observers
-            for (const auto &observer : observers) {
-                observer->notify();
-            }
-
-            turnEnded = player2.takeTurn(player1);
-            if (player2.gameOver()) break;
-        }
-    }
-
-    // End game message
-    if (player1.gameOver()) {
-        std::cout << "Player 1 loses!" << std::endl;
-    } else if (player2.gameOver()) {
-        std::cout << "Player 2 loses!" << std::endl;
-    }
-
-    return 0;
+    int highscore = 0;
+    gameLogic(player1, player2, observers, highscore);
 }
 

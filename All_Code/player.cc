@@ -88,6 +88,11 @@ bool Player::takeTurn(Player& opponent) {
     // Handle effect-related movements
     bool hasHeavy = EffectManager::getInstance().hasEffect(*this, "heavy");
 
+    if(getDifficulty() == 4 || getDifficulty() == 3) {
+        // Apply the heavy effect
+        EffectManager::getInstance().addEffect(*this, std::make_shared<BlindEffect>());
+    }
+
     // Handle command multipliers
     int multiplier = 1;
     size_t pos = 0;
@@ -173,12 +178,26 @@ bool Player::takeTurn(Player& opponent) {
         } else if (command == "drop") {
             canvas.drop(currentShape);
             // Clear lines and calculate score
-            cout << "drop Done!"<< endl;
             int linesCleared = canvas.clearLine();
 
             // Remove blind effect if present
             if (EffectManager::getInstance().hasEffect(*this, "blind")) {
                 EffectManager::getInstance().removeEffect(*this, "blind");
+            }
+
+            if(getDifficulty() == 4) {
+                if (linesCleared == 0) {
+                    if(noClears == 5) {
+                        // spawn in a block in the middle of the canvas!!!!!!!!!
+                        noClears = 0;
+                    }
+                } else {
+                    noClears++;
+                }
+            }
+
+            if(linesCleared > 0) {
+                addScore(((linesCleared + getDifficulty()) * (linesCleared + getDifficulty())));
             }
 
             // Check for special actions
@@ -224,6 +243,8 @@ void Player::reset(std::shared_ptr<Level> newLevel) {
 }
 
 bool Player::gameOver() const {
+
+    // gameover did not fix
     if (canvas.getState(0, 0) != ' ') {
         if (!canvas.check_fit(currentShape.get())) {
             return true;

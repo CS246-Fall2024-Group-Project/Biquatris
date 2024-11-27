@@ -1,6 +1,6 @@
 WIP- Work In Progress
 Done- fully finished and implemented code
-Debuged - Finished code that has been debug 100%
+Test - Finished code that has not been tested
 Not-Started - Code that needs to be worked on and not started by anyone
 
 
@@ -11,12 +11,13 @@ Subect---Done
 Subject---Done
 queue---Done
 
-Heavy---Done
-Force---Done
+Blind---Test
+Heavy---Test
+Force---Test
 
 Level--- WIP
-    Need to add the extra effects for level3 and 4.
-    Note sure how to do that honestly, if anyone has ideas please help
+    Need to finish making level4's effects
+    Started in the drop command found in player
 
 Canvas---WIP
     Display is not working correctly
@@ -30,7 +31,9 @@ Main---WIP
 player---WIP
     Make it so that the player can call levelDown, levelUp, L, Z, T, O, Z, S, J
     random, no random, and sequence (check documentation for what each command does)
-    Players do not lose
+    Players do not lose, gameOver() is not working
+
+    Score, need to keep track of a block total health and the pieces it connects too.
 
 
 

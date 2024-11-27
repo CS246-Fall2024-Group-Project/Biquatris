@@ -40,7 +40,7 @@ public:
 };
 
 class EffectManager {
-    static EffectManager* instance;
+    static std::unique_ptr<EffectManager> instance;
     std::unordered_map<Player*, std::vector<std::shared_ptr<Effect>>> playerEffects;
     EffectManager();
 public:

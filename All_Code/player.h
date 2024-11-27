@@ -17,6 +17,8 @@ class Player {
     Queue& queue; // Pointer to Queue
     Canvas& canvas; // Reference to Canvas
     std::shared_ptr<Shape> currentShape;
+    
+    int noClears; // relevant only for level 4
 
   public:
     Player(int playerID, int score, std::shared_ptr<Level> level, Queue& queue, Canvas& canvas, std::shared_ptr<Shape> currentShape);

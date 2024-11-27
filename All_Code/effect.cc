@@ -2,14 +2,15 @@
 #include "player.h"
 #include "shape.h"
 #include <iostream>
+#include <memory>
 
-EffectManager* EffectManager::instance = nullptr;
+std::unique_ptr<EffectManager> EffectManager::instance = nullptr;
 
 EffectManager::EffectManager() {}
 
 EffectManager& EffectManager::getInstance() {
     if (instance == nullptr) {
-        instance = new EffectManager();
+        instance =  std::make_unique<EffectManager> (EffectManager());
     }
     return *instance;
 }
