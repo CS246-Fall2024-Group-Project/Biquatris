@@ -3,7 +3,7 @@ Done- fully finished and implemented code
 Debuged - Finished code that has been debug 100%
 Not-Started - Code that needs to be worked on and not started by anyone
 
-Level---Done
+
 Shape---Done
 block---Done
 Observer---Done
@@ -13,6 +13,10 @@ queue---Done
 
 Heavy---Done
 Force---Done
+
+Level--- WIP
+    Need to add the extra effects for level3 and 4.
+    Note sure how to do that honestly, if anyone has ideas please help
 
 Canvas---WIP
     Display is not working correctly
