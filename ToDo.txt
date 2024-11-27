@@ -22,8 +22,7 @@ Level--- WIP
 Canvas---WIP
     Display is not working correctly
 textObserver--- (sort of done), same as Canvas
-XWindow--- (sort of done), same as Canvas
-
+XWindow--- WIP make is look prettier
 Main---WIP
     Make a lose screen
 
@@ -34,14 +33,3 @@ player---WIP
     Players do not lose, gameOver() is not working
 
     Score, need to keep track of a block total health and the pieces it connects too.
-
-
-
-
-look at the spacing in textObserver.cc:
-    cout << "                    " << "  Next: " << endl;
-    cout << "                    ";
-    Shape *nextShape2 = player2->getQueue()->findNext();
-    if (nextShape2 != nullptr) {
-        nextShape2->display(); // Display the next shape directly
-    }
