@@ -114,8 +114,8 @@ std::shared_ptr<Shape> L::clockwise() {
     //  *
     //  *
 
-    if(rotationState == defaultRotation) { // default -> rotation2
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation2
+        newShape.rotationState = rotation2;
         // do the math to properly rotate in in the cartiasian cordinates
         //NOTE: THE AXIS DOES NOT CHANGE FOR L!
         newShape.blocks[1].setX(x + 1);
@@ -133,8 +133,8 @@ std::shared_ptr<Shape> L::clockwise() {
         // L
         // LL
 
-    } else if (rotationState == rotation2) { // rotation2 -> rotation3
-        rotationState = rotation3;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> rotation3
+        newShape.rotationState = rotation3;
         // NOTE: THE AXIS DOES NOT CHANGE FOR L
         newShape.blocks[1].setX(x + 0);
         newShape.blocks[1].setY(y - 1);
@@ -150,8 +150,8 @@ std::shared_ptr<Shape> L::clockwise() {
         newShape.blocks[3].setY(y - 1);
         // LLL
         // L
-    } else if (rotationState == rotation3) { // rotation3 -> rotation4
-        rotationState = rotation4;
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation4
+        newShape.rotationState = rotation4;
         // NOTE: THE HEAD WILL SHIFT OVER BY X + 1
         x += 1;
         newShape.blocks[0].setX(x);
@@ -178,8 +178,8 @@ std::shared_ptr<Shape> L::clockwise() {
         //  L
         //  L
 
-    } else if (rotationState == rotation4) { // rotation 4 -> defaultRotation
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation4) { // rotation 4 -> defaultRotation
+        newShape.rotationState = defaultRotation;
         // NOTE: THE HEAD MUST CHANGE BACK
         x -= 1;
         newShape.blocks[0].setX(x);
@@ -196,7 +196,7 @@ std::shared_ptr<Shape> L::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<L>(*this);
+    return std::make_shared<L>(newShape);
 }
 
 // L counter-clockwise
@@ -227,8 +227,8 @@ std::shared_ptr<Shape> L::counter() {
     //  *
     //  *
 
-    if(rotationState == defaultRotation) { // default -> rotation4
-        rotationState = rotation4;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation4
+        newShape.rotationState = rotation4;
         //             LL
         //   L ----->   L
         // LLL          L
@@ -245,8 +245,8 @@ std::shared_ptr<Shape> L::counter() {
         newShape.blocks[3].setX(x - 1);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation2) { // rotation2 -> default
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> default
+        newShape.rotationState = defaultRotation;
         // NOTE: THE AXIS DOES NOT CHANGE FOR L
         // L
         // L  -------->    L
@@ -259,8 +259,8 @@ std::shared_ptr<Shape> L::counter() {
 
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[3].setY(y - 1);
-    } else if (rotationState == rotation3) { // rotation3 -> rotation2
-        rotationState = rotation2;
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation2
+        newShape.rotationState = rotation2;
         //                    L
         // LLL  ------------> L
         // L                  LL
@@ -274,8 +274,8 @@ std::shared_ptr<Shape> L::counter() {
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation4) { // rotation4 -> rotation3
-        rotationState = rotation3;
+    } else if (newShape.rotationState == rotation4) { // rotation4 -> rotation3
+        newShape.rotationState = rotation3;
         // LL
         //  L --------> LLL
         //  L           L
@@ -293,7 +293,7 @@ std::shared_ptr<Shape> L::counter() {
         newShape.blocks[3].setY(y - 1);
     }
 
-    return std::make_shared<L>(*this);
+    return std::make_shared<L>(newShape);
 }
 
 // J ctor
@@ -355,8 +355,8 @@ std::shared_ptr<Shape> J::clockwise() {
     //  *
     // **
 
-    if(rotationState == defaultRotation) { // default -> rotation2
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation2
+        newShape.rotationState = rotation2;
         //            JJ
         // J   -----> J
         // JJJ        J
@@ -370,8 +370,8 @@ std::shared_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation2) { // rotation2 -> rotation3
-        rotationState = rotation3;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> rotation3
+        newShape.rotationState = rotation3;
         // JJ
         // J  ------> JJJ
         // J            J
@@ -389,8 +389,8 @@ std::shared_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setY(x - 2);
         newShape.blocks[3].setY(y - 1);
         
-    } else if (rotationState == rotation3) { // rotation3 -> rotation4
-        rotationState = rotation4;
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation4
+        newShape.rotationState = rotation4;
         //               J
         // JJJ ------->  J
         //   J          JJ
@@ -408,8 +408,8 @@ std::shared_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation4) { // rotation 4 -> defaultRotation
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation4) { // rotation 4 -> defaultRotation
+        newShape.rotationState = defaultRotation;
         //  J
         //  J  -------->  J
         // JJ             JJJ
@@ -424,7 +424,7 @@ std::shared_ptr<Shape> J::clockwise() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<J>(*this);
+    return std::make_shared<J>(newShape);
 }
 
 // J counter-clockwise
@@ -455,8 +455,8 @@ std::shared_ptr<Shape> J::counter() {
     //  *
     // **
 
-    if(rotationState == defaultRotation) { // default -> rotation4
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation4
+        newShape.rotationState = rotation4;
         //             J
         // J   ----->  J
         // JJJ        JJ
@@ -470,8 +470,8 @@ std::shared_ptr<Shape> J::counter() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation2) { // rotation2 -> default
-        rotationState = rotation3;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> default
+        newShape.rotationState = defaultRotation;
         // JJ
         // J  ------> J
         // J          JJJ
@@ -485,8 +485,8 @@ std::shared_ptr<Shape> J::counter() {
         newShape.blocks[3].setY(x + 2);
         newShape.blocks[3].setY(y + 0);
         
-    } else if (rotationState == rotation3) { // rotation3 -> rotation2
-        rotationState = rotation4;
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation2
+        newShape.rotationState = rotation2;
         //              JJ
         // JJJ -------> J
         //   J          J
@@ -504,8 +504,8 @@ std::shared_ptr<Shape> J::counter() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 2);
 
-    } else if (rotationState == rotation4) { // rotation 4 -> rotation3
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation4) { // rotation 4 -> rotation3
+        newShape.rotationState = rotation3;
         // xJ
         // xJ  -------->  JJJ
         // JJ             xxJ
@@ -523,17 +523,17 @@ std::shared_ptr<Shape> J::counter() {
         newShape.blocks[3].setY(y - 1);
 
     }
-    return std::make_shared<J>(*this);
+    return std::make_shared<J>(newShape);
 }
 
 // I ctor
 I::I(int startX, int startY): Shape('I') {
     // IIII
     
-    Block head = {startX - 2, startY, letter};
-    Block c2 = {startX - 1, startY, letter};
-    Block c3 = {startX, startY, letter};
-    Block c4 = {startX + 1, startY, letter};
+    Block head = {startX - 1, startY, letter};
+    Block c2 = {startX , startY, letter};
+    Block c3 = {startX + 1, startY, letter};
+    Block c4 = {startX + 2, startY, letter};
 
     blocks.emplace_back(head);
     blocks.emplace_back(c2);
@@ -554,8 +554,8 @@ std::shared_ptr<Shape> I::clockwise() {
     int defaultRotation = 1;
     int rotation2 = 2;
 
-    if(rotationState == defaultRotation) { // default Rotation -> rotation 2
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) { // default Rotation -> rotation 2
+        newShape.rotationState = rotation2;
         // Head will not change!
         newShape.blocks[1].setX(x + 0);
         newShape.blocks[1].setY(y - 1);
@@ -566,8 +566,8 @@ std::shared_ptr<Shape> I::clockwise() {
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 3);
 
-    } else if (rotationState == rotation2) { // rotation2 ->default
-        rotationState = rotation2;
+    } else if (newShape.rotationState == rotation2) { // rotation2 ->default
+        newShape.rotationState = defaultRotation;
         
         // Head will not change!
         newShape.blocks[1].setX(x + 1);
@@ -579,7 +579,7 @@ std::shared_ptr<Shape> I::clockwise() {
         newShape.blocks[3].setX(x + 3);
         newShape.blocks[3].setY(y + 0);
     }
-    return std::make_shared<I>(*this);
+    return std::make_shared<I>(newShape);
 }
 
 // I counter-clockwise
@@ -664,9 +664,9 @@ std::shared_ptr<Shape> Z::clockwise() {
     // ZZ
     // Z
     
-    if(rotationState == defaultRotation) { // default -> rotation2
+    if(newShape.rotationState == defaultRotation) { // default -> rotation2
         // head needs to move
-        rotationState = rotation2;
+        newShape.rotationState = rotation2;
         x -= 1;
         newShape.blocks[0].setX(x);
 
@@ -678,8 +678,8 @@ std::shared_ptr<Shape> Z::clockwise() {
 
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 2);
-    } else if (rotationState == rotation2) { // rotation2 -> default
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> default
+        newShape.rotationState = defaultRotation;
         x += 1;
         newShape.blocks[0].setX(x);
 
@@ -692,7 +692,7 @@ std::shared_ptr<Shape> Z::clockwise() {
         newShape.blocks[3].setX(x - 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<Z>(*this);
+    return std::make_shared<Z>(newShape);
 }
 
 // Z counter-clockwise
@@ -745,8 +745,8 @@ std::shared_ptr<Shape> S::clockwise() {
     // SS
     //  S
 
-    if(rotationState == defaultRotation) {  // default -> rotation2
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) {  // default -> rotation2
+        newShape.rotationState = rotation2;
         //             S
         //  SS ----->  SS
         // SS           S
@@ -762,8 +762,8 @@ std::shared_ptr<Shape> S::clockwise() {
 
         newShape.blocks[3].setX(x - 1);
         newShape.blocks[3].setY(y - 2);
-    } else if (rotationState == rotation2) { // rotation2 ->default
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation2) { // rotation2 ->default
+        newShape.rotationState = defaultRotation;
         // S
         // SS ------->  SS
         //  S          SS
@@ -780,7 +780,7 @@ std::shared_ptr<Shape> S::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<S>(*this);
+    return std::make_shared<S>(newShape);
 }
 
 // S counter-clockwise
@@ -842,8 +842,8 @@ std::shared_ptr<Shape> T::clockwise() {
     // TT
     //  T
 
-    if(rotationState == defaultRotation) { // default -> rotation2
-        rotationState = rotation2;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation2
+        newShape.rotationState = rotation2;
         //            T
         //  T  -----> TT
         // TTT        T
@@ -856,8 +856,8 @@ std::shared_ptr<Shape> T::clockwise() {
 
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 2);
-    } else if (rotationState == rotation2) { // rotation2 -> rotation3
-        rotationState = rotation3;
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> rotation3
+        newShape.rotationState = rotation3;
         // T
         // TT -----> TTT
         // T          T
@@ -872,8 +872,8 @@ std::shared_ptr<Shape> T::clockwise() {
 
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 1);
-    } else if (rotationState == rotation3) { // rotation3 -> rotation4
-        rotationState = rotation4;
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation4
+        newShape.rotationState = rotation4;
         //                T
         // TTT  -------> TT
         //  T             T
@@ -886,8 +886,8 @@ std::shared_ptr<Shape> T::clockwise() {
 
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setX(y - 2);
-    } else if (rotationState == rotation4) { //rotate4 -> defaultRotation
-        rotationState = defaultRotation;
+    } else if (newShape.rotationState == rotation4) { //rotate4 -> defaultRotation
+        newShape.rotationState = defaultRotation;
         //  T
         // TT ------>  T
         //  T         TTT
@@ -903,7 +903,7 @@ std::shared_ptr<Shape> T::clockwise() {
         newShape.blocks[3].setX(x + 2);
         newShape.blocks[2].setY(y + 0);
     }
-    return std::make_shared<T>(*this);
+    return std::make_shared<T>(newShape);
 }
 
 // T counter-clockwise
@@ -933,8 +933,8 @@ std::shared_ptr<Shape> T::counter() {
     // TT
     //  T
 
-    if(rotationState == defaultRotation) { // default -> rotation4
-        rotationState = rotation4;
+    if(newShape.rotationState == defaultRotation) { // default -> rotation4
+        newShape.rotationState = rotation4;
         //             T
         //  T  -----> TT
         // TTT         T
@@ -949,10 +949,11 @@ std::shared_ptr<Shape> T::counter() {
 
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 2);
-    } else if (rotationState == rotation2) { // rotation2 -> default
+    } else if (newShape.rotationState == rotation2) { // rotation2 -> default
         // T
         // TT ----->  T
         // T         TTT
+        newShape.rotationState = defaultRotation;
 
         newShape.blocks[1].setX(x + 1);
         newShape.blocks[1].setY(y + 0);
@@ -963,11 +964,13 @@ std::shared_ptr<Shape> T::counter() {
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y + 2);
         
-    } else if (rotationState == rotation3) { // rotation3 -> rotation2
+    } else if (newShape.rotationState == rotation3) { // rotation3 -> rotation2
+        newShape.rotationState = rotation2;
         //               T
         // TTT  -------> TT
         //  T            T
         x -= 1;
+        
         newShape.blocks[0].setX(x);
 
         newShape.blocks[1].setX(x + 0);
@@ -978,7 +981,8 @@ std::shared_ptr<Shape> T::counter() {
 
         newShape.blocks[3].setX(x + 0);
         newShape.blocks[3].setY(y - 2);
-    } else if (rotationState == rotation4) { // rotation4 -> rotation3
+    } else if (newShape.rotationState == rotation4) { // rotation4 -> rotation3
+        newShape.rotationState = rotation3;
         //  T
         // TT --------> TTT
         //  T            T
@@ -992,7 +996,7 @@ std::shared_ptr<Shape> T::counter() {
         newShape.blocks[3].setX(x + 1);
         newShape.blocks[3].setY(y - 1);
     }
-    return std::make_shared<T>(*this);
+    return std::make_shared<T>(newShape);
 }
 
 std::shared_ptr<Shape> L:: clone() const {

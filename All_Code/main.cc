@@ -1,18 +1,26 @@
 #include <iostream>
+#include <memory>
 #include "canvas.h"
 #include "player.h"
 #include "observer.h"
 #include "textObserver.h"
+#include "graphicsobserver.h"
 #include "shape.h"
 #include "block.h"
+#include <vector>
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include<stdlib.h>
 
 using namespace std;
 
 void welcomeMessage() {
     cout << "Welcome to Biquadris! A turn-based Tetris-inspired game." << endl;
+    cout << "*------------------------------------------------------*"<< endl;
+    cout << "\n Press enter to start the Game:";
+    cin.get();
+    system("cls");
 }
 
 int main(int argc, char *argv[]) {
@@ -50,6 +58,7 @@ int main(int argc, char *argv[]) {
     ifstream file1{scriptfile1};
     ifstream file2{scriptfile2};
 
+    // Level setup
     std::shared_ptr<Level> p1LVL, p2LVL;
     if (startLevel == 0) {
         p1LVL = std::make_shared<Level0>(file1);
@@ -71,21 +80,32 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
-
     Queue queue1(p1LVL.get());
     Queue queue2(p2LVL.get());
 
     Player player1(1, 0, std::move(p1LVL), queue1, game_board1, queue1.getCurrent());
     Player player2(2, 0, std::move(p2LVL), queue2, game_board2, queue2.getCurrent());
 
-    TextObserver textDisplay(&player1, &player2, 11, 15);
+    // Observer setup
+    vector<std::unique_ptr<Observer>> observers;
 
+    if (textMode) {
+        observers.push_back(std::make_unique<TextObserver>(&player1, &player2, 11, 15));
+    } else {
+        observers.push_back(std::make_unique<TextObserver>(&player1, &player2, 11, 15));
+        observers.push_back(std::make_unique<GraphicObserver>(&player1, &player2, 11, 15));
+    }
+
+    // Game loop
     while (!player1.gameOver() && !player2.gameOver()) {
         // Player 1's turn
         bool turnEnded = false;
         while (!turnEnded) {
-            textDisplay.notify();
+            // Notify all observers
+            for (const auto &observer : observers) {
+                observer->notify();
+            }
+
             turnEnded = player1.takeTurn(player2);
             if (player1.gameOver()) break;
         }
@@ -95,12 +115,17 @@ int main(int argc, char *argv[]) {
         // Player 2's turn
         turnEnded = false;
         while (!turnEnded) {
-            textDisplay.notify();
+            // Notify all observers
+            for (const auto &observer : observers) {
+                observer->notify();
+            }
+
             turnEnded = player2.takeTurn(player1);
             if (player2.gameOver()) break;
         }
     }
 
+    // End game message
     if (player1.gameOver()) {
         std::cout << "Player 1 loses!" << std::endl;
     } else if (player2.gameOver()) {
@@ -108,5 +133,5 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
-    return 0;
 }
+

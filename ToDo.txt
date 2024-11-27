@@ -9,27 +9,26 @@ block---Done
 Observer---Done
 Subect---Done
 Subject---Done
+queue---Done
+
+Heavy---Done
+Force---Done
 
 Canvas---WIP
-    Line clear
+    Display is not working correctly
+textObserver--- (sort of done), same as Canvas
+XWindow--- (sort of done), same as Canvas
+
 Main---WIP
-    Need to work on an interface still
-    implement the features for starting a game
-    constructing players, queues and level -- almost done, need to finish queue and player
-    textObserver and graphic Ovserver stuff -- I think I am done
-textObserver---WIP
+    Make a lose screen
+
 
 player---WIP
-    Change all pointers to a unique_ptr<__TYPE__> Done
-    Make sure that we can access the observers
-    CHANGE LEVEL UP AND LEVEL DOWN, IT IS INCORRECT. It needs to change level not JUST an integer.
-Effects---WIP
-Blind---WIP
+    Make it so that the player can call levelDown, levelUp, L, Z, T, O, Z, S, J
+    random, no random, and sequence (check documentation for what each command does)
+    Players do not lose
 
-queue---Not-started ---- Do this
-XWindow---Not-started
-Heavy---Not-started
-Force---Not-started
+
 
 
 look at the spacing in textObserver.cc:

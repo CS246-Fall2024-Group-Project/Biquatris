@@ -100,7 +100,7 @@ bool Player::takeTurn(Player& opponent) {
     }
 
     for (int i = 0; i < multiplier; ++i) {
-        if (command == "left" || command == "l") {
+        if (command == "left") {
             auto newShape = currentShape->left();
             if (canvas.check_fit(newShape.get())) {
                 currentShape = newShape;
@@ -115,7 +115,7 @@ bool Player::takeTurn(Player& opponent) {
             } else {
                 cout << "Invalid move!" << endl;
             }
-        } else if (command == "right" || command == "r") {
+        } else if (command == "right") {
             auto newShape = currentShape->right();
             if (canvas.check_fit(newShape.get())) {
                 currentShape = newShape;
@@ -130,13 +130,46 @@ bool Player::takeTurn(Player& opponent) {
             } else {
                 cout << "Invalid move!" << endl;
             }
-        } else if (command == "down" || command == "d") {
+        } else if (command == "down") {
             auto newShape = currentShape->down();
             if (canvas.check_fit(newShape.get())) {
                 currentShape = newShape;
             } else {
                 cout << "Invalid move!" << endl;
             }
+        } else if (command == "clockwise") {
+            auto newShape = currentShape->clockwise();
+            if (canvas.check_fit(newShape.get())) {
+                currentShape = newShape;
+                if (hasHeavy) {
+                    auto heavyShape = currentShape->down()->down();
+                    if (canvas.check_fit(heavyShape.get())) {
+                        currentShape = heavyShape;
+                    } else {
+                        cout << "Cannot move down due to heavy effect!" << endl;
+                    }
+                }
+            } else {
+                cout << "Invalid move!" << endl;
+            }
+
+        } else if (command == "counterclockwise") {
+            // check if the counter- clockwise shape will fit
+            auto newShape = currentShape->counter();
+            if (canvas.check_fit(newShape.get())) {
+                currentShape = newShape;
+                if (hasHeavy) {
+                    auto heavyShape = currentShape->down()->down();
+                    if (canvas.check_fit(heavyShape.get())) {
+                        currentShape = heavyShape;
+                    } else {
+                        cout << "Cannot move down due to heavy effect!" << endl;
+                    }
+                }
+            } else {
+                cout << "Invalid move!" << endl;
+            }
+
         } else if (command == "drop") {
             canvas.drop(currentShape);
             // Clear lines and calculate score
@@ -169,7 +202,8 @@ bool Player::takeTurn(Player& opponent) {
             currentShape = queue.getCurrent();
 
             return true; // Turn ends after drop
-        } else {
+
+        }  else {
             cout << "Unknown command!" << endl;
         }
     }
