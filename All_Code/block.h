@@ -1,5 +1,5 @@
-#ifndef Block_h
-#define Block_h
+#ifndef BLOCK_h
+#define BLOCK_h
 
 class Block {
     int x, y; // coordinated on the grind

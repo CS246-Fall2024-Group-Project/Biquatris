@@ -3,16 +3,12 @@ Done- fully finished and implemented code
 Test - Finished code that has not been tested
 Not-Started - Code that needs to be worked on and not started by anyone
 
-
 Shape---Done
 block---Done
 Observer---Done
 Subect---Done
 Subject---Done
 queue---Done
-
-
-
 
 Blind---Test
 Heavy---Test
@@ -21,7 +17,7 @@ Force---Test
 Main--- PRIORITY
     MAIN IS CAUSING A SEGFAULT RELATING TO Observer
     Observer is not beign detach at the end of the code causing a segmentation fault!!!!!!! Fix this somehow
-    
+
     textObserver--- FIX ATTACH AND DETACH
     XWindow--- FIX ATTACH AND DETACH
     Canvas--- FIX ATTACH AND DETACH
