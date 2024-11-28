@@ -5,14 +5,14 @@
 #include "shape.h"
 #include <vector>
 
-GraphicObserver::GraphicObserver(Player *p1, Player *p2, int width, int height)
+GraphicObserver::GraphicObserver(Player* p1, Player* p2, int width, int height)
     : player1{p1}, player2{p2}, 
       window{(width + 1) * 10 * 2 + 30, (height + 1) * 10 + 100},
       previousCanvas1(height, std::vector<char>(width, ' ')), // Initialize previous canvases
       previousCanvas2(height, std::vector<char>(width, ' ')) {
 
-    player1->getCanvas().attach(std::shared_ptr<Observer>(this));
-    player2->getCanvas().attach(std::shared_ptr<Observer>(this));
+    player1->getCanvas().attach(this);
+    player2->getCanvas().attach(this);
 
     drawBorders(); // Draw borders once during initialization
     notify();      // Initial rendering of the board
@@ -143,6 +143,6 @@ void GraphicObserver::notify() {
 
 
 GraphicObserver::~GraphicObserver() {
-    player1->getCanvas().detach(std::shared_ptr<Observer>(this));
-    player2->getCanvas().detach(std::shared_ptr<Observer>(this));
+    player1->getCanvas().detach(this);
+    player2->getCanvas().detach(this);
 }
