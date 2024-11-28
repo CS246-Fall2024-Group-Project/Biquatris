@@ -176,6 +176,7 @@ bool Player::takeTurn(Player& opponent) {
             }
 
         } else if (command == "drop") {
+            multiplier = 0;
             canvas.drop(currentShape);
             // Clear lines and calculate score
             int linesCleared = canvas.clearLine();
@@ -222,7 +223,47 @@ bool Player::takeTurn(Player& opponent) {
 
             return true; // Turn ends after drop
 
-        }  else {
+        } else if (command == "levelup") {
+            multiplier = 0;
+            levelUp();
+            cout << "Your level is now " << getDifficulty() << "." << endl;
+        } else if (command == "leveldown") {
+            multiplier = 0;
+            levelDown();
+            cout << "Your level is now " << getDifficulty() << "." << endl;
+        } else if (command == "sequence") {
+            if (getDifficulty() == 1 || getDifficulty() == 2) {
+                cout << "You are not the correct level to change the sequence file";
+                continue;
+            }
+            //******** */
+            try {
+                std::string filename;
+                cin >> filename;
+
+                // Check if the input is empty
+                if (filename.empty()) {
+                    throw std::runtime_error("Invalid input. File name cannot be empty.");
+                }
+
+                // Try to open the file
+                std::ifstream file(filename);
+                if (!file) {
+                    throw std::runtime_error("This file does not exist, try again.");
+                }
+
+
+            } catch (const std::runtime_error &e) {
+                std::cerr << e.what() << std::endl;
+            }
+
+        } else if (command == "random") {
+            if (getDifficulty() == 3 || getDifficulty() == 4) {
+                level->setRng(true);
+            } else {
+                cout << "You are in the wrong difficulty to be changing to random!" << endl;
+            }
+        } else {
             cout << "Unknown command!" << endl;
         }
     }
@@ -245,10 +286,8 @@ void Player::reset(std::shared_ptr<Level> newLevel) {
 bool Player::gameOver() const {
 
     // gameover did not fix
-    if (canvas.getState(0, 0) != ' ') {
-        if (!canvas.check_fit(currentShape.get())) {
-            return true;
-        }
+    if (!canvas.check_fit(currentShape.get())) {
+        return true;
     }
     return false;
 }

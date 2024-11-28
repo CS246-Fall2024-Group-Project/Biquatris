@@ -10,6 +10,7 @@ class Level {
     protected:
         int difficulty;
         std::ifstream& sequence;
+        bool rng;
     public:
         Level(int difficulty, std::ifstream& sequence);
         // will generate shapes based on the properties of each level
@@ -20,6 +21,11 @@ class Level {
 
         int getDifficulty() const;
         std::ifstream& getSequence() const;
+        virtual void setRng(bool dif); // only necessary for 3 and 4
+
+        //void setSequence();
+
+
         virtual ~Level() = default;
 };
 
@@ -46,7 +52,6 @@ class Level2 : public Level {
 
 class Level3 : public Level {
     public:
-        bool rng;
         Level3(std::ifstream& stream);
         std::shared_ptr<Shape> genShape() override;
         std::shared_ptr<Shape> genShapeFile();
@@ -55,7 +60,6 @@ class Level3 : public Level {
 
 class Level4 : public Level {
     public:
-        bool rng;
         Level4(std::ifstream& stream);
         std::shared_ptr<Shape> genShape() override;
         std::shared_ptr<Shape> genShapeFile();

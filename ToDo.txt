@@ -10,26 +10,22 @@ Observer---Done
 Subect---Done
 Subject---Done
 queue---Done
+Canvas---Done
+textObserver--- Done
+XWindow--- Done
+Main---Done
 
 Blind---Test
 Heavy---Test
 Force---Test
 
+
 Level--- WIP
-    Need to finish making level4's effects
-    Started in the drop command found in player
-
-Canvas---WIP
-    Display is not working correctly
-textObserver--- (sort of done), same as Canvas
-XWindow--- WIP make is look prettier
-Main---WIP
-    Make a lose screen
-
+    Need to finish making level4's effects - Started in the drop command found in player
 
 player---WIP
-    Make it so that the player can call levelDown, levelUp, L, Z, T, O, Z, S, J
-    random, no random, and sequence (check documentation for what each command does)
-    Players do not lose, gameOver() is not working
+    L, Z, T, O, Z, S, J
+    no random - will use samelogic and sequence, make sure to read the documentation to know what to do
+    sequence - sequence has been started, want to make sure it is being done correctly, make getSequence in level-imple and level.h
 
     Score, need to keep track of a block total health and the pieces it connects too.

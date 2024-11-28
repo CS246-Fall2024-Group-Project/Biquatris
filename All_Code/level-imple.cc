@@ -8,7 +8,7 @@
 // Starting point!
 const int x = 1, y = 3;
 
-Level::Level(int difficulty, std::ifstream& stream): difficulty{difficulty}, sequence{stream} {}
+Level::Level(int difficulty, std::ifstream& stream): difficulty{difficulty}, sequence{stream}, rng{true}  {}
 
 int Level::getDifficulty() const {
     return difficulty;
@@ -16,6 +16,16 @@ int Level::getDifficulty() const {
 
 std::ifstream& Level::getSequence() const {
     return sequence;
+}
+
+/*void Level::setSequence() {
+
+}*/
+
+void Level::setRng(bool dif) {
+    if (difficulty == 3 || difficulty == 4) {
+        rng = dif;
+    }
 }
 
 Level0::Level0(std::ifstream& stream): Level(0, stream) {}
@@ -154,7 +164,7 @@ std::shared_ptr<Shape> Level2::genShape() {
     return shape;
 }
 
-Level3::Level3(std::ifstream& stream): Level(3, stream), rng{true} {}
+Level3::Level3(std::ifstream& stream): Level(3, stream) {}
 
 std::shared_ptr<Shape> Level3::genShape() {
     if (rng == false) {
