@@ -258,7 +258,7 @@ std::shared_ptr<Shape> Level3::genShapeFile() {
     return shape;  // Return the vector of generated shapes
 }
 
-Level4::Level4(std::ifstream& stream): Level(4, stream), rng{true} {}
+Level4::Level4(std::ifstream& stream): Level(4, stream) {}
 
 std::shared_ptr<Shape> Level4::genShape() {
     if (rng == false) {
