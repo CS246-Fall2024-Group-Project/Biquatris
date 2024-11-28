@@ -10,7 +10,7 @@ Observer---Done
 Subect---Done
 Subject---Done
 queue---Done
-Canvas---Done
+
 
 
 
@@ -21,8 +21,10 @@ Force---Test
 Main--- PRIORITY
     MAIN IS CAUSING A SEGFAULT RELATING TO Observer
     Observer is not beign detach at the end of the code causing a segmentation fault!!!!!!! Fix this somehow
-    textObserver--- Done
-    XWindow--- Done 
+    
+    textObserver--- FIX ATTACH AND DETACH
+    XWindow--- FIX ATTACH AND DETACH
+    Canvas--- FIX ATTACH AND DETACH
     
 
 Level--- WIP
