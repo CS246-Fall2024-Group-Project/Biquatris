@@ -11,14 +11,19 @@ Subect---Done
 Subject---Done
 queue---Done
 Canvas---Done
-textObserver--- Done
-XWindow--- Done
-Main---Done
+
+
 
 Blind---Test
 Heavy---Test
 Force---Test
 
+Main--- PRIORITY
+    MAIN IS CAUSING A SEGFAULT RELATING TO Observer
+    Observer is not beign detach at the end of the code causing a segmentation fault!!!!!!! Fix this somehow
+    textObserver--- Done
+    XWindow--- Done 
+    
 
 Level--- WIP
     Need to finish making level4's effects - Started in the drop command found in player

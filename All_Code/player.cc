@@ -262,6 +262,7 @@ bool Player::takeTurn(Player& opponent) {
                 level->setRng(true);
             } else {
                 cout << "You are in the wrong difficulty to be changing to random!" << endl;
+                
             }
         } else {
             cout << "Unknown command!" << endl;

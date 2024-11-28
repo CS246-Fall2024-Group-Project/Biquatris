@@ -11,6 +11,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <sstream>
 
 using namespace std;
 
@@ -94,13 +95,29 @@ int main(int argc, char *argv[]) {
         if (arg == "-text") {
             textMode = true;
         } else if (arg == "-seed" && i + 1 < argc) {
-            seed = std::atoi(argv[++i]);
+            std::string s;
+            std::cin >> s; // Read input into string
+
+            std::istringstream iss(s); // Create an istringstream from the string
+            if(!(iss >> seed)) {
+                cerr << "That is an invalid seed" << endl;
+                return 1;
+            }
+
         } else if (arg == "-scriptfile1" && i + 1 < argc) {
             scriptfile1 = argv[++i];
         } else if (arg == "-scriptfile2" && i + 1 < argc) {
             scriptfile2 = argv[++i];
         } else if (arg == "-startlevel" && i + 1 < argc) {
-            startLevel = std::atoi(argv[++i]);
+
+            std::string s;
+            std::cin >> s; // Read input into string
+
+            std::istringstream iss(s); // Create an istringstream from the string
+            if(!(iss >> startLevel)) {
+                cerr << "That is an invalid starting level." << endl;
+                return 1;
+            }
         } else {
             cerr << "Unknown option: " << arg << "\n";
             return 1;
@@ -157,5 +174,7 @@ int main(int argc, char *argv[]) {
     // Game loop
     int highscore = 0;
     gameLogic(player1, player2, observers, highscore);
+    file1.close();
+    file2.close();
 }
 
