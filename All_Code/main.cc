@@ -160,6 +160,21 @@ int main(int argc, char *argv[]) {
         // Start the game logic
         gameLogic(player1, player2, observers, highscore);
 
+        int temp;
+        string highest_score_owner;
+        if(player1.getScore() > player2.getScore()) {
+            temp = player1.getScore();
+            highest_score_owner = "Player 1";
+        } else {
+            temp = player2.getScore();
+            highest_score_owner = "Player 2";
+        }
+
+        if(temp > highscore) {
+            highscore = temp;
+        }
+        cout << "The highest score is " << highscore << " by " << highest_score_owner << endl;
+
         // Prompt to play again
         char c;
         cout << "Do you want to play again? (y / n): ";
