@@ -17,3 +17,6 @@ void Queue::findNext(Level* lv) {
     next = lv->genShape();     // Generate a new Shape for `next`
 }
 
+void Queue::setCurrent(std::shared_ptr<Shape> newCurrent) {
+    current = newCurrent; // Replace the next shape with the new forced shape
+}

@@ -212,11 +212,14 @@ bool Player::takeTurn(Player& opponent) {
                 } else if (effectChoice == "heavy") {
                     EffectManager::getInstance().addEffect(opponent, std::make_shared<HeavyEffect>());
                 } else if (effectChoice.substr(0, 5) == "force") {
-                    string shapeType = effectChoice.substr(6); // Assuming input is "force Z"
-                    EffectManager::getInstance().addEffect(opponent, std::make_shared<ForceEffect>(shapeType));
+                    
+                    string shapeType;
+                    cin >> shapeType;
+                    if (std::string("IJLOSTZ").find(shapeType) != std::string::npos) {
+                        EffectManager::getInstance().addEffect(opponent, std::make_shared<ForceEffect>(shapeType));
+                    }
                 }
             }
-
             // Get next shape
             queue.findNext(level.get());
             currentShape = queue.getCurrent();

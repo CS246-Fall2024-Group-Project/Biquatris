@@ -13,6 +13,7 @@ public:
     explicit Queue(Level* lv);
     std::shared_ptr<Shape> getCurrent(); 
     Shape* getNext();
+    void setCurrent(std::shared_ptr<Shape> newCurrent);
 
     void findNext(Level* lv);
 };

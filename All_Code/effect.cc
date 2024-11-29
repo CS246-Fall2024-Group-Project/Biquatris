@@ -92,8 +92,8 @@ void ForceEffect::apply(Player& player) {
 
     // Create new shape based on shapeType
     std::shared_ptr<Shape> forcedShape;
-    int x = 5; // Starting x position
-    int y = 0; // Starting y position
+    int x = 1; // Starting x position
+    int y = 3; // Starting y position
 
     if (shapeType == "I") {
         forcedShape = std::make_shared<I>(x, y);
@@ -113,6 +113,10 @@ void ForceEffect::apply(Player& player) {
         std::cerr << "Unknown shape type for force effect: " << shapeType << std::endl;
         return;
     }
+
+    // Update the player's queue to set the forced shape as next
+    player.getQueue().setCurrent(forcedShape);
+    std::cout << "Player " << player.getPlayerID() << "'s next shape has been forced to " << shapeType << "." << std::endl;
 
     // Set the forced shape as the player's current shape
     player.setCurrentShape(forcedShape);

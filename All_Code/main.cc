@@ -63,23 +63,6 @@ bool gameLogic(Player &player1, Player &player2, vector<std::unique_ptr<Observer
     } else {
         player2.getScore();
     }
-    
-    char c;
-    bool play = true;
-    while(play) {
-        cout << "Do you want to play again? (y / n): ";
-        cin >> c;
-        if (c == 'y' || c == 'Y') {
-            play = false;
-            cout << endl;
-            gameLogic(player1, player2, observers, highscore);
-        } else if (c== 'n' || c == 'N') {
-            play = false;
-            cout << "Thank you for playing Biquadris!" << endl;
-        } else {
-            cout << "That was not a correct output, please try again." << endl;
-        }
-    }
 }
 
 int main(int argc, char *argv[]) {
@@ -168,12 +151,35 @@ int main(int argc, char *argv[]) {
         observers.push_back(std::make_unique<TextObserver>(&player1, &player2, 11, 15));
     } else {
         observers.push_back(std::make_unique<TextObserver>(&player1, &player2, 11, 15));
-        observers.push_back(std::make_unique<GraphicObserver>(&player1, &player2, 11, 15));
+        //observers.push_back(std::make_unique<GraphicObserver>(&player1, &player2, 11, 15));
     }
 
     // Game loop
     int highscore = 0;
-    gameLogic(player1, player2, observers, highscore);
+    while (true) {
+        // Start the game logic
+        gameLogic(player1, player2, observers, highscore);
+
+        // Prompt to play again
+        char c;
+        cout << "Do you want to play again? (y / n): ";
+        cin >> c;
+        if (c == 'y' || c == 'Y') {
+            cout << "Starting a new game..." << endl;
+            p1LVL = std::make_shared<Level0>(file1);
+            p2LVL = std::make_shared<Level0>(file2);
+            queue1 = Queue(p1LVL.get());
+            queue2 = Queue(p2LVL.get());
+            player1.reset(std::move(p1LVL));
+            player2.reset(std::move(p2LVL));
+        } else if (c == 'n' || c == 'N') {
+            cout << "Thank you for playing Biquadris!" << endl;
+            break;
+        } else {
+            cout << "That was not a correct output, please try again." << endl;
+        }
+    }
+
     file1.close();
     file2.close();
 }
